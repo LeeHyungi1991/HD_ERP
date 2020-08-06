@@ -5,6 +5,8 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 	<configuration>
 		<typeAliases>
 			<package name="hd.erp.dto"/>
+			<package name="hd.erp.entity" />
+<!-- 			<typeAlias type="hd.erp.entity.TestEntitiy" alias="test"/> -->
 		</typeAliases>
 		<mappers>
 			<mapper resource="mapper/defaultmapper.xml"/>

@@ -18,7 +18,9 @@ import hd.erp.entity.EmployeeEntity;
 import hd.erp.repository.EmployeeRepository;
 import hd.erp.security.Role;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @Service
 @AllArgsConstructor
 public class EmployeeService implements UserDetailsService {
@@ -26,9 +28,11 @@ public class EmployeeService implements UserDetailsService {
 	private EmployeeRepository employeerepository;
 	
 	public Long register(EmployeeDTO employeedto) {
+		log.info("회원가입");
 		BCryptPasswordEncoder passwordencoder = new BCryptPasswordEncoder();
 		employeedto.setHd_pw(passwordencoder.encode(employeedto.getHd_pw()));
 		return employeerepository.save(employeedto.toEntity()).getHdcode();
+		
 	}
 	
 	@Override
@@ -40,15 +44,19 @@ public class EmployeeService implements UserDetailsService {
 		List<GrantedAuthority> authorities = new ArrayList<>();
 		if(("임성윤").equals(userEntity.getHd_name())) {
 			authorities.add(new SimpleGrantedAuthority(Role.ADMIN.getValue()));
+			log.info("ADMIN부여");
 		}else {
 			if(level.equals("ADMIN")) {
 				authorities.add(new SimpleGrantedAuthority(Role.ADMIN.getValue()));
+				log.info("ADMIN부여");
 			}else if(level.equals("MEMBER")) {
 				authorities.add(new SimpleGrantedAuthority(Role.MEMBER.getValue()));
+				log.info("MEMBER부여");
 			}else if(level.equals("USER")) {
 				authorities.add(new SimpleGrantedAuthority(Role.USER.getValue()));
+				log.info("USER부여");
 			}else {
-				
+				log.info("권한미부여");
 			}
 			
 		}
