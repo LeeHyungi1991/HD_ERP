@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/xhtml">
+
+<nav class="navbar-default navbar-side" role="navigation" th:fragment="sidebarFragment">
+            <div class="sidebar-collapse">
+                <ul class="nav" id="main-menu">
+
+<!--                     <li> -->
+<!--                         <a class="active-menu" href="index.html"><i class="fa fa-dashboard"></i> Dashboard</a> -->
+<!--                     </li> -->
+<!--                     <li> -->
+<!--                         <a href="ui-elements.html"><i class="fa fa-desktop"></i> UI Elements</a> -->
+<!--                     </li>  -->
+					 
+					 <li>
+                        <a href="#"><i class="fa fa-sitemap"></i> 사원관리<span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level">
+                            <li>
+                                <a th:href="@{/user.empmanage}">사원관리</a>
+                            </li>
+                            
+                            <li sec:authorize="hasRole('ROLE_ADMIN')">
+                                <a href="morris-chart.html">사원관리 어드민</a>
+                            </li>
+                            
+							</ul>
+						</li>
+						<li>
+                        <a href="#"><i class="fa fa-sitemap"></i> 고객관리<span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level">
+                            <li>
+                                <a th:href="@{/user.memmanage}">고객관리</a>
+                            </li>
+                            <li sec:authorize="hasRole('ROLE_ADMIN')">
+                                <a href="morris-chart.html">고객관리 어드민</a>
+                            </li>
+							</ul>
+						</li>
+						<li>
+                        <a href="#"><i class="fa fa-sitemap"></i> 게시판<span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level">
+                            <li>
+                                <a href="chart.html">공지사항</a>
+                            </li>
+                            <li>
+                                <a href="morris-chart.html">게시판</a>
+                            </li>
+							</ul>
+						</li>		
+							
+<!--                     <li> -->
+<!--                         <a href="tab-panel.html"><i class="fa fa-qrcode"></i> Tabs & Panels</a> -->
+<!--                     </li> -->
+                    
+<!--                     <li> -->
+<!--                         <a href="table.html"><i class="fa fa-table"></i> Responsive Tables</a> -->
+<!--                     </li> -->
+<!--                     <li> -->
+<!--                         <a href="form.html"><i class="fa fa-edit"></i> Forms </a> -->
+<!--                     </li> -->
+
+
+<!--                     <li> -->
+<!--                         <a href="#"><i class="fa fa-sitemap"></i> Multi-Level Dropdown<span class="fa arrow"></span></a> -->
+<!--                         <ul class="nav nav-second-level"> -->
+<!--                             <li> -->
+<!--                                 <a href="#">Second Level Link</a> -->
+<!--                             </li> -->
+<!--                             <li> -->
+<!--                                 <a href="#">Second Level Link</a> -->
+<!--                             </li> -->
+<!--                             <li> -->
+<!--                                 <a href="#">Second Level Link<span class="fa arrow"></span></a> -->
+<!--                                 <ul class="nav nav-third-level"> -->
+<!--                                     <li> -->
+<!--                                         <a href="#">Third Level Link</a> -->
+<!--                                     </li> -->
+<!--                                     <li> -->
+<!--                                         <a href="#">Third Level Link</a> -->
+<!--                                     </li> -->
+<!--                                     <li> -->
+<!--                                         <a href="#">Third Level Link</a> -->
+<!--                                     </li> -->
+
+<!--                                 </ul> -->
+
+<!--                             </li> -->
+<!--                         </ul> -->
+<!--                     </li> -->
+<!--                     <li> -->
+<!--                         <a href="empty.html"><i class="fa fa-fw fa-file"></i> Empty Page</a> -->
+<!--                     </li> -->
+                </ul>
+
+            </div>
+
+        </nav>
+
+</html>

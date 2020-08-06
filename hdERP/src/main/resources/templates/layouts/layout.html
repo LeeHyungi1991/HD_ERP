@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns="http://www.w3.org/1999/xhtml" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head th:replace="fragments/head :: headFragment"></head>
+
+<body>
+	<div id="wrapper">
+	
+		<nav class="navbar navbar-default top-navbar" role="navigation" th:replace="fragments/navbar :: navbarFragment"></nav>
+		<nav class="navbar-default navbar-side" role="navigation" th:replace="fragments/sidebar :: sidebarFragment"></nav>
+		<div id="page-wrapper">
+		<th:block layout:fragment="content"></th:block>
+		</div>
+	</div>
+<!-- 	js,css -->
+   <!-- /. WRAPPER  -->
+    <!-- JS Scripts-->
+    <!-- jQuery Js -->
+    <script th:src="@{assets/js/jquery-1.10.2.js}"></script>
+    <!-- Bootstrap Js -->
+    <script th:src="@{assets/js/bootstrap.min.js}"></script>
+	 
+    <!-- Metis Menu Js -->
+    <script th:src="@{assets/js/jquery.metisMenu.js}"></script>
+    <!-- Morris Chart Js -->
+    <script th:src="@{assets/js/morris/raphael-2.1.0.min.js}"></script>
+    <script th:src="@{assets/js/morris/morris.js}"></script>
+	
+	
+	<script th:src="@{assets/js/easypiechart.js}"></script>
+	<script th:src="@{assets/js/easypiechart-data.js}"></script>
+	
+	 <script th:src="@{assets/js/Lightweight-Chart/jquery.chart.js}"></script>
+	
+    <!-- Custom Js -->
+    <script th:src="@{assets/js/custom-scripts.js}"></script>
+
+      
+    <!-- Chart Js -->
+    <script type="text/javascript" th:src="@{assets/js/Chart.min.js}"></script>  
+    <script type="text/javascript" th:src="@{assets/js/chartjs.js}"></script> 
+    
+<!--     제이쿼리 -->
+    
+</body>
+
+</html>

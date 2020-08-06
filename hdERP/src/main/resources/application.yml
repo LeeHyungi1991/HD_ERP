@@ -1,0 +1,66 @@
+server:
+  port: 9090
+#서버포트설정
+---
+server:
+  servlet:
+    encoding:
+      enabled: true
+      force: true
+      charset: UTF-8
+          
+      
+#utf-8설정
+
+---
+spring:
+  datasource:
+    driver-class-name: oracle.jdbc.OracleDriver
+    url: jdbc:oracle:thin:@Localhost:1521:orcl
+    username: kosmo64
+    password: kosmo64
+#오라클드라이버    
+---
+spring:
+  thymeleaf:
+    check-template-location: true
+    prefix: classpath:templates/
+    suffix: .html
+    cache: false
+    encoding: UTF-8
+
+#타임리프설정
+---
+spring:
+  devtools:
+    restart:
+      enabled: true
+  freemarker:
+    cache: false
+#devtools 설정
+---
+spring:
+  jpa:
+    hibernate:
+      ddl-auto: update
+    database: oracle
+    database-platform: org.hibernate.dialect.Oracle10gDialect
+    properties:
+      hibernate:
+        show_sql: true
+        format_sql: true
+        use_sql_comments: true
+#jpa 설정
+logging:
+  level:
+    org:
+      hibernate:
+        type:
+          descriptor:
+            sql: trace
+#jpa 바인딩값 보기
+---
+        
+mybatis:
+  config-location: classpath:mapperconfig/mybatis-config.xml     
+#마이바티스위치

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+  layout:decorator="~{layouts/layout}">
+<th:block layout:fragment="content">
+<div class="header"> 
+                        <h1 class="page-header">
+                            Dashboard <small>Welcome John 윤</small>
+                        </h1>
+						<ol class="breadcrumb">
+					  <li><a href="#">Home</a></li>
+					  <li><a href="#">Dashboard</a></li>
+					  <li class="active">Data</li>
+					</ol> 
+									
+		</div>
+            <div id="page-inner">
+            	<h1>고객관리 하이루</h1>
+            </div>
+</th:block>
+</html>
