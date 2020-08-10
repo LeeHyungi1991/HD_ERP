@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+  layout:decorator="~{layouts/layout}">
+<th:block layout:fragment="content">
+		<div class="header"> 
+		
+                        <h1 class="page-header">
+                            Dashboard <small>Welcome John 윤</small>
+                        </h1>
+						<ol class="breadcrumb">
+					  <li><a href="#">Home</a></li>
+					  <li><a href="#">Dashboard</a></li>
+					  <li class="active">Data</li>
+					</ol> 
+									
+		</div>
+            <div id="page-inner">
+<!--             	<h1> 하이루</h1> -->
+            	
+			  
+				
+
+				<div class="row">
+				<div class="col-md-12">
+				
+					<!--    Hover Rows  -->
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            게시판
+                        </div>
+                        <div class="panel-body">
+                            <div class="table-responsive">
+                                <table class="table table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th class="col-xs-1 text-center">번호</th>
+                                            <th class="col-xs-4 text-center">제목</th>
+                                            <th class="col-xs-1 text-center">작성자</th>
+                                            <th class="col-xs-1 text-center">날짜</th>
+                                            <th class="col-xs-1 text-center">조회수</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>1</td>
+                                            <td>Mark</td>
+                                            <td>Otto</td>
+                                            <td>@mdo</td>
+                                            <td>asdf</td>
+                                        </tr>
+                                        <tr>
+                                            <td>2</td>
+                                            <td>Jacob</td>
+                                            <td>Thornton</td>
+                                            <td>@fat</td>
+                                            <td>asdf</td>
+                                        </tr>
+                                        <tr>
+                                            <td>3</td>
+                                            <td>Larry</td>
+                                            <td>the Bird</td>
+                                            <td>@twitter</td>
+                                            <td>asdf</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        
+                        <div class="row" style="padding-right: 30px;">
+                        <button class="btn btn-primary  pull-right" >글작성</button>
+                        </div>
+                        
+                  	<div class="row">
+                  	
+<!-- 					<div class="col-sm-5"></div> -->
+<!-- 					<div class="col-sm-4"> -->
+					<div style="text-align: center;">
+					<form action="" class="form-inline">
+					<select name="type" style="display: inline-block;"  class="selectbox">
+					    <option value="">작성자</option>
+					    <option value="">내용</option>
+					   
+					</select>
+                        <div class="form-group">
+<!--                             <label for="exampleInputName2">Name</label> -->
+                            <input type="text" class="form-control" id="exampleInputName2" placeholder="Jane Doe">
+                            <button class="btn btn-primary" >찾기</button>
+                        </div>
+                        
+					</form>
+					</div>
+<!-- 					</div> -->
+                  </div>
+                  
+                  
+                    <div class="row text-center">
+                    <ul class="pagination">
+					<!-- li태그의 클래스에 disabled를 넣으면 마우스를 위에 올렸을 때 클릭 금지 마크가 나오고 클릭도 되지 않는다.-->
+					<!-- disabled의 의미는 앞의 페이지가 존재하지 않다는 뜻이다. -->
+					<li class="disabled">
+					<a href="#">
+					<span>«</span>
+					</a>
+					</li>
+					<!-- li태그의 클래스에 active를 넣으면 색이 반전되고 클릭도 되지 않는다. -->
+					<!-- active의 의미는 현재 페이지의 의미이다. -->
+					<li class="active"><a href="#">1</a></li>
+					<li><a href="#">2</a></li>
+					<li><a href="#">3</a></li>
+					<li><a href="#">4</a></li>
+					<li><a href="#">5</a></li>
+					<li>
+					<a href="#">
+					<span>»</span>
+					</a>
+					</li>
+					</ul>
+					</div>
+                        
+                    </div>
+                    <!-- End  Hover Rows  -->
+
+
+
+
+
+
+				
+				</div>		
+				</div> 	
+                <!-- /. ROW  -->
+
+<!-- 	   			<div id="morris-bar-chart" style="visibility: hidden; width: 0; height: 0;"></div> -->
+<!-- 				<div id="morris-line-chart" style="visibility: hidden; width: 0; height: 0;"></div> -->
+<!-- 				<div id="morris-area-chart" style="visibility: hidden; width: 0; height: 0;"></div> -->
+<!-- 				 <div id="morris-donut-chart" style="visibility: hidden; width: 0; height: 0;"></div> -->
+
+                <!-- /. ROW  -->
+            </div>
+            <div id="morris-bar-chart" style="visibility: hidden;"></div>
+				<div id="morris-line-chart" style="visibility: hidden;"></div>
+				<div id="morris-area-chart" style="visibility: hidden;"></div>
+				 <div id="morris-donut-chart" style="visibility: hidden;"></div>
+				 
+            <script>
+            
+			window.onload=function(){
+				//alert('<link href="assets/css/select2.min.css" rel="stylesheet" >')
+				
+			}
+			</script>
+</th:block>
+
+
+</html>

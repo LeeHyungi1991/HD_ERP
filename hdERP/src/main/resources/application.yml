@@ -8,9 +8,22 @@ server:
       enabled: true
       force: true
       charset: UTF-8
-          
+   
       
 #utf-8설정
+
+---
+spring:
+  servlet:
+    multipart:
+      enabled: true
+      location: C:/imgTemp
+      max-file-size: 100MB
+      max-request-size: 100MB
+      file-size-threshold: 1MB
+        
+        
+        
 
 ---
 spring:
