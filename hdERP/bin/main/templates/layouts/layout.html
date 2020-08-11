@@ -1,7 +1,9 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns="http://www.w3.org/1999/xhtml" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
-<head th:replace="fragments/head :: headFragment"></head>
+<head th:replace="fragments/head :: headFragment">
+<th:block layout:fragment="css"></th:block>
+</head>
 
 <body>
 	<div id="wrapper">
@@ -41,7 +43,9 @@
     <script type="text/javascript" th:src="@{assets/js/chartjs.js}"></script> 
     
 <!--     제이쿼리 -->
-    
+
+
+    <th:block layout:fragment="script"></th:block>
 </body>
 
 </html>

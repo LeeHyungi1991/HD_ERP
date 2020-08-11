@@ -46,10 +46,13 @@
                                 	
                                 	<span th:text="${asdf}"></span>
                                 	
+                                	<img th:src="@{C:\\Users\\KOSMO_10\\AppData\\Local\\Temp\\tomcat-docbase.5323472152637427991.9090\\upload\\profile.PNG}" alt="" />
+<!--                                 	<span th:text="${pageContext.request.contextPath}"></span>  -->
+                                	<span th:text="${path}"></span>
                                 	<form th:action="@{/user.profile}" method="post" id="profileform" enctype="multipart/form-data" >
                                 		<table class="table table-striped table-bordered table-hover">
                                 			<tr>
-                                				<td><label for="">사번</label></td><td><input type="text" value="asdfsdfsdf" class="form-control" disabled="disabled" /></td><td colspan="2" rowspan="6"><img th:src="@{img/2/accdenied.png}" alt=""  style="border: 1px solid black; width: 260px; height: 260px;margin: 0 auto; display: block; "><input type="file" name="filename" id="profileupload" style="visibility: hidden;" /></td>
+                                				<td><label for="">사번</label></td><td><input type="text" value="asdfsdfsdf" class="form-control" disabled="disabled" /></td><td colspan="2" rowspan="6"><img th:src="@{${path}}" alt=""  style="border: 1px solid black; width: 260px; height: 260px;margin: 0 auto; display: block; "><input type="file" name="filename" id="profileupload" style="visibility: hidden;" /></td>
                                 			</tr>
                                 			<tr>
                                 				<td><label for="">직급</label></td><td><input type="text" value="asdfsdfsdf" class="form-control" disabled="disabled"/></td>
@@ -100,13 +103,14 @@
 													$('#profileupload').css('visibility', 'visibility')
 													//$('#update').attr('type', 'submit');
 												}else{
-													
+													 
 													$('.form-control').attr("readonly",true)
 													$(this).text('수정')
 													$('#cancel').css('visibility', 'hidden')
 													$('#profileupload').css('visibility', 'hidden')
 													//$('#update').attr('type', 'button');
 													$('#profileform').submit()
+													
 												}
 											})
 											
@@ -330,5 +334,7 @@
         
 				</footer>
             </div>
+            
+            
 </th:block>
 </html>

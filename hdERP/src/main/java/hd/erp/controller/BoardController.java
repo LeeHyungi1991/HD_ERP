@@ -13,4 +13,8 @@ public class BoardController {
 	public String boarddetail() {
 		return"board/boarddetail";
 	}
+	@GetMapping("/user.boardwrite")
+	public String boardwrite() {
+		return"board/boardwrite";
+	}
 }

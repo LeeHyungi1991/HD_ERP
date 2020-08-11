@@ -5,6 +5,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
+import java.util.Scanner;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -16,14 +17,47 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import hd.erp.dao.TestDAO;
 import hd.erp.entity.TestEntitiy;
 import hd.erp.repository.TestRepository;
+import hd.erp.test.entity.Book;
+import hd.erp.test.entity.Category;
 import hd.erp.test.entity.Class;
+import hd.erp.test.repository.BookRepository;
+import hd.erp.test.repository.CategoryRepository;
 import hd.erp.test.repository.ClassRepository;
+import hd.erp.test.repository.StudentRepository;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @SpringBootTest
 @EnableJpaRepositories
 class HdErpApplicationTests {
+	
+	@Autowired
+	ClassRepository classrepository;
+	
+	@Autowired
+	StudentRepository studentrepository;
+	
+	//@Test
+	public void jpajoincrud() {
+		System.out.println("a");
+//		Scanner scanner = new Scanner(System.in);
+//		String a =scanner.next();
+//		System.out.println(a);
+//		int i =1;
+//		while(1<5) {
+//			System.out.println("asdf");
+//			String a =scanner.next();
+//			System.out.println(a);
+//			i++;
+//		}
+		//scanner.close();
+	}
+	
+	
+	
+	
+	
+	
 
 //	@Autowired
 //	hd.erp.repository.ClassRepository classrepository;
@@ -36,16 +70,54 @@ class HdErpApplicationTests {
 //		
 //	}
 	
+	@Autowired
+	BookRepository bookrepository;
 	
 	@Autowired
-	ClassRepository classrepository;
+	CategoryRepository categoryrepository;
+	//@Test
+	public void asdsd() {
+		Category cate1 = new Category();
+		cate1.setName("cate1123");
+		Category cate2 = new Category();
+		cate2.setName("cate2123");
+		
+		categoryrepository.save(cate1);
+		
+		Optional<Category> asdf = categoryrepository.findById(23);
+		Category aaaa =asdf.get();
+		
+
+		System.out.println(aaaa.getName());
+		System.out.println(aaaa.getNo());
+				
+		
+		Book book1 = new Book();
+		book1.setTitle("booktitle?a?a?");
+		book1.setCategory(aaaa);
+		bookrepository.save(book1);
+		
+		
+		List<Book> booklist =bookrepository.findAll();
+		for(Book e : booklist) {
+			log.info("bookno={},booktitle={},categoryname={},categoryno{}",e.getNo(),e.getTitle(),e.getCategory().getName(),e.getCategory().getNo());
+		}
+		
+		System.out.println("testrelation");
+	}
+	
+	
+	
+	
+//	@Autowired
+//	ClassRepository classrepository;
 	//@Test
 	public void dfasfd() {
 		Class ref = new Class();
 		ref.setCname("asdf");
 		classrepository.save(ref);
 	}
-	@Test
+	//@Test
 	public void aaasdf() {
 		System.out.println("asdf");
 	}
