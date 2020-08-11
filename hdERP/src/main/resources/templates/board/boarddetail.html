@@ -24,8 +24,12 @@
 				
 
 				<div class="jumbotron">
-                        <h1>제목</h1>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum tincidunt est vitae ultrices accumsan. Aliquam ornare lacus adipiscing, posuere lectus et, fringilla augue. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum tincidunt est vitae ultrices accumsan. Aliquam ornare lacus adipiscing.</p>
+                        <h1 th:text="${board.btitle}">제목</h1>
+<!--                         <p th:text="${board.bcontent}" >내용</p> -->
+<!--                         <pre th:text="${board.bcontent}"></pre> -->
+                        <th:block th:utext="${board.bcontent}"></th:block>
+<!--                         <th:block th:text="${#strings.escapeXml(board.bcontent)}"></th:block> -->
+<!--                        <p id="asdf"></p> -->
 <!--                         <p> -->
 <!--                             <a class="btn btn-primary btn-lg" role="button">Learn more</a> -->
 <!--                         </p> -->
@@ -39,20 +43,26 @@
 
                 <!-- /. ROW  -->
             </div>
-            <div id="morris-bar-chart" style="visibility: hidden;"></div>
-				<div id="morris-line-chart" style="visibility: hidden;"></div>
-				<div id="morris-area-chart" style="visibility: hidden;"></div>
-				 <div id="morris-donut-chart" style="visibility: hidden;"></div>
+          
 				 
-            <script>
+           
+</th:block>
+
+<th:block layout:fragment="script">
+ <script>
             
 			window.onload=function(){
-				//alert('<link href="assets/css/select2.min.css" rel="stylesheet" >')
-				
+				/*<![CDATA[*/
+				var e ="[[ ${board.bcontent} ]]";
+				/*]]>*/
+				console.log(e)
+				$('#asdf').text(e)
+				//$('#asdf').val("sdf")
 			}
 			
 			</script>
-</th:block>
 
+
+</th:block>
 
 </html>

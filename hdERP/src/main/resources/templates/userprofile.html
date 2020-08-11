@@ -85,45 +85,7 @@
                                 		<button id="update" type="button" class="btn btn-primary btn-lg pull-right" style="margin-right: 5%; " >수정</button>
                                 		
                                 		</form>
-                                		<script >
-
-//                                 		document.getElementById('update').onclick = function() {
-//                                 			var e = document.querySelectorAll(".table table-striped table-bordered table-hover td").value();
-//                                 			console.log(e)
-                                			
-//                                 		}
-										window.onload=function(){
-											$('.form-control').attr("readonly",true)
-											$('#update').click(function(){
-												//alert('ss')
-												if($('#update').text()==='수정'){
-													$('.form-control').attr("readonly",false)
-													$(this).text('확인')
-													$('#cancel').css('visibility', 'visibility')
-													$('#profileupload').css('visibility', 'visibility')
-													//$('#update').attr('type', 'submit');
-												}else{
-													 
-													$('.form-control').attr("readonly",true)
-													$(this).text('수정')
-													$('#cancel').css('visibility', 'hidden')
-													$('#profileupload').css('visibility', 'hidden')
-													//$('#update').attr('type', 'button');
-													$('#profileform').submit()
-													
-												}
-											})
-											
-											$('#cancel').click(function(){
-												
-												$('#update').text('수정')
-												$('.form-control').attr("readonly",true)
-												$('#cancel').css('visibility', 'hidden')
-												$('#profileupload').css('visibility', 'hidden')
-											})
-										}
-
-                                		</script>
+                                		
                                 	
 <!--                                 	<form > -->
 <!--                                 	<div class="col-xs-2"></div> -->
@@ -337,4 +299,54 @@
             
             
 </th:block>
+
+
+<th:block layout:fragment="script">
+ 			<script>
+            
+ 			
+
+    		document.getElementById('update').onclick = function() {
+    			var e = document.querySelectorAll(".table table-striped table-bordered table-hover td").value();
+    			console.log(e)
+    			
+    		}
+			window.onload=function(){
+				$('.form-control').attr("readonly",true)
+				$('#update').click(function(){
+					//alert('ss')
+					if($('#update').text()==='수정'){
+						$('.form-control').attr("readonly",false)
+						$(this).text('확인')
+						$('#cancel').css('visibility', 'visibility')
+						$('#profileupload').css('visibility', 'visibility')
+						//$('#update').attr('type', 'submit');
+					}else{
+						 
+						$('.form-control').attr("readonly",true)
+						$(this).text('수정')
+						$('#cancel').css('visibility', 'hidden')
+						$('#profileupload').css('visibility', 'hidden')
+						//$('#update').attr('type', 'button');
+						$('#profileform').submit()
+						
+					}
+				})
+				
+				$('#cancel').click(function(){
+					
+					$('#update').text('수정')
+					$('.form-control').attr("readonly",true)
+					$('#cancel').css('visibility', 'hidden')
+					$('#profileupload').css('visibility', 'hidden')
+				})
+			}
+
+    		</script>
+			
+			
+
+
+</th:block>
+
 </html>

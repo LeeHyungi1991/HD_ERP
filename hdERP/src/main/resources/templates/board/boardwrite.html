@@ -19,41 +19,34 @@
 		</div>
             <div id="page-inner">
 
-            	<!-- form 안에 에디터를 사용하는 경우 (보통 이경우를 많이 사용하는듯)-->
-				<form method="post">
-				  <textarea id="summernote" name="editordata"></textarea>
+            	
+				<form method="post" th:action="@{/user.boardwrite}">
+					<input type="text" placeholder="제목" name="btitle" />
+				  <textarea id="summernote" name="bcontent" ></textarea>
+				  <input type="submit" value="작성" />
 				</form>
 			  
 				
 
-				<div class="jumbotron">
-                        <h1>제목</h1>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum tincidunt est vitae ultrices accumsan. Aliquam ornare lacus adipiscing, posuere lectus et, fringilla augue. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum tincidunt est vitae ultrices accumsan. Aliquam ornare lacus adipiscing.</p>
+<!-- 				<div class="jumbotron"> -->
+<!--                         <h1>제목</h1> -->
+<!--                         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum tincidunt est vitae ultrices accumsan. Aliquam ornare lacus adipiscing, posuere lectus et, fringilla augue. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum tincidunt est vitae ultrices accumsan. Aliquam ornare lacus adipiscing.</p> -->
 
-              	</div> 	
+<!--               	</div> 	 -->
 
             </div>
-            <div id="morris-bar-chart" style="visibility: hidden;"></div>
-				<div id="morris-line-chart" style="visibility: hidden;"></div>
-				<div id="morris-area-chart" style="visibility: hidden;"></div>
-				 <div id="morris-donut-chart" style="visibility: hidden;"></div>
-				 
-            <script>
-            
-			window.onload=function(){
-				//alert('<link href="assets/css/select2.min.css" rel="stylesheet" >')
-				
-			}
-			
-			</script>
+     
+           
 </th:block>
+
+
 <th:block layout:fragment="script">
 <script th:src="@{summernote/summernote-lite.js}"></script>
 <script th:src="@{summernote/summernote-ko-KR.js}"></script>
 
 <script>
 window.onload=function(){
-	alert('asdf')
+	//alert('asdf')
 	//여기 아래 부분
 	$('#summernote').summernote({
 		  height: 300,                 // 에디터 높이
@@ -62,8 +55,33 @@ window.onload=function(){
 		  focus: true,                  // 에디터 로딩후 포커스를 맞출지 여부
 		  lang: "ko-KR",					// 한글 설정
 		  placeholder: '최대 2048자까지 쓸 수 있습니다'	//placeholder 설정
+// 		  callbacks:{
+// 			  onImageUpload:function(files){
+// 				  uploadSummernoteImageFile(files[0],this);
+// 			  }
+// 		  }
           
 	});
+	
+
+	function uploadSummernoteImageFile(file, editor){
+		data = new FormData();
+		data.append('file',file);
+		$.ajax({
+			data:form_data,
+			type:"POST"
+			url:'/user.boardwriteimg',
+			cache:false,
+			contentType:false,
+			enctype:'multipart/form-data',
+			processData:false,
+			success:function(data){
+				$(editor).summernote('insertImage',data.url);
+				//$('#imageBoard > ul').append('<li><img src="'+url+'" width="480" height="auto"/></li>');
+			}
+		})
+	}
+	
 }
 </script>
 
