@@ -10,6 +10,8 @@ import java.util.Scanner;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 
 import hd.erp.test.entity.Class;
 import hd.erp.test.entity.Homework;
@@ -42,7 +44,7 @@ public class Hderptestjpacrud {
 			String choose1=sc.next();
 			if(choose1.equals("1")) {
 				System.out.println("출력");
-				System.out.println("1 : Class , 2 :Student, 3: Homework");
+				System.out.println("1 : Class , 2 :Student, 3: Homework ,6:페이징테스트");
 				String choose2 = sc.next();
 				if(choose2.equals("1")) {
 					System.out.println("Class//");
@@ -80,6 +82,21 @@ public class Hderptestjpacrud {
 //					Class clas=new Class();
 //					List<Student> stlist =clas.getStudents();
 //					System.out.println(stlist.size());
+				}else if(choose2.equals("6")) {
+//					//페이지 테스트
+						Page<Student> stpage = studentrepository.findAll(PageRequest.of(5, 1));//page,size
+						List<Student> stlit =stpage.getContent();
+						System.out.println(stlit.size());
+						//System.out.println(stpage.get);
+						
+						System.out.println(stpage.toString());
+						System.out.println(stlit.toString());
+						for (Student e : stlit) {
+							System.out.println(e.getSname());
+						}
+						
+
+
 				}else {
 					System.out.println("종료");
 					break xx;

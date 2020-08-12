@@ -1,12 +1,18 @@
 package hd.erp.service;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import hd.erp.config.ApplicationYamlRead;
 import hd.erp.entity.BoardEntity;
 import hd.erp.entity.EmployeeEntity;
 import hd.erp.repository.BoardRepository;
@@ -23,6 +29,10 @@ public class BoardService {
 	@Autowired
 	BoardRepository boardrepository;
 	
+	@Autowired
+	ApplicationYamlRead applicationyamlread;
+	
+	//게시판 글쓰기
 	public void insertboard(BoardEntity board,Long hdcode) {
 		log.info("누구인가요? {} 입니다",hdcode);
 		Optional<EmployeeEntity> emp = employeerepository.findById(hdcode);
@@ -37,14 +47,97 @@ public class BoardService {
 		
 	}
 	
-	
+	//게시판 리스트 뽑아오기
 	public List<BoardEntity> boardlist(){
 		return boardrepository.findAllByOrderByBnumDesc();
 	}
-	
+	//게시판 상세보기
 	public BoardEntity boarddetail(Long bnum) {
 		return boardrepository.findByBnum(bnum);
 	}
+	
+	//게시판 지우기
+	public void boarddelete(Long bnum) {
+		boardrepository.deleteById(bnum);
+	}
+	//게시판 수정
+	public BoardEntity boardupdate(Long bnum) {
+		return boardrepository.findByBnum(bnum);
+	}
+	//게시판수정할때 폼전송
+	public void boardupdatepost(BoardEntity board,Long hdcode) {
+		System.out.println(board.getEmployee());
+		System.out.println(board.getBtitle());
+		log.info("으아아아아아아아{},{},{},{},{},{},{}",board.getBcontent(),board.getBdate(),board.getBhit(),board.getBlike(),board.getBnum(),board.getBtitle(),board.getEmployee());
+		
+		BoardEntity upboard = new BoardEntity();
+		Optional<EmployeeEntity> employeeopt = employeerepository.findByhdcode(hdcode);
+		EmployeeEntity employee = employeeopt.get();
+		
+		upboard.setBnum(board.getBnum());
+		upboard.setBcontent(board.getBcontent());
+		upboard.setBdate(new Date());
+		upboard.setBhit(board.getBhit());
+		upboard.setBlike(board.getBlike());
+		upboard.setBtitle(board.getBtitle());
+		upboard.setEmployee(employee);
+		
+		boardrepository.save(upboard);
+		
+		
+		
+	}
+	
+	
+	//https://programmer93.tistory.com/31
+	//ㅅㅂ
+	public String summernoteimgupload(MultipartFile file) {
+		JSONObject jsonobject=new JSONObject();
+		
+		String staticpath=applicationyamlread.getPath();
+		
+		String fileRoot =staticpath+"\\img\\board";
+		String originalFileName = file.getOriginalFilename();
+		String extension =originalFileName.substring(originalFileName.lastIndexOf("."));
+		String savedFileName =UUID.randomUUID()+extension;
+		File targetFile = new File(fileRoot);
+		
+			
+			 //해당 디렉토리가 없을경우 디렉토리를 생성합니다.
+			if (!targetFile.exists()) {
+				try{
+					targetFile.mkdir(); //폴더 생성합니다.
+				    System.out.println("폴더가 생성되었습니다.");
+				    System.out.println(targetFile.getPath());
+			        } 
+			        catch(Exception e){
+				    e.getStackTrace();
+				}        
+		         }else {
+				System.out.println("이미 폴더가 생성되어 있습니다.");
+			}
+			
+			
+			
+			
+			File targetFile2 = new File(fileRoot);
+			try {
+				file.transferTo(new File(targetFile2.getPath()+"\\"+savedFileName));
+				jsonobject.put("url", "/board/"+savedFileName);
+				jsonobject.put("responseCode", "success");
+			} catch (IllegalStateException | IOException e) {
+				// TODO Auto-generated catch block
+				jsonobject.put("responseCode", "error");
+				e.printStackTrace();
+			}
+			
+	
+			
+			
+		System.out.println(jsonobject);
+		return jsonobject.toString();
+	}
+	
 }
 
 

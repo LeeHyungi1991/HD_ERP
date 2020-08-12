@@ -21,9 +21,9 @@ spring:
       max-file-size: 100MB
       max-request-size: 100MB
       file-size-threshold: 1MB
-        
-        
-        
+ 
+#multipart 설정    
+
 
 ---
 spring:
@@ -77,3 +77,10 @@ logging:
 mybatis:
   config-location: classpath:mapperconfig/mybatis-config.xml     
 #마이바티스위치
+---
+
+common:
+  path: C:\ikosmo64\spring\realerp\hdERP\src\main\resources\static
+#static 경로
+
+

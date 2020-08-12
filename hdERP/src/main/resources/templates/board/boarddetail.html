@@ -25,23 +25,26 @@
 
 				<div class="jumbotron">
                         <h1 th:text="${board.btitle}">제목</h1>
-<!--                         <p th:text="${board.bcontent}" >내용</p> -->
-<!--                         <pre th:text="${board.bcontent}"></pre> -->
+                        
+                        <hr />
                         <th:block th:utext="${board.bcontent}"></th:block>
-<!--                         <th:block th:text="${#strings.escapeXml(board.bcontent)}"></th:block> -->
-<!--                        <p id="asdf"></p> -->
-<!--                         <p> -->
-<!--                             <a class="btn btn-primary btn-lg" role="button">Learn more</a> -->
-<!--                         </p> -->
-              	</div> 	
-                <!-- /. ROW  -->
 
-<!-- 	   			<div id="morris-bar-chart" style="visibility: hidden; width: 0; height: 0;"></div> -->
-<!-- 				<div id="morris-line-chart" style="visibility: hidden; width: 0; height: 0;"></div> -->
-<!-- 				<div id="morris-area-chart" style="visibility: hidden; width: 0; height: 0;"></div> -->
-<!-- 				 <div id="morris-donut-chart" style="visibility: hidden; width: 0; height: 0;"></div> -->
-
-                <!-- /. ROW  -->
+              	</div > 	
+              	<div class="row">
+              	<div  class="col-sm-3">
+              	<a th:href="@{/user.board}"><button type="button" class="btn btn-lg btn-primary" disabled>뒤로가기</button></a>
+              	</div>
+              	<div  class="col-sm-3">
+              	<a th:href="@{/user.boardupdate(bnum=${board.bnum})}"><button type="button" class="btn btn-lg btn-info" disabled>수    정</button></a>
+              	</div>
+              	<div  class="col-sm-3">
+              	<a th:href="@{/user.boarddelete(bnum=${board.bnum})}"><button type="button" class="btn btn-lg btn-warning" disabled>삭    제</button></a>
+              	</div>
+              	<div  class="col-sm-3">
+              	<button type="button" class="btn btn-lg btn-primary" disabled>Primary button</button>
+              	</div>
+              	
+				</div>
             </div>
           
 				 

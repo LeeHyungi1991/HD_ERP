@@ -20,10 +20,14 @@
             <div id="page-inner">
 
             	
-				<form method="post" th:action="@{/user.boardwrite}">
-					<input type="text" class="form-control" placeholder="제목" id="btitle" name="btitle"  />
+				<form method="post" th:action="@{/user.boardupdate}">
+					<input type="hidden" name="bnum" th:value="${board.bnum}" />
+					<input type="hidden" name="bhit" th:value="${board.bhit}" />
+					<input type="hidden" name="blike" th:value="${board.blike}" />
+					<input type="hidden" name="hdcode" th:value="${board.employee.hdcode}" />
+					<input type="text" class="form-control" placeholder="제목" id="btitle" name="btitle" th:value="${board.btitle}"  />
 					<hr />
-				  <textarea id="summernote" name="bcontent" ></textarea>
+				  <textarea id="summernote" name="bcontent" ><th:block th:utext="${board.bcontent}"></th:block></textarea>
 				  <input type="button" class="btn btn-primary btn-lg btn-block" id="submit" value="작성" />
 				  <a th:href="@{/user.board}"><button type="button" class="btn btn-warning btn-lg btn-block">뒤로가기</button></a>
 				</form>
