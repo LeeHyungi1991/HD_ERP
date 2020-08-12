@@ -85,7 +85,7 @@ public class DefaultController {
 	@GetMapping("/user.profile")
 	public String profile(Model m,Principal principal) {
 		m.addAttribute("asdf", "asdf123");
-		String path = "C:\\ikosmo64\\spring\\realerp\\hdERP\\src\\main\\resources\\static\\img\\"+principal.getName(); //폴더 경로
+		//String path = "C:\\ikosmo64\\spring\\realerp\\hdERP\\src\\main\\resources\\static\\img\\"+principal.getName(); //폴더 경로
 		String path2 ="img\\"+principal.getName();
 		m.addAttribute("path", path2.toString()+"\\"+"profile.png");
 		return"userprofile";

@@ -37,6 +37,8 @@ public class BoardController {
 		List<BoardEntity> board = boardservice.boardlist();
 		System.out.println(board.size());
 		
+		
+		m.addAttribute("totalcount", 188);
 		m.addAttribute("boardlist", board);
 		return"board/board";
 	}

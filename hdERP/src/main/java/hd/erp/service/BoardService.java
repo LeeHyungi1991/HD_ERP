@@ -9,6 +9,9 @@ import java.util.UUID;
 
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -49,6 +52,18 @@ public class BoardService {
 	
 	//게시판 리스트 뽑아오기
 	public List<BoardEntity> boardlist(){
+		int page =1;
+		int size =15;
+		Page<BoardEntity> pagelist = boardrepository.findAll(PageRequest.of(page, size,Sort.by("bnum").descending()));
+		System.out.println(pagelist.toString());
+		System.out.println("totalcount?"+pagelist.getTotalElements());
+		List<BoardEntity> board =pagelist.getContent();
+		for(BoardEntity e : board) {
+			System.out.println(e.getBtitle());
+		}
+		
+		
+		
 		return boardrepository.findAllByOrderByBnumDesc();
 	}
 	//게시판 상세보기

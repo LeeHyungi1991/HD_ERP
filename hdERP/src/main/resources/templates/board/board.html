@@ -88,19 +88,19 @@
                     <ul class="pagination">
 					<!-- li태그의 클래스에 disabled를 넣으면 마우스를 위에 올렸을 때 클릭 금지 마크가 나오고 클릭도 되지 않는다.-->
 					<!-- disabled의 의미는 앞의 페이지가 존재하지 않다는 뜻이다. -->
-					<li class="disabled">
+					<li class="disabled" id="leftstage">
 					<a href="#">
 					<span>«</span>
 					</a>
 					</li>
 					<!-- li태그의 클래스에 active를 넣으면 색이 반전되고 클릭도 되지 않는다. -->
 					<!-- active의 의미는 현재 페이지의 의미이다. -->
-					<li class="active"><a href="#">1</a></li>
-					<li><a href="#">2</a></li>
-					<li><a href="#">3</a></li>
-					<li><a href="#">4</a></li>
-					<li><a href="#">5</a></li>
-					<li>
+					<li class="active"><a href="#" id="page1">1</a></li>
+					<li><a href="#" id="page2">2</a></li>
+					<li><a href="#" id="page3">3</a></li>
+					<li><a href="#" id="page4">4</a></li>
+					<li><a href="#" id="page5">5</a></li>
+					<li class="disabled" id="rightstage">
 					<a href="#">
 					<span>»</span>
 					</a>
@@ -130,10 +130,97 @@
 <script>
 
 window.onload=function(){
+	/*<![CDATA[*/
+    var totalcount = "[[${totalcount}]]";
+	var size =15;
+    console.log(totalcount);
+    console.log(totalcount/size)
+	/*]]>*/
+	var stagecount = 0;
+	console.log("stagecount"+stagecount)
+	pagetextplus()
+	pagetextminus()
+	if(parseInt(totalcount/size) >= 5){
+		console.log('azzz')
+		$('#rightstage').removeClass('disabled')
+	}
+	
+	
+	
+	$('#rightstage').click(function() {
+		stagecount = stagecount+1;
+		pagetextplus()
+		console.log("stagecount1"+stagecount)
+	})
+	$('#leftstage').click(function() {
+		
+		if(stagecount===0){
+			//$('#leftstage').attr("class", "disabled")
+			$('#leftstage').addClass("disabled")
+		}else{
+			$('#leftstage').removeClass('disabled')
+			stagecount = stagecount-1;
+			pagetextminus()
+		}
+		
+		console.log("stagecount2"+stagecount)
+	})
+	
+	
+	
+	
+	
 	$('tbody tr').click(function() {
 		//alert($(this).children().first().text())
 		location.href="/user.boarddetail?bnum="+$(this).children().first().text();
 	})
+	
+	$('#page1').parent().click(function() {
+		removeactiveclass()
+		$(this).attr("class", "active")
+	})
+	$('#page2').parent().click(function() {
+		removeactiveclass()
+		$(this).attr("class", "active")
+	})
+	$('#page3').parent().click(function() {
+		removeactiveclass()
+		$(this).attr("class", "active")
+	})
+	$('#page4').parent().click(function() {
+		removeactiveclass()
+		$(this).attr("class", "active")
+	})
+	$('#page5').parent().click(function() {
+		removeactiveclass()
+		$(this).attr("class", "active")
+	})
+	
+	
+	function removeactiveclass(){
+		$( '#page1' ).parent().removeClass( 'active' );
+		$( '#page2' ).parent().removeClass( 'active' );
+		$( '#page3' ).parent().removeClass( 'active' );
+		$( '#page4' ).parent().removeClass( 'active' );
+		$( '#page5' ).parent().removeClass( 'active' );
+	}
+	
+	function pagetextplus(){
+		$('#page1').text(parseInt($('#page1').text())+4)
+		$('#page2').text(parseInt($('#page2').text())+4)
+		$('#page3').text(parseInt($('#page3').text())+4)
+		$('#page4').text(parseInt($('#page4').text())+4)
+		$('#page5').text(parseInt($('#page5').text())+4)
+	}
+	
+	function pagetextminus(){
+		$('#page1').text(parseInt($('#page1').text())-4)
+		$('#page2').text(parseInt($('#page2').text())-4)
+		$('#page3').text(parseInt($('#page3').text())-4)
+		$('#page4').text(parseInt($('#page4').text())-4)
+		$('#page5').text(parseInt($('#page5').text())-4)
+	}
+	
 }
 
 </script>
