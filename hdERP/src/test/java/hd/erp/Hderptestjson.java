@@ -13,7 +13,7 @@ import net.minidev.json.JSONArray;
 @SpringBootTest
 public class Hderptestjson {
 	//@Test
-	public void asdf() {
+	public void asdf() throws JSONException {
 		 JSONObject jsonObject1 = new JSONObject(); // 중괄호에 들어갈 속성 정의 { "a" : "1", "b" : "2" }
 	        JSONArray jsonArray1 = new JSONArray(); // 대괄호 정의 [{ "a" : "1", "b" : "2" }]
 	        JSONObject finalJsonObject1 = new JSONObject(); // 중괄호로 감싸 대괄호의 이름을 정의함 { "c" : [{  "a" : "1", "b" : "2" }] }
@@ -39,7 +39,7 @@ public class Hderptestjson {
 	ApplicationYamlRead applicationyamlread;
 	
 	@Test
-	public void aa() {
+	public void aa() throws JSONException {
 		String path = applicationyamlread.getPath();
 		System.out.println(path);
 		JSONObject jsonobject1 = new JSONObject();
