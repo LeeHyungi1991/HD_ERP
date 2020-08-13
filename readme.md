@@ -14,5 +14,6 @@ oracle:pl/sql
 html,css:selector
 js:...
 thymeleaf:...
+java:throw,io,socket,collection
 
 -->
