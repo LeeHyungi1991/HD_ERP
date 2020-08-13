@@ -61,6 +61,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				.logoutSuccessUrl("/logout/reuslt")
 				.invalidateHttpSession(true)
 			.and()
+				.csrf()
+				.ignoringAntMatchers("/user.index")
+				.ignoringAntMatchers("/chat**")
+				.ignoringAntMatchers("/ws","/topic**","/app**")
+			.and()
 			.exceptionHandling().accessDeniedPage("/denied");
 	}
 	

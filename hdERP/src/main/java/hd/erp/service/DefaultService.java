@@ -3,6 +3,7 @@ package hd.erp.service;
 import java.io.File;
 import java.io.IOException;
 import java.security.Principal;
+import java.util.Optional;
 
 import javax.servlet.http.HttpSession;
 
@@ -12,6 +13,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 import hd.erp.config.ApplicationYamlRead;
 import hd.erp.dto.EmployeeDTO;
+import hd.erp.entity.EmployeeEntity;
+import hd.erp.repository.EmployeeRepository;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -25,8 +28,19 @@ public class DefaultService {
 	@Autowired
 	EmployeeService employeeservice;
 	
+	@Autowired
+	EmployeeRepository employeerepository;
+	
 	public void register(EmployeeDTO employeedto) {
 		employeeservice.register(employeedto);
+	}
+	
+	
+	
+	
+	public EmployeeEntity findindexname(Long hdcode) {
+		Optional<EmployeeEntity> emp = employeerepository.findById(hdcode);
+		return emp.get();
 	}
 	
 	public String userprofileimgupload(MultipartFile mfile,Principal principal) {

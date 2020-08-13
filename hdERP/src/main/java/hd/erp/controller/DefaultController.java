@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import hd.erp.dto.EmployeeDTO;
+import hd.erp.entity.EmployeeEntity;
 import hd.erp.service.DefaultService;
 import hd.erp.service.EmployeeService;
 import lombok.extern.slf4j.Slf4j;
@@ -35,7 +36,9 @@ public class DefaultController {
 	}
 	
 	@GetMapping(value = {"/user.index","/admin.index","/member.index","/asdf","/qwer/asdf","/admin.index.as"})
-	public String index() {
+	public String index(Principal principal,Model m) {
+		EmployeeEntity emp = defaultservice.findindexname(Long.parseLong(principal.getName()));
+		m.addAttribute("emp", emp);
 		return "index";
 	}
 	
