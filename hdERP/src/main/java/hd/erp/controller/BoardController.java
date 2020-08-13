@@ -4,10 +4,13 @@ package hd.erp.controller;
 import java.security.Principal;
 import java.util.List;
 
-
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.jackson.JsonComponent;
+import org.springframework.data.domain.Page;
+import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -28,21 +31,59 @@ public class BoardController {
 	@Autowired
 	BoardService boardservice;
 	
-	//게시판
+	//그냥 게시판//nowpage 는 보고싶은 페이지
 	@GetMapping("/user.board")
-	public String board(Model m) {
-		List<BoardEntity> board = boardservice.boardlist();
-		System.out.println(board.size());
+	public String board(Model m,int nowpage,HttpServletRequest req
+			,@RequestParam(required = false,name = "searchtype")String searchtype
+			,@RequestParam(required = false,name = "searchvalue")String searchvalue
+			) {
+		HttpSession session = req.getSession();
+		session.setAttribute("nowpage",nowpage );
+		session.setAttribute("searchtype", searchtype);
+		int size = 15;
 		
+		if(searchtype != null) {
+			if(searchtype.equals("writer")) {
+			System.out.println("searchvalue >>"+searchvalue);
+			
+			Page<BoardEntity> pagelist =boardservice.searchtype_writer(nowpage, size, searchvalue);
+			List<BoardEntity> boardpage = pagelist.getContent();
+			m.addAttribute("totalcount", pagelist.getTotalElements());
+			m.addAttribute("size", size);
+			m.addAttribute("boardlist", boardpage);
+			m.addAttribute("nowpage", nowpage);
+			
+			return "board/board";
+			}else if(searchtype.equals("title")) {
+				System.out.println("타이틀로옴");
+				Page<BoardEntity> pagelist =boardservice.searchtype_title(nowpage, size, searchvalue);
+				List<BoardEntity> boardpage = pagelist.getContent();
+				m.addAttribute("totalcount", pagelist.getTotalElements());
+				m.addAttribute("size", size);
+				m.addAttribute("boardlist", boardpage);
+				m.addAttribute("nowpage", nowpage);
+				return"board/board";
+			}
+		}
 		
-		m.addAttribute("totalcount", 188);
-		m.addAttribute("boardlist", board);
+		System.out.println("session nowpage>>>>"+session.getAttribute("nowpage"));
+		//List<BoardEntity> board = boardservice.boardlist();
+		//System.out.println(board.size());
+		
+		Page<BoardEntity> pagelist =boardservice.boardlistpaging(nowpage, size);
+		List<BoardEntity> boardpage = pagelist.getContent();
+		
+		m.addAttribute("totalcount", pagelist.getTotalElements());
+		m.addAttribute("size", size);
+		m.addAttribute("boardlist", boardpage);
+		m.addAttribute("nowpage", nowpage);
 		return"board/board";
 	}
 	
 	//게시판 상세보기
 	@GetMapping("/user.boarddetail")
 	public String boarddetail(Long bnum,Model m) {
+		
 		BoardEntity board = boardservice.boarddetail(bnum);
 		m.addAttribute("board", board);
 		return"board/boarddetail";
@@ -56,14 +97,15 @@ public class BoardController {
 	
 	//게시판쓰기 폼전송
 	@PostMapping("/user.boardwrite")
-	public String boardwritepost(BoardEntity board,Principal principal) {
+	public String boardwritepost(BoardEntity board,Principal principal,HttpServletRequest req) {
 		System.out.println(board.getBtitle());
 		System.out.println(board.getBcontent());
 		
+		HttpSession session=req.getSession();
 		boardservice.insertboard(board, Long.parseLong(principal.getName()));
 		
 		
-		return "redirect:/user.board";
+		return "redirect:/user.board?nowpage="+session.getAttribute("nowpage");
 	}
 	
 	
@@ -76,9 +118,10 @@ public class BoardController {
 	
 	//게시판 지우기
 	@GetMapping(value = "/user.boarddelete")
-	public String boarddelete(Long bnum) {
+	public String boarddelete(Long bnum,HttpServletRequest req) {
+		HttpSession session=req.getSession();
 		boardservice.boarddelete(bnum);
-		return "redirect:/user.board";
+		return "redirect:/user.board?nowpage="+session.getAttribute("nowpage");
 	}
 	
 	

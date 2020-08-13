@@ -47,8 +47,8 @@
                                         <tr th:each="list : ${boardlist}">
                                             <td th:text="${list.bnum}">번호</td>
                                             <td th:text="${list.btitle}">제목</td>
-                                            <td th:text="${list.employee.hd_name}">작성자</td>
-                                            <td th:text="${list.bdate}">@날짜</td>
+                                            <td th:text="${list.employee.hdname}">작성자</td>
+                                            <td th:text="${list.bdate}">날짜</td>
                                             <td th:text="${list.bhit}">조회수</td>
                                         </tr>
                                      
@@ -68,14 +68,15 @@
 					<div style="text-align: center;">
 					<form action="" class="form-inline">
 					<select name="type" style="display: inline-block;"  class="selectbox">
-					    <option value="">작성자</option>
-					    <option value="">내용</option>
+					    <option value="writer">작성자</option>
+					    <option value="title">제목</option>
+<!-- 					    <option value="content">내용</option> 아이거 못해 힘들어-->
 					   
 					</select>
                         <div class="form-group">
 <!--                             <label for="exampleInputName2">Name</label> -->
-                            <input type="text" class="form-control" id="exampleInputName2" placeholder="Jane Doe">
-                            <button class="btn btn-primary" >찾기</button>
+                            <input type="text" class="form-control" id="searchvalue" placeholder="검색">
+                            <button class="btn btn-primary" type="button" id="searchbtn" >찾기</button>
                         </div>
                         
 					</form>
@@ -88,7 +89,7 @@
                     <ul class="pagination">
 					<!-- li태그의 클래스에 disabled를 넣으면 마우스를 위에 올렸을 때 클릭 금지 마크가 나오고 클릭도 되지 않는다.-->
 					<!-- disabled의 의미는 앞의 페이지가 존재하지 않다는 뜻이다. -->
-					<li class="disabled" id="leftstage">
+					<li  id="leftstage">
 					<a href="#">
 					<span>«</span>
 					</a>
@@ -100,7 +101,7 @@
 					<li><a href="#" id="page3">3</a></li>
 					<li><a href="#" id="page4">4</a></li>
 					<li><a href="#" id="page5">5</a></li>
-					<li class="disabled" id="rightstage">
+					<li  id="rightstage">
 					<a href="#">
 					<span>»</span>
 					</a>
@@ -129,38 +130,119 @@
 <th:block layout:fragment="script">
 <script>
 
-window.onload=function(){
+window.onload=function(){//window.onload 시작
+	
+	
+	////////////////////////////검색버튼 클릭
+	
+	$('#searchbtn').click(function() {
+		alert($('#searchvalue').val())
+		
+		if($('#searchvalue').val() != ""){
+		location.href="/user.board?nowpage=0&searchtype="+$('.selectbox').val()+"&searchvalue="+$('#searchvalue').val();
+		}
+	})
+	
+	
+	
+	/////////////////////////////검색버튼 종료
+	
+	
+	
+	
+	//////////////////////////디테일 들어가기
+	$('tbody tr').click(function() {
+		//alert($(this).children().first().text())
+		location.href="/user.boarddetail?bnum="+$(this).children().first().text();
+	})
+	//////////////////////////디테일 들어가기종료
+	
+	/////////////////////////////////////////////////페이징
 	/*<![CDATA[*/
     var totalcount = "[[${totalcount}]]";
-	var size =15;
-    console.log(totalcount);
-    console.log(totalcount/size)
+	var size = "[[${size}]]";
+	var np="[[${nowpage}]]";
+	//var size =10;//test
 	/*]]>*/
-	var stagecount = 0;
+    console.log("totalcount",totalcount);
+    console.log(totalcount/size)
+    console.log("totalpage",Math.ceil(totalcount/size))
+    console.log(Math.ceil(totalcount/size)%5)
+	
+	var totalpage=Math.ceil(totalcount/size)
+	var stagecount = 0;//leftpage 또는 rightpage 누를때올라가거나 내려감
 	console.log("stagecount"+stagecount)
-	pagetextplus()
-	pagetextminus()
-	if(parseInt(totalcount/size) >= 5){
+	
+	
+	nowpage(np)
+	
+	if(totalpage <= 5){
 		console.log('azzz')
-		$('#rightstage').removeClass('disabled')
+		$('#rightstage').css("display", "none")
+		displaynone(totalpage)
 	}
 	
 	
 	
-	$('#rightstage').click(function() {
+	$('#rightstage').click(function() {//오른쪽 클릭
+		
+		removedisplay()//displaynone 지우기
+		removeactiveclass()//activeclass 지우기
+		
 		stagecount = stagecount+1;
 		pagetextplus()
+		
+		
+		console.log('asdf121,',totalpage-(5*(stagecount)))
+		if((totalpage-(5*stagecount)) <=5){//마지막페이지이면
+			console.log('asdf,',totalpage-(5*stagecount))
+			$('#rightstage').css("display", "none")
+			
+			displaynone(totalpage-(5*(stagecount)))
+		}else{//마지막페이지가아니면
+// 			stagecount = stagecount-1;
+// 			pagetextminus()
+			$('#rightstage').removeAttr("style")
+		}
+		
+		$('#page1').parent().attr("class", "active")
+		location.href="/user.board?nowpage="+(parseInt($('#page1').text())-1);
 		console.log("stagecount1"+stagecount)
+		console.log(totalpage,totalpage-5*stagecount)
 	})
-	$('#leftstage').click(function() {
+	$('#leftstage').click(function() {//왼쪽 클릭
+		$('#rightstage').removeAttr("style")
+		removedisplay()//displaynone 지우기
+		removeactiveclass()//activeclass 지우기
+		if(stagecount===0){
+			$('#page1').parent().attr("class", "active")//왼쪽 눌렀으면 오른쪽 클릭상태로 stagecount0일때는 page1로 간다 아닐경우는 5
+
+			location.href="/user.board?nowpage="+(parseInt($('#page1').text())-1);
+		}else{
+			$('#page5').parent().attr("class", "active")//왼쪽 눌렀으면 오른쪽 클릭상태로 stagecount0일때는 page1로 간다 아닐경우는 5
+			location.href="/user.board?nowpage="+(parseInt($('#page5').text())-1);
+		}
+		
+// 		if(totalpage-(5*stagecount)===1){
+// 			$('#page1').parent().attr("class", "active")
+// 		}else if(totalpage-(5*stagecount)===2){
+// 			$('#page2').parent().attr("class", "active")
+// 		}else if(totalpage-(5*stagecount)===3){
+// 			$('#page3').parent().attr("class", "active")
+// 		}else if(totalpage-(5*stagecount)===4){
+// 			$('#page4').parent().attr("class", "active")
+// 		}else{
+// 			$('#page5').parent().attr("class", "active")
+// 		}
 		
 		if(stagecount===0){
 			//$('#leftstage').attr("class", "disabled")
-			$('#leftstage').addClass("disabled")
+			//$('#leftstage').addClass("disabled")
 		}else{
-			$('#leftstage').removeClass('disabled')
+			//$('#leftstage').removeClass('disabled')
 			stagecount = stagecount-1;
 			pagetextminus()
+			console.log(totalpage,totalpage-(5*stagecount))
 		}
 		
 		console.log("stagecount2"+stagecount)
@@ -170,31 +252,61 @@ window.onload=function(){
 	
 	
 	
-	$('tbody tr').click(function() {
-		//alert($(this).children().first().text())
-		location.href="/user.boarddetail?bnum="+$(this).children().first().text();
-	})
+	
+	
+	
+	
+	
+	
 	
 	$('#page1').parent().click(function() {
-		removeactiveclass()
-		$(this).attr("class", "active")
+		//removeactiveclass()
+		
+		location.href="/user.board?nowpage="+(parseInt($(this).text())-1);
 	})
 	$('#page2').parent().click(function() {
-		removeactiveclass()
-		$(this).attr("class", "active")
+		//removeactiveclass()
+		//$(this).attr("class", "active")
+		location.href="/user.board?nowpage="+(parseInt($(this).text())-1);
 	})
 	$('#page3').parent().click(function() {
-		removeactiveclass()
-		$(this).attr("class", "active")
+		//removeactiveclass()
+		//$(this).attr("class", "active")
+		location.href="/user.board?nowpage="+(parseInt($(this).text())-1);
 	})
 	$('#page4').parent().click(function() {
-		removeactiveclass()
-		$(this).attr("class", "active")
+		//removeactiveclass()
+		//$(this).attr("class", "active")
+		location.href="/user.board?nowpage="+(parseInt($(this).text())-1);
 	})
 	$('#page5').parent().click(function() {
-		removeactiveclass()
-		$(this).attr("class", "active")
+		//removeactiveclass()
+		//$(this).attr("class", "active")
+		location.href="/user.board?nowpage="+(parseInt($(this).text())-1);
 	})
+	
+	
+	function nowpage(np){
+		var paging=(np%5)+1;
+		if(paging===1){
+			removeactiveclass()
+			$('#page1').parent().attr("class", "active")
+		}else if(paging===2){
+			
+			removeactiveclass()
+			$('#page2').parent().attr("class", "active")
+		}else if(paging===3){
+			removeactiveclass()
+			$('#page3').parent().attr("class", "active")
+		}else if(paging===4){
+			removeactiveclass()
+			$('#page4').parent().attr("class", "active")
+		}else if(paging===5){
+			removeactiveclass()
+			$('#page5').parent().attr("class", "active")
+		}
+		
+	}
 	
 	
 	function removeactiveclass(){
@@ -206,22 +318,53 @@ window.onload=function(){
 	}
 	
 	function pagetextplus(){
-		$('#page1').text(parseInt($('#page1').text())+4)
-		$('#page2').text(parseInt($('#page2').text())+4)
-		$('#page3').text(parseInt($('#page3').text())+4)
-		$('#page4').text(parseInt($('#page4').text())+4)
-		$('#page5').text(parseInt($('#page5').text())+4)
+		$('#page1').text(parseInt($('#page1').text())+5)
+		$('#page2').text(parseInt($('#page2').text())+5)
+		$('#page3').text(parseInt($('#page3').text())+5)
+		$('#page4').text(parseInt($('#page4').text())+5)
+		$('#page5').text(parseInt($('#page5').text())+5)
 	}
 	
 	function pagetextminus(){
-		$('#page1').text(parseInt($('#page1').text())-4)
-		$('#page2').text(parseInt($('#page2').text())-4)
-		$('#page3').text(parseInt($('#page3').text())-4)
-		$('#page4').text(parseInt($('#page4').text())-4)
-		$('#page5').text(parseInt($('#page5').text())-4)
+		$('#page1').text(parseInt($('#page1').text())-5)
+		$('#page2').text(parseInt($('#page2').text())-5)
+		$('#page3').text(parseInt($('#page3').text())-5)
+		$('#page4').text(parseInt($('#page4').text())-5)
+		$('#page5').text(parseInt($('#page5').text())-5)
 	}
 	
-}
+	function displaynone(num){
+		console.log(num)
+		if(num===0){
+			
+		}else if(num ===1){
+			$('#page2').css("display", "none")
+			$('#page3').css("display", "none")
+			$('#page4').css("display", "none")
+			$('#page5').css("display", "none")
+		}else if(num ===2){
+			$('#page3').css("display", "none")
+			$('#page4').css("display", "none")
+			$('#page5').css("display", "none")
+		}else if(num ===3){
+			$('#page4').css("display", "none")
+			$('#page5').css("display", "none")
+		}else if(num ===4){
+			$('#page5').css("display", "none")
+		}else{
+			
+		}
+	}
+	function removedisplay(){
+		$('#page1').removeAttr("style")
+		$('#page2').removeAttr("style")
+		$('#page3').removeAttr("style")
+		$('#page4').removeAttr("style")
+		$('#page5').removeAttr("style")
+		
+	}
+	////////////////////////////////페이징끝
+}///window.onload 끝
 
 </script>
 

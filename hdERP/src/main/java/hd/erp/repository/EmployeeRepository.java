@@ -10,5 +10,7 @@ import hd.erp.entity.EmployeeEntity;
 @Repository
 public interface EmployeeRepository extends JpaRepository<EmployeeEntity, Long> {
 	Optional<EmployeeEntity> findByhdcode(Long hd_code);
+	
+	EmployeeEntity findByHdname(String hdname);
 
 }

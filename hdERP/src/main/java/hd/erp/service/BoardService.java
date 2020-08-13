@@ -50,7 +50,7 @@ public class BoardService {
 		
 	}
 	
-	//게시판 리스트 뽑아오기
+	//게시판 리스트 뽑아오기(전체;;안씀?)
 	public List<BoardEntity> boardlist(){
 		int page =1;
 		int size =15;
@@ -61,11 +61,50 @@ public class BoardService {
 		for(BoardEntity e : board) {
 			System.out.println(e.getBtitle());
 		}
-		
-		
-		
 		return boardrepository.findAllByOrderByBnumDesc();
 	}
+	//게시판 리스트 뽑아오기(페이징 !씀)
+	public Page<BoardEntity> boardlistpaging(int nowpage, int size){
+		Page<BoardEntity> pagelist = boardrepository.findAll(PageRequest.of(nowpage, size,Sort.by("bnum").descending()));
+		
+		return pagelist;
+	}
+	
+	//게시판 검색 작성자(페이징씀)
+	public Page<BoardEntity> searchtype_writer(int nowpage,int size,String searchvalue){
+		EmployeeEntity emp = employeerepository.findByHdname(searchvalue);
+		List<BoardEntity> board = boardrepository.findAllByEmployee(emp);
+		if(emp !=null) {
+		System.out.println("검색한 hdname>>>"+emp.getHdname());
+		}
+		if(board!=null) {
+			for(BoardEntity e : board) {
+				System.out.println(e.getBtitle());
+			}
+		}
+		Page<BoardEntity> boardpage = boardrepository.findAllByEmployee(emp,PageRequest.of(nowpage, size));
+		if(boardpage !=null) {
+			return boardpage;
+		}else {
+			return null;
+		}
+	}
+	//게시판 검색 제목(페이징씀)
+		public Page<BoardEntity> searchtype_title(int nowpage,int size,String searchvalue){
+			StringBuffer sb =new StringBuffer();
+			sb.append("%");
+			sb.append(searchvalue);
+			sb.append("%");
+			System.out.println("sb.tostring>>"+sb.toString());
+			searchvalue=sb.toString();
+			
+			Page<BoardEntity> boardpage = boardrepository.findAllByBtitleLike(searchvalue, PageRequest.of(nowpage, size));
+			if(boardpage !=null) {
+				return boardpage;
+			}else {
+				return null;
+			}
+		}
 	//게시판 상세보기
 	public BoardEntity boarddetail(Long bnum) {
 		return boardrepository.findByBnum(bnum);

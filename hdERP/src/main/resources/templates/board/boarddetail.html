@@ -32,7 +32,7 @@
               	</div > 	
               	<div class="row">
               	<div  class="col-sm-3">
-              	<a th:href="@{/user.board}"><button type="button" class="btn btn-lg btn-primary" disabled>뒤로가기</button></a>
+              	<a th:href="@{/user.board(nowpage=(${session.nowpage}))}"><button type="button" class="btn btn-lg btn-primary" disabled>뒤로가기</button></a>
               	</div>
               	<div  class="col-sm-3">
               	<a th:href="@{/user.boardupdate(bnum=${board.bnum})}"><button type="button" class="btn btn-lg btn-info" disabled>수    정</button></a>

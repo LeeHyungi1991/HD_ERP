@@ -41,7 +41,8 @@ public class EmployeeEntity {
 	
 	private String hd_in_date;
 	
-	private String hd_name;
+	@Column(name = "hd_name")
+	private String hdname;
 	
 	private String hd_birth;
 	
@@ -65,7 +66,7 @@ public class EmployeeEntity {
 		this.hdcode = hdcode;
 		this.hd_level = hd_level;
 		this.hd_in_date = hd_in_date;
-		this.hd_name = hd_name;
+		this.hdname = hd_name;
 		this.hd_birth = hd_birth;
 		this.hd_dname = hd_dname;
 		this.hd_gender = hd_gender;
