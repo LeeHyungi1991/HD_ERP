@@ -1,4 +1,4 @@
-package hd.erp.service;
+ package hd.erp.service;
 
 import java.io.File;
 import java.io.IOException;
@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import hd.erp.config.ApplicationYamlRead;
+import hd.erp.entity.BcommentEntity;
 import hd.erp.entity.BoardEntity;
 import hd.erp.entity.EmployeeEntity;
 import hd.erp.repository.BoardRepository;
@@ -34,6 +35,34 @@ public class BoardService {
 	
 	@Autowired
 	ApplicationYamlRead applicationyamlread;
+	
+	
+	//¥Ò¿€º∫
+	public void insertbcomment(BcommentEntity bcommnet, Long bnum,Long hdcode) {
+		
+	}
+	
+	
+	//¥ÒªË¡¶
+	public void deletebcomment() {
+		
+	}
+	
+	
+	//¥Òºˆ¡§
+	public void updatebcomment() {
+		
+	}
+	
+	
+	//¥Ò∏ÆΩ∫∆Æ
+	public void listbcommnet() {
+		
+	}
+	
+	
+	
+	
 	
 	//∞‘Ω√∆« ±€æ≤±‚
 	public void insertboard(BoardEntity board,Long hdcode) {

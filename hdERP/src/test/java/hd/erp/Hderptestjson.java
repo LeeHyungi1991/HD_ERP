@@ -1,5 +1,10 @@
 package hd.erp;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.junit.jupiter.api.Test;
@@ -67,6 +72,19 @@ public class Hderptestjson {
 		System.out.println(jsonarr1);
 		System.out.println(jsonobject1);
 		System.out.println(finalobject);
+		
+		
+		
+	}
+	
+	public void asdfAsdf() {
+		//ArrayList<String> asdf = new ArrayList<String>();
+		
+		//asdf.add("1");
+		Set<Integer>asdf =new HashSet<>();
+		asdf.add(5);
+		asdf.add(3);
+		ArrayList<Integer> ffff = new ArrayList<Integer>();
 		
 		
 		
