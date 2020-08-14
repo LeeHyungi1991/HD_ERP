@@ -19,8 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
-
-
+import hd.erp.entity.BcommentEntity;
 import hd.erp.entity.BoardEntity;
 import hd.erp.service.BoardService;
 
@@ -37,6 +36,8 @@ public class BoardController {
 			,@RequestParam(required = false,name = "searchtype")String searchtype
 			,@RequestParam(required = false,name = "searchvalue")String searchvalue
 			) {
+		
+		
 		HttpSession session = req.getSession();
 		session.setAttribute("nowpage",nowpage );
 		session.setAttribute("searchtype", searchtype);
@@ -80,14 +81,43 @@ public class BoardController {
 		return"board/board";
 	}
 	
-	//게시판 상세보기
+	//게시판 상세보기 그냥 보기
 	@GetMapping("/user.boarddetail")
-	public String boarddetail(Long bnum,Model m) {
-		
+	public String boarddetail(Long bnum,Model m,Principal principal,HttpServletRequest req) {
+		//이건 게시판 컨텐츠 가져오는것
 		BoardEntity board = boardservice.boarddetail(bnum);
 		m.addAttribute("board", board);
+		//이건 게시판 댓글 가져오는것
+		List<BcommentEntity> bcomments =boardservice.listbcommnet(board);
+		m.addAttribute("bcomments", bcomments);
+		HttpSession session = req.getSession();
+		int nowpage = (int) session.getAttribute("nowpage");
+		System.out.println("nowpage= "+nowpage);
+		m.addAttribute("nowpage", nowpage);
 		return"board/boarddetail";
 	}
+	
+	//게시판 상세보기 댓글 폼 전송 즉 댓글 작성//
+	@PostMapping("/user.boarddetail")
+	public String boarddetailpost(Long bnum,Model m,BcommentEntity bcomment,Principal principal,HttpServletRequest req) {
+		//댓글 작성
+		HttpSession session = req.getSession();
+		int nowpage = (int) session.getAttribute("nowpage");
+		System.out.println("nowpage= "+nowpage);
+		m.addAttribute("nowpage", nowpage);
+				
+		boardservice.insertbcomment(bcomment, bnum, Long.parseLong(principal.getName()));
+		return"redirect:/user.boarddetail?bnum="+bnum;
+	}
+	//게시판 댓글 삭제
+	@PostMapping("/user.bcommnetdelete")
+	public String bcommentdelete(Long bcnum,Long bnum) {
+		System.out.println("bcnum"+bcnum);
+		System.out.println("bnum"+bnum);
+		boardservice.deletebcomment(bcnum);
+		return"redirect:/user.boarddetail?bnum="+bnum;
+	}
+	
 	
 	//게시판쓰기
 	@GetMapping("/user.boardwrite")

@@ -19,6 +19,7 @@ import hd.erp.config.ApplicationYamlRead;
 import hd.erp.entity.BcommentEntity;
 import hd.erp.entity.BoardEntity;
 import hd.erp.entity.EmployeeEntity;
+import hd.erp.repository.BcommentRepository;
 import hd.erp.repository.BoardRepository;
 import hd.erp.repository.EmployeeRepository;
 import lombok.extern.slf4j.Slf4j;
@@ -34,18 +35,32 @@ public class BoardService {
 	BoardRepository boardrepository;
 	
 	@Autowired
+	BcommentRepository bcommentrepository;
+	
+	@Autowired
 	ApplicationYamlRead applicationyamlread;
 	
 	
 	//댓작성
-	public void insertbcomment(BcommentEntity bcommnet, Long bnum,Long hdcode) {
+	public void insertbcomment(BcommentEntity bcomment, Long bnum,Long hdcode) {
+		EmployeeEntity emp = getemployee(hdcode);//댓글작성하는 사람의 emp객체
+		BoardEntity board = getboard(bnum);//보고있는 게시판 객체
+		//보고있는게시판 객체에 댓글 작성
+		BcommentEntity newbcomment =new BcommentEntity();
 		
+		newbcomment.setBcdate(new Date());//작성일
+		newbcomment.setBccontent(bcomment.getBccontent());//댓글내용
+		newbcomment.setBcreply(-1L);//리플
+		newbcomment.setBcwriter(emp.getHdname());//댓 작성자
+		newbcomment.setBoard(board);//어떤게시판의 댓글인가
+		
+		bcommentrepository.save(newbcomment);//댓글 등록
 	}
 	
 	
 	//댓삭제
-	public void deletebcomment() {
-		
+	public void deletebcomment(Long bcnum) {
+		bcommentrepository.deleteById(bcnum);
 	}
 	
 	
@@ -56,12 +71,19 @@ public class BoardService {
 	
 	
 	//댓리스트
-	public void listbcommnet() {
-		
+	public List<BcommentEntity> listbcommnet(BoardEntity board) {
+		return bcommentrepository.findAllByBoardOrderByBcnumAsc(board);
 	}
 	
-	
-	
+	//id를 통하여 employee객체 얻기
+	public EmployeeEntity getemployee(Long hdcode) {
+		Optional<EmployeeEntity> emp = employeerepository.findById(hdcode);
+		return emp.get();
+	}
+	//id를 통하여 Board객체 얻기
+	public BoardEntity getboard(Long bnum) {
+		return boardrepository.findByBnum(bnum);
+	}
 	
 	
 	//게시판 글쓰기

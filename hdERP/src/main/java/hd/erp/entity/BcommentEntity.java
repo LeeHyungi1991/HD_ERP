@@ -15,6 +15,9 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 import lombok.Data;
 @Entity
 @Table(name = "bcomment")
@@ -41,5 +44,6 @@ public class BcommentEntity {
 	
 	@ManyToOne
 	@JoinColumn(name = "board_b_num")
+	@OnDelete(action = OnDeleteAction.CASCADE)
 	private BoardEntity board;
 }
