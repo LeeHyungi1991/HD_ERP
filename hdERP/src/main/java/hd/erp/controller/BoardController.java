@@ -2,11 +2,13 @@ package hd.erp.controller;
 
 
 import java.security.Principal;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.jackson.JsonComponent;
 import org.springframework.data.domain.Page;
@@ -21,6 +23,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import hd.erp.entity.BcommentEntity;
 import hd.erp.entity.BoardEntity;
+import hd.erp.entity.EmployeeEntity;
 import hd.erp.service.BoardService;
 
 @Controller
@@ -84,16 +87,30 @@ public class BoardController {
 	//게시판 상세보기 그냥 보기
 	@GetMapping("/user.boarddetail")
 	public String boarddetail(Long bnum,Model m,Principal principal,HttpServletRequest req) {
+		
+		
 		//이건 게시판 컨텐츠 가져오는것
 		BoardEntity board = boardservice.boarddetail(bnum);
 		m.addAttribute("board", board);
 		//이건 게시판 댓글 가져오는것
 		List<BcommentEntity> bcomments =boardservice.listbcommnet(board);
 		m.addAttribute("bcomments", bcomments);
+		
 		HttpSession session = req.getSession();
 		int nowpage = (int) session.getAttribute("nowpage");
+		
 		System.out.println("nowpage= "+nowpage);
 		m.addAttribute("nowpage", nowpage);
+		
+		
+		
+		m.addAttribute("writer", board.getEmployee().getHdcode());
+		m.addAttribute("who", principal.getName());
+		
+		
+		//조회수올리기
+		boardservice.gohit(board);
+		
 		return"board/boarddetail";
 	}
 	
@@ -121,12 +138,27 @@ public class BoardController {
 	//게시판 댓글 수정 모달 클릭시
 	@PostMapping("/user.bcommentupdate_modal")
 	@ResponseBody
-	public String bcommentupdate(Long bcnum){
+	public String bcommentupdatemodal(Long bcnum){
 		System.out.println("bcnum = >>" +bcnum);
 		BcommentEntity board = boardservice.updateget_bcommnet(bcnum);
 		String bccontent=board.getBccontent();
 		System.out.println("bccontent >" +bccontent);
-		return bccontent;
+		JSONObject boardjson =new JSONObject();
+		boardjson.put("bccontent", board.getBccontent());
+		boardjson.put("bcnum", board.getBcnum());
+		boardjson.put("bcwriter",board.getBcwriter());
+		boardjson.put("bcreply",board.getBcreply());
+		return boardjson.toString();
+	}
+	//게시판 댓글 수정
+	@PostMapping("/user.bcommentupdate")
+	public String bcommentupdate(BcommentEntity bcomment,Long bnum) {
+		System.out.println(bcomment);
+		System.out.println("asdfbnum >>"+bnum);
+		boardservice.updatebcomment(bcomment, bnum);
+		
+		
+		return "redirect:/user.boarddetail?bnum="+bnum;
 	}
 	
 	//게시판쓰기

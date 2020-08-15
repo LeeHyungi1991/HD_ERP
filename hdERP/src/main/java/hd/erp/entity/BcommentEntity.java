@@ -46,4 +46,12 @@ public class BcommentEntity {
 	@JoinColumn(name = "board_b_num")
 	@OnDelete(action = OnDeleteAction.CASCADE)
 	private BoardEntity board;
+	
+	
+	@ManyToOne
+	@JoinColumn(name = "employee_hd_code")
+	@OnDelete(action = OnDeleteAction.CASCADE)
+	private EmployeeEntity employee;
+	
+	
 }

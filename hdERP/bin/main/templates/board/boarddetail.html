@@ -25,6 +25,8 @@
 
 				<div class="jumbotron">
                         <h1 th:text="${board.btitle}">제목</h1>
+<!-- 						<h2 th:text="${board.employee.hdname}"></h2> -->
+                        <span th:text="${board.employee.hdname}" ></span><span> 님 이 작성함</span>
                         
                         <hr />
                         <th:block th:utext="${board.bcontent}"></th:block>
@@ -37,10 +39,31 @@
 <!-- <a th:href="@{/user.board(nowpage=(${#httpServletRequest.getParameter('nowpage')}))}"><button type="button" class="btn btn-lg btn-primary" disabled>뒤로가기</button></a> -->
               	</div>
               	<div  class="col-sm-3">
-              	<a th:href="@{/user.boardupdate(bnum=${board.bnum})}"><button type="button" class="btn btn-lg btn-info" disabled>수    정</button></a>
+              	
+              	
+              	<th:block th:if = "${who} == ${writer} " >
+              			<a th:href="@{/user.boardupdate(bnum=${board.bnum})}"><button type="button" class="btn btn-lg btn-info" disabled>수    정</button></a>
+              	</th:block>
+              	<th:block th:unless = "${who} == ${writer} ">
+              	<th:block sec:authorize="hasRole('ROLE_ADMIN')">
+              			<a th:href="@{/user.boardupdate(bnum=${board.bnum})}"><button type="button" class="btn btn-lg btn-info" disabled>수    정</button></a>
+              	</th:block>
+              	</th:block>
+              	
               	</div>
               	<div  class="col-sm-3">
-              	<a th:href="@{/user.boarddelete(bnum=${board.bnum})}"><button type="button" class="btn btn-lg btn-warning" disabled>삭    제</button></a>
+              	
+              	<th:block th:if = "${who} == ${writer} " >
+              			<a th:href="@{/user.boarddelete(bnum=${board.bnum})}"><button type="button" class="btn btn-lg btn-warning" disabled>삭    제</button></a>
+              	</th:block>
+              	<th:block th:unless = "${who} == ${writer} ">
+              	<th:block sec:authorize="hasRole('ROLE_ADMIN')">
+              			<a th:href="@{/user.boarddelete(bnum=${board.bnum})}"><button type="button" class="btn btn-lg btn-warning" disabled>삭    제</button></a>
+              	</th:block>
+              	</th:block>
+              	
+              	
+              	
               	</div>
               	<div  class="col-sm-3">
               	<button type="button" class="btn btn-lg btn-primary" disabled>Primary button</button>
@@ -62,15 +85,45 @@
 								<th:block th:each="bcomment: ${bcomments}">
 
 								<div style="border: 1px solid black;">
-								<strong th:text="${bcomment.bcwriter}">임성윤</strong><span th:text="${bcomment.bcdate}">2020-08-01</span><span style="visibility: hidden;" th:text="${bcomment.bcnum}">bcnum</span> 
-								<button data-toggle="modal" data-target="#myModal" th:onclick="bcommentupdate([[${bcomment.bcnum}]])">수정</button>
+								<strong th:text="${bcomment.bcwriter}">임성윤</strong><span th:text="${bcomment.bcdate}">2020-08-01</span><span style="visibility: hidden;" th:text="${bcomment.bcnum}">bcnum</span>
+								
+								
+								
+								<th:block th:if = "${who} == ${bcomment.employee.hdcode} " >
+              					<button data-toggle="modal" data-target="#myModal" th:onclick="bcommentupdate([[${bcomment.bcnum}]])">수정</button>
+				              	</th:block>
+				              	<th:block th:unless = "${who} == ${bcomment.employee.hdcode} ">
+				              	<th:block sec:authorize="hasRole('ROLE_ADMIN')">
+				              			<button data-toggle="modal" data-target="#myModal" th:onclick="bcommentupdate([[${bcomment.bcnum}]])">수정</button>
+				              	</th:block>
+				              	</th:block>
+								
+								
+								
+								 
+								
+								
+<!-- 								<strong th:text="${bcomment.employee.hdcode}">임성윤</strong> -->
+<!-- 								<strong th:text="${who}">임성윤</strong> -->
+								
+								
 								<form th:action="@{/user.bcommnetdelete}" method="post" style="display: inline;">
 									<input type="hidden" th:value="${board.bnum}" name="bnum"/>
 									<input type="hidden" th:value="${bcomment.bcnum}" name="bcnum"/>
 									
-								 	<button type="button" class="bcommentdelete">삭제</button>
+								<th:block th:if = "${who} == ${bcomment.employee.hdcode} " >
+              					<button type="button" class="bcommentdelete">삭제</button>
+				              	</th:block>
+				              	<th:block th:unless = "${who} == ${bcomment.employee.hdcode} ">
+				              	<th:block sec:authorize="hasRole('ROLE_ADMIN')">
+				              			<button type="button" class="bcommentdelete">삭제</button>
+				              	</th:block>
+				              	</th:block>	
+								 	
 								 	
 								 </form>
+								 
+								 
 								<br />
 								<span th:text="${bcomment.bccontent}">You successfully read this important alert message.</span>
 								</div>
@@ -97,7 +150,7 @@
                                
             </div>
           
-				  <!--  Modals-->
+				  <!--  Modals1-->
                    
                         
                        
@@ -111,13 +164,17 @@
                                             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                                             <h4 class="modal-title" id="myModalLabel" ><th:text>댓글 수정하기</th:text></h4>
                                         </div>
-                                        <form action="" method="post">
+                                        <form th:action="@{/user.bcommentupdate}" method="post">
                                         <div class="modal-body" >
                                             <textarea id="bcommentupdate" class="form-control" rows="3" style="resize: none;" name="bccontent"></textarea>
                                         </div>
+                                        <input type="hidden" id="bcommentupdate_bcwriter" name="bcwriter"  value="" />
+                                        <input type="hidden" id="bcommentupdate_bcreply" name="bcreply" value=""/>
+                                        <input type="hidden" value="" id="bcommentupdate_bcnum" name="bcnum"/>
+                                        <input type="hidden" th:value="${board.bnum}" name="bnum"/>
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                            <button type="button" class="btn btn-primary">Save changes</button>
+                                            <button type="submit" class="btn btn-primary">Save changes</button>
                                         </div>
                                         </form>
                                     </div>
@@ -132,6 +189,8 @@
  <script >
  var token = $("meta[name='_csrf']").attr("content");
 	var header = $("meta[name='_csrf_header']").attr("content");
+	
+	var jsondata =null;
  function bcommentupdate(bcnum){
 		var bcnum = bcnum
 		console.log(bcnum)
@@ -145,9 +204,19 @@
 				xhr.setRequestHeader(header, token);
             },
             success: function (data) {
-            	
+            	jsondata=JSON.parse(data)
+            	console.log(jsondata.bcnum)
                console.log(data)
-               $('#bcommentupdate').html(data)
+               $('#bcommentupdate').html(jsondata.bccontent)
+               
+               console.log($('#bcommentupdate_bcnum').val())
+               
+               $('#bcommentupdate_bcnum').val(jsondata.bcnum)
+               
+               console.log($('#bcommentupdate_bcnum').val())
+               $('#bcommentupdate_bcwriter').val(jsondata.bcwriter)
+               $('#bcommentupdate_bcreply').val(jsondata.bcreply)
+               
             },
             error: function (e) {
                 console.log("ERROR : ", e);

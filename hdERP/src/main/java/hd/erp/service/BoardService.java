@@ -53,6 +53,7 @@ public class BoardService {
 		newbcomment.setBcreply(-1L);//리플
 		newbcomment.setBcwriter(emp.getHdname());//댓 작성자
 		newbcomment.setBoard(board);//어떤게시판의 댓글인가
+		newbcomment.setEmployee(emp);//사원객체
 		
 		bcommentrepository.save(newbcomment);//댓글 등록
 	}
@@ -68,6 +69,26 @@ public class BoardService {
 	public BcommentEntity updateget_bcommnet(Long bcnum) {
 		Optional<BcommentEntity> bc =bcommentrepository.findById(bcnum);
 		return bc.get();
+	}
+	//댓수정 리얼 댓수정
+	public void updatebcomment(BcommentEntity bcomment , Long bnum) {
+		
+//		BoardEntity board= getboard(bnum);
+//		bcomment.setBcdate(new Date());
+//		bcomment.setBoard(board);
+		
+		
+		
+		BoardEntity board= getboard(bnum);
+		Optional<BcommentEntity> bcommentopt = bcommentrepository.findById(bcomment.getBcnum());
+		BcommentEntity bcommented = bcommentopt.get();
+		bcommented.setBcdate(new Date());
+		bcommented.setBoard(board);
+		bcommented.setBccontent(bcomment.getBccontent());
+		
+		
+		bcommentrepository.save(bcommented);
+		
 	}
 	
 	
@@ -85,6 +106,15 @@ public class BoardService {
 	public BoardEntity getboard(Long bnum) {
 		return boardrepository.findByBnum(bnum);
 	}
+	
+	//조회수 올리기
+	public void gohit(BoardEntity board) {
+		Long hit = board.getBhit();
+		hit++;
+		board.setBhit(hit);
+		boardrepository.save(board);
+	}
+	
 	
 	
 	//게시판 글쓰기
