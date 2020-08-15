@@ -118,6 +118,16 @@ public class BoardController {
 		return"redirect:/user.boarddetail?bnum="+bnum;
 	}
 	
+	//게시판 댓글 수정 모달 클릭시
+	@PostMapping("/user.bcommentupdate_modal")
+	@ResponseBody
+	public String bcommentupdate(Long bcnum){
+		System.out.println("bcnum = >>" +bcnum);
+		BcommentEntity board = boardservice.updateget_bcommnet(bcnum);
+		String bccontent=board.getBccontent();
+		System.out.println("bccontent >" +bccontent);
+		return bccontent;
+	}
 	
 	//게시판쓰기
 	@GetMapping("/user.boardwrite")

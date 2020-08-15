@@ -63,7 +63,7 @@
 
 								<div style="border: 1px solid black;">
 								<strong th:text="${bcomment.bcwriter}">임성윤</strong><span th:text="${bcomment.bcdate}">2020-08-01</span><span style="visibility: hidden;" th:text="${bcomment.bcnum}">bcnum</span> 
-								<button data-toggle="modal" data-target="#myModal">수정</button>
+								<button data-toggle="modal" data-target="#myModal" th:onclick="bcommentupdate([[${bcomment.bcnum}]])">수정</button>
 								<form th:action="@{/user.bcommnetdelete}" method="post" style="display: inline;">
 									<input type="hidden" th:value="${board.bnum}" name="bnum"/>
 									<input type="hidden" th:value="${bcomment.bcnum}" name="bcnum"/>
@@ -109,15 +109,17 @@
                                     <div class="modal-content">
                                         <div class="modal-header">
                                             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                                            <h4 class="modal-title" id="myModalLabel">Modal title Here</h4>
+                                            <h4 class="modal-title" id="myModalLabel" ><th:text>댓글 수정하기</th:text></h4>
                                         </div>
-                                        <div class="modal-body">
-                                            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                                        <form action="" method="post">
+                                        <div class="modal-body" >
+                                            <textarea id="bcommentupdate" class="form-control" rows="3" style="resize: none;" name="bccontent"></textarea>
                                         </div>
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                                             <button type="button" class="btn btn-primary">Save changes</button>
                                         </div>
+                                        </form>
                                     </div>
                                 </div>
                             </div>
@@ -128,7 +130,31 @@
 
 <th:block layout:fragment="script">
  <script >
-            
+ var token = $("meta[name='_csrf']").attr("content");
+	var header = $("meta[name='_csrf_header']").attr("content");
+ function bcommentupdate(bcnum){
+		var bcnum = bcnum
+		console.log(bcnum)
+		$.ajax({
+            type: "POST",
+            url: "/user.bcommentupdate_modal",
+            dataType : 'text',
+            data: {'bcnum':bcnum},
+            beforeSend : function(xhr)
+            {   /*데이터를 전송하기 전에 헤더에 csrf값을 설정한다*/
+				xhr.setRequestHeader(header, token);
+            },
+            success: function (data) {
+            	
+               console.log(data)
+               $('#bcommentupdate').html(data)
+            },
+            error: function (e) {
+                console.log("ERROR : ", e);
+
+            }
+        });
+ }
 			window.onload=function(){
 				/*<![CDATA[*/
 				var e ="[[ ${board.bcontent} ]]";
@@ -140,6 +166,8 @@
 				$('.bcommentdelete').click(function() {
 					$(this).parent().submit();
 				})
+				
+			
 				
 				
 			}
