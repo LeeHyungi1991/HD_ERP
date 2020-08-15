@@ -64,9 +64,10 @@ public class BoardService {
 	}
 	
 	
-	//´ñ¼öÁ¤
-	public void updatebcomment() {
-		
+	//´ñ¼öÁ¤ ´ñ±Û °¡Á®¿À±â
+	public BcommentEntity updateget_bcommnet(Long bcnum) {
+		Optional<BcommentEntity> bc =bcommentrepository.findById(bcnum);
+		return bc.get();
 	}
 	
 	
