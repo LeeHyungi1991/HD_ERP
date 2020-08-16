@@ -83,16 +83,32 @@
 							  
 							<div class="panel-body"> 
 								<th:block th:each="bcomment: ${bcomments}">
-
-								<div style="border: 1px solid black;">
+								<hr />
+								<th:block th:if="${bcomment.bcdepth} == '2' ">
+								<div style="width: 50px; display: inline-block;"></div>
+								</th:block>
+								<th:block th:if="${bcomment.bcdepth} == '3' ">
+								<div style="width: 100px; display: inline-block;"></div>
+								</th:block>
+								<th:block th:if="${bcomment.bcdepth} == '4' ">
+								<div style="width: 150px; display: inline-block;"></div>
+								</th:block>
+								<th:block th:if="${bcomment.bcdepth} > '4' ">
+								<div style="width: 200px; display: inline-block;"></div>
+								</th:block>
+								
+								
+								<div style="border: 0px solid black; display: inline-block;" >
+								
+								
 								<strong th:text="${bcomment.bcwriter}">임성윤</strong><span th:text="${bcomment.bcdate}">2020-08-01</span><span style="visibility: hidden;" th:text="${bcomment.bcnum}">bcnum</span>
 								
-								 [[${bcomment.bcnum}]]
+								 
 								<button data-toggle="modal" data-target="#myModal2" th:data-id="${bcomment.bcnum}" th:data-name="${bcomment.bcwriter}" th:data-content="${bcomment.bccontent}" class="reply">대댓</button>
 								
 								
 								<th:block th:if = "${who} == ${bcomment.employee.hdcode} " >
-              					<button data-toggle="modal" data-target="#myModal" th:onclick="bcommentupdate([[${bcomment.bcnum}]])">수정[[${bcomment.bcnum}]]</button>
+              					<button data-toggle="modal" data-target="#myModal" th:onclick="bcommentupdate([[${bcomment.bcnum}]])">수정</button>
 				              	</th:block>
 				              	<th:block th:unless = "${who} == ${bcomment.employee.hdcode} ">
 				              	<th:block sec:authorize="hasRole('ROLE_ADMIN')">
@@ -127,11 +143,12 @@
 								 
 								 
 								<br />
-								<span th:text="${bcomment.bccontent}">You successfully read this important alert message.</span>
+								
+								<span th:text="${bcomment.bccontent}" style="margin: 0;padding-left: 10px;">You successfully read this important alert message.</span>
 								</div>
+								
 								<br />
 								
-								</th:block>
 								
 							</div>
 							</div>
@@ -171,7 +188,7 @@
                                             <textarea id="bcommentupdate" class="form-control" rows="3" style="resize: none;" name="bccontent"></textarea>
                                         </div>
                                         <input type="hidden" id="bcommentupdate_bcwriter" name="bcwriter"  value="" />
-                                        <input type="hidden" id="bcommentupdate_bcreply" name="bcreply" value=""/>
+<!--                                         <input type="hidden" id="bcommentupdate_bcreply" name="bcreply" value=""/> --><!-- 이놈이 문제냐? -->
                                         <input type="hidden" value="" id="bcommentupdate_bcnum" name="bcnum"/>
                                         <input type="hidden" th:value="${board.bnum}" name="bnum"/>
                                         <div class="modal-footer">

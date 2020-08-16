@@ -129,11 +129,12 @@ public class BoardService {
 			System.out.println("bccontent >>"+b.getBc_content());
 			bcentity.setBccontent(b.getBc_content());
 			
-			System.out.println("bcdepth"+b.getBc_depth());
+			System.out.println("bcdepth>>"+b.getBc_depth());
 			bcentity.setBcdepth(b.getBc_depth());
 			
-			System.out.println("bc_writer"+b.getBc_writer());
+			System.out.println("bc_writer>>"+b.getBc_writer());
 			bcentity.setBcwriter(b.getBc_writer());
+			System.out.println("deptn entity <<"+bcentity.getBcdepth());
 			
 			System.out.println("board >>"+b.getBoard_b_num());
 			bcentity.setBoard(boardrepository.findByBnum(b.getBoard_b_num()));
