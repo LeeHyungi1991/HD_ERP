@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+  layout:decorator="~{layouts/layout}">
+
+
+<th:block layout:fragment="content">
+		<div class="header"> 
+		
+                        <h1 class="page-header">
+                            Dashboard <small>Welcome John 윤</small>
+                        </h1>
+						<ol class="breadcrumb">
+					  <li><a href="#">Home</a></li>
+					  <li><a href="#">Dashboard</a></li>
+					  <li class="active">Data</li>
+					</ol> 
+									
+		</div>
+            <div id="page-inner">
+
+            	
+				<form method="post" th:action="@{/user.docwrite}">
+					<input type="text" class="form-control" placeholder="제목" id="btitle" name="btitle"  />
+					<hr />
+				  <textarea id="summernote" name="bcontent" ></textarea>
+				  <input type="button" class="btn btn-primary btn-lg btn-block" id="submit" value="작성" />
+				  <a th:href="@{/user.board(nowpage=${session.nowpage})}"><button type="button" class="btn btn-warning btn-lg btn-block">뒤로가기</button></a>
+				</form>
+			  
+				
+
+<!-- 				<div class="jumbotron"> -->
+<!--                         <h1>제목</h1> -->
+<!--                         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum tincidunt est vitae ultrices accumsan. Aliquam ornare lacus adipiscing, posuere lectus et, fringilla augue. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum tincidunt est vitae ultrices accumsan. Aliquam ornare lacus adipiscing.</p> -->
+
+<!--               	</div> 	 -->
+
+            </div>
+     
+           
+</th:block>
+
+
+<th:block layout:fragment="script">
+<script th:src="@{summernote/summernote-lite.js}"></script>
+<script th:src="@{summernote/summernote-ko-KR.js}"></script>
+
+<script>
+window.onload=function(){
+	
+	
+	//alert('asdf')
+	//여기 아래 부분
+	$('#summernote').summernote({
+		  height: 300,                 // 에디터 높이
+		  minHeight: null,             // 최소 높이
+		  maxHeight: null,             // 최대 높이
+		  focus: true,                  // 에디터 로딩후 포커스를 맞출지 여부
+		  lang: "ko-KR",					// 한글 설정
+		  placeholder: '최대 2048자까지 쓸 수 있습니다',	//placeholder 설정
+		  callbacks:{
+			  onImageUpload:function(files){
+				  uploadSummernoteImageFile(files[0],this)
+			  }
+		  }
+          
+	});
+	
+
+	function uploadSummernoteImageFile(file, editor){
+		console.log('asdf')
+		var token = $("meta[name='_csrf']").attr("content");
+		var header = $("meta[name='_csrf_header']").attr("content");
+		var data = new FormData();
+		data.append('file',file);
+		$.ajax({
+			data:data,
+			type: "POST",
+			url:' /user.boardwriteimg',
+			//cache:false,
+			contentType:false,
+			enctype:'multipart/form-data',
+			beforeSend : function(xhr)
+            {   /*데이터를 전송하기 전에 헤더에 csrf값을 설정한다*/
+				xhr.setRequestHeader(header, token);
+            },
+			processData:false,
+			success:function(data){
+				$(editor).summernote('insertImage',data.url);
+			
+			}
+		})
+	}
+	
+	
+	$('#submit').click(function() {
+		
+		if($('#btitle').val()===""){
+			$('#submit').attr("type", "button")
+			alert("제목을 적어야 합니다.")
+			
+		}else{
+			$('#submit').attr("type", "submit")
+		}
+	})
+}
+</script>
+
+</th:block>
+
+
+
+
+<th:block layout:fragment="css">
+       <link rel="stylesheet" th:href="@{summernote/summernote-lite.css}">
+</th:block>
+</html>

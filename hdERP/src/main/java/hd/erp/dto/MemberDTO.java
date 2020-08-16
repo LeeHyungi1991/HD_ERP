@@ -15,8 +15,18 @@ MEM_LOC       NOT NULL VARCHAR2(100)
 MEM_JOB                NUMBER        
 MEM_REIP               VARCHAR2(20)  
  * */
+
+import java.util.Date;
+
+import org.apache.ibatis.type.Alias;
+
+import lombok.Data;
+@Data
+@Alias(value = "mem")
 public class MemberDTO {
 
 	private int mem_code,mem_pri_chk,mem_email_chk,mem_job;
+	private String mem_email,mem_pwd,mem_name,mem_phn,mem_birth,mem_gender,mem_log,mem_reip;
+	private Date mem_in_date;
 	
 }

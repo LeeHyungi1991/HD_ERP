@@ -9,4 +9,12 @@ public class EmployeeManageController {
 	public String manageindex() {
 		return "empManage/Emanage";
 	}
+	@GetMapping(value = "/user.docwrite")
+	public String docwrite() {
+		return "empManage/docwrite";
+	}
+	@GetMapping(value = "/user.document")
+	public String document() {
+		return "empManage/document";
+	}
 }

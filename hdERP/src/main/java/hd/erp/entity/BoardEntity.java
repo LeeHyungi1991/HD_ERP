@@ -24,7 +24,11 @@ import lombok.Data;
 @Table(name = "board")
 @Data
 public class BoardEntity {
-	
+	/*
+create sequence board_seq
+start with 1
+INCREMENT by 1;
+	 * */
 	@Id@GeneratedValue(strategy = GenerationType.SEQUENCE,generator = "board_seq")
 	@SequenceGenerator(allocationSize = 1,name = "board_seq",sequenceName = "board_seq")
 	@Column(name = "b_num")

@@ -36,6 +36,13 @@ public class BcommentEntity implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 
+	
+	/*
+create sequence bcomment_seq
+start with 1
+INCREMENT by 1;
+	 * */
+	
 	@Id@GeneratedValue(strategy = GenerationType.SEQUENCE,generator = "bcomment_seq")
 	@SequenceGenerator(allocationSize = 1,name = "bcomment_seq",sequenceName = "bcomment_seq")
 	@Column(name = "bc_num")

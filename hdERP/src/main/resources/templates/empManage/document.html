@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+  layout:decorator="~{layouts/layout}">
+
+
+<th:block layout:fragment="content">
+		<div class="header"> 
+		
+                        <h1 class="page-header">
+                            Dashboard <small>Welcome John 윤</small>
+                        </h1>
+						<ol class="breadcrumb">
+					  <li><a href="#">Home</a></li>
+					  <li><a href="#">Dashboard</a></li>
+					  <li class="active">Data</li>
+					</ol> 
+									
+		</div>
+            <div id="page-inner">
+				<table border="1">
+					<thead>
+						<tr>
+							<td colspan="4">owspan="4"</td>
+						</tr>
+						<tr>
+							<td rowspan="2">olspan="2"</td>
+							<td>1</td>
+							<td>2</td>
+							<td>3</td>
+						</tr>
+						<tr>
+							
+							<td>1-1</td>
+							<td>2-1</td>
+							<td>3-2</td>
+						</tr>
+						
+					</thead>
+					<tbody>
+						<tr>
+							<td colspan="4">asdf</td>
+							
+						</tr>
+						<tr>
+							<td colspan="4"> 본문</td>
+						</tr>
+					
+					</tbody>
+					<tfoot>
+						<tr>
+							<td colspan="4"> 버튼</td>
+						</tr>
+					</tfoot>
+				</table>
+            	
+            </div>
+     
+           
+</th:block>
+
+
+<th:block layout:fragment="script">
+
+
+
+
+</th:block>
+
+
+
+
+<th:block layout:fragment="css">
+     
+</th:block>
+</html>

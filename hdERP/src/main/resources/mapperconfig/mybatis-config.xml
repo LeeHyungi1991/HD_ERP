@@ -11,5 +11,6 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 		<mappers>
 			<mapper resource="mapper/defaultmapper.xml"/>
 			<mapper resource="mapper/Hierarchical.xml"/>
+			<mapper resource="mapper/MemberManageMapper.xml"/>
 		</mappers>
 	</configuration>
