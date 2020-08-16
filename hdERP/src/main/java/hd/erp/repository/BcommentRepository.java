@@ -10,8 +10,11 @@ import hd.erp.entity.BoardEntity;
 
 @Repository
 public interface BcommentRepository extends JpaRepository<BcommentEntity,Long>{
-	//게시판 번호로 게시판 댓글가져오기
+	//게시판 번호로 게시판 댓글가져오기 취소임
 	List<BcommentEntity> findByBoard(BoardEntity board);
 	//게시판 글순으로 해야지 ㅠ
 	List<BcommentEntity> findAllByBoardOrderByBcnumAsc(BoardEntity board);
+	
+	//이거냐 ㅠ
+	List<BcommentEntity> findAllByBoardOrderByBcnumAscBcreplyAsc(BoardEntity board);
 }

@@ -2,10 +2,13 @@
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
+
+import javax.persistence.EntityManager;
 
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +19,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import hd.erp.config.ApplicationYamlRead;
+import hd.erp.dao.BcommentDAO;
+import hd.erp.dto.BcommentDTO;
 import hd.erp.entity.BcommentEntity;
 import hd.erp.entity.BoardEntity;
 import hd.erp.entity.EmployeeEntity;
@@ -40,6 +45,16 @@ public class BoardService {
 	@Autowired
 	ApplicationYamlRead applicationyamlread;
 	
+	@Autowired
+	EntityManager entitymanager;
+	
+	@Autowired
+	BcommentDAO bcommentdao;
+
+	private List<BcommentEntity> tree;
+
+	
+	
 	
 	//댓작성
 	public void insertbcomment(BcommentEntity bcomment, Long bnum,Long hdcode) {
@@ -50,7 +65,7 @@ public class BoardService {
 		
 		newbcomment.setBcdate(new Date());//작성일
 		newbcomment.setBccontent(bcomment.getBccontent());//댓글내용
-		newbcomment.setBcreply(-1L);//리플
+		//newbcomment.setBcreply(-1L);//리플
 		newbcomment.setBcwriter(emp.getHdname());//댓 작성자
 		newbcomment.setBoard(board);//어떤게시판의 댓글인가
 		newbcomment.setEmployee(emp);//사원객체
@@ -94,8 +109,87 @@ public class BoardService {
 	
 	//댓리스트
 	public List<BcommentEntity> listbcommnet(BoardEntity board) {
-		return bcommentrepository.findAllByBoardOrderByBcnumAsc(board);
+		//List<BcommentEntity> bcomments = bcommentrepository.findAllByBoardOrderByBcnumAsc(board);
+		List<BcommentEntity> bcomments = bcommentrepository.findAllByBoardOrderByBcnumAsc(board);
+		System.out.println("bcomm is >>"+bcomments);
+		
+		List<BcommentDTO> hierlist = bcommentdao.hierarchical(board.getBnum());
+		
+		System.out.println("hiersize >>"+hierlist.size());
+		List<BcommentEntity> hierlistentity = new ArrayList<BcommentEntity>();
+		for(BcommentDTO b : hierlist) {
+			BcommentEntity bcentity = new BcommentEntity();
+			
+			System.out.println("bcnum>>"+b.getBc_num());
+			bcentity.setBcnum(b.getBc_num());
+			
+			System.out.println("bcdate>>"+b.getBc_date());
+			bcentity.setBcdate(b.getBc_date());
+			
+			System.out.println("bccontent >>"+b.getBc_content());
+			bcentity.setBccontent(b.getBc_content());
+			
+			System.out.println("bcdepth"+b.getBc_depth());
+			bcentity.setBcdepth(b.getBc_depth());
+			
+			System.out.println("bc_writer"+b.getBc_writer());
+			bcentity.setBcwriter(b.getBc_writer());
+			
+			System.out.println("board >>"+b.getBoard_b_num());
+			bcentity.setBoard(boardrepository.findByBnum(b.getBoard_b_num()));
+			
+			System.out.println("employee >>"+b.getEmployee_hd_code());
+			bcentity.setEmployee(employeerepository.findByhdcode(b.getEmployee_hd_code()).get());
+			
+			System.out.println("bcreply >>"+b.getBc_reply());
+			if(b.getBc_reply() != null) {
+			bcentity.setBcreply(bcommentrepository.findById(b.getBc_reply()).get());
+			}
+			System.out.println("============================");
+			hierlistentity.add(bcentity);
+			
+		}
+		
+		System.out.println("<><>hierlistentitysize"+hierlistentity.size());
+		return hierlistentity;
+
+		
+		
+		
+		
+		
+		//return bcommentrepository.findAllByBoardOrderByBcnumAscBcreplyAsc(board);// ㄴㄴㄴㄴ
+		
+		
+		//return bcommentrepository.findAllByBoardOrderByBcnumAsc(board);
 	}
+
+	
+
+	
+	
+	
+	
+	
+	
+	//대댓 작성
+	public void insertreply(BcommentEntity bcomment,Long thisbcnum, Long hdcode, Long bnum) {
+		BcommentEntity thisbcomment =getbcomment(thisbcnum);
+		EmployeeEntity emp = getemployee(hdcode);
+		BoardEntity board = getboard(bnum);
+		
+		bcomment.setBcdate(new Date());
+		bcomment.setBcreply(thisbcomment);
+		bcomment.setBoard(board);
+		bcomment.setEmployee(emp);
+		bcomment.setBcwriter(emp.getHdname());
+		
+		bcommentrepository.save(bcomment);
+		
+		
+	}
+	
+	
 	
 	//id를 통하여 employee객체 얻기
 	public EmployeeEntity getemployee(Long hdcode) {
@@ -105,6 +199,11 @@ public class BoardService {
 	//id를 통하여 Board객체 얻기
 	public BoardEntity getboard(Long bnum) {
 		return boardrepository.findByBnum(bnum);
+	}
+	//id를 통하여 bcomment객체 얻기
+	public BcommentEntity getbcomment(Long bcnum) {
+		Optional<BcommentEntity> bcomment = bcommentrepository.findById(bcnum);
+		return bcomment.get();
 	}
 	
 	//조회수 올리기

@@ -87,10 +87,12 @@
 								<div style="border: 1px solid black;">
 								<strong th:text="${bcomment.bcwriter}">임성윤</strong><span th:text="${bcomment.bcdate}">2020-08-01</span><span style="visibility: hidden;" th:text="${bcomment.bcnum}">bcnum</span>
 								
+								 [[${bcomment.bcnum}]]
+								<button data-toggle="modal" data-target="#myModal2" th:data-id="${bcomment.bcnum}" th:data-name="${bcomment.bcwriter}" th:data-content="${bcomment.bccontent}" class="reply">대댓</button>
 								
 								
 								<th:block th:if = "${who} == ${bcomment.employee.hdcode} " >
-              					<button data-toggle="modal" data-target="#myModal" th:onclick="bcommentupdate([[${bcomment.bcnum}]])">수정</button>
+              					<button data-toggle="modal" data-target="#myModal" th:onclick="bcommentupdate([[${bcomment.bcnum}]])">수정[[${bcomment.bcnum}]]</button>
 				              	</th:block>
 				              	<th:block th:unless = "${who} == ${bcomment.employee.hdcode} ">
 				              	<th:block sec:authorize="hasRole('ROLE_ADMIN')">
@@ -162,7 +164,7 @@
                                     <div class="modal-content">
                                         <div class="modal-header">
                                             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                                            <h4 class="modal-title" id="myModalLabel" ><th:text>댓글 수정하기</th:text></h4>
+                                            <h4 class="modal-title" id="myModalLabel1" ><th:text>댓글 수정하기</th:text></h4>
                                         </div>
                                         <form th:action="@{/user.bcommentupdate}" method="post">
                                         <div class="modal-body" >
@@ -182,12 +184,46 @@
                             </div>
                        
                      <!-- End Modals-->
+                     				  <!--  Modals2-->
+                   
+                        
+                       
+<!--                             <button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal"> -->
+<!--                               Click  Launch Demo Modal -->
+<!--                             </button> -->
+                            <div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                            <h4 class="modal-title" id="myModalLabel2" ><th:text>대댓</th:text></h4>
+                                            <input type="text" value="" class="form-control" id="thiscontent"  readonly="readonly"/>
+                                            <h4>댓글에 댓글 남기기</h4>
+                                        </div>
+                                        <form th:action="@{/user.bcommentreply}" method="post">
+                                        <div class="modal-body" >
+                                           <textarea rows="" cols="" id="replycontent" class="form-control" name="bccontent" style="resize: none;"></textarea>
+                                        </div>
+                                       
+                                    
+                                        <input type="hidden" value=""  id="thisbcnum" name="thisbcnum"/>
+                                        <input type="hidden" th:value="${board.bnum}" name="bnum"/>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                            <button type="submit" class="btn btn-primary">입력하기</button>
+                                        </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                       
+                     <!-- End Modals-->
            
 </th:block>
 
 <th:block layout:fragment="script">
  <script >
- var token = $("meta[name='_csrf']").attr("content");
+ 	var token = $("meta[name='_csrf']").attr("content");
 	var header = $("meta[name='_csrf_header']").attr("content");
 	
 	var jsondata =null;
@@ -236,7 +272,12 @@
 					$(this).parent().submit();
 				})
 				
-			
+				$('.reply').click(function() {
+					$('#thisbcnum').val($(this).data('id'))
+					$('#thiscontent').val($(this).data('content'))
+					$('#myModalLabel2').html($(this).data('name')+' 님의')
+					
+				})
 				
 				
 			}

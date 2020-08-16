@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	<mapper namespace="hd.erp.dao.BcommentDAO">
+	
+	<select id="hierarchical" resultType="bc" >
+		select bc_num,bc_content,bc_date,bc_writer,bc_reply,board_b_num,employee_hd_code ,level bc_depth
+		from bcomment
+		where board_b_num=#{bnum}
+		start with bc_reply is null
+		connect by prior bc_num=bc_reply
+	</select>
+
+	
+	</mapper>

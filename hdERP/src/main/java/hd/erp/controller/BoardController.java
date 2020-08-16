@@ -161,6 +161,17 @@ public class BoardController {
 		return "redirect:/user.boarddetail?bnum="+bnum;
 	}
 	
+	//게시판 대댓 작성
+	@PostMapping("/user.bcommentreply")
+	public String bcommentreply(BcommentEntity bcomment,Long bnum,Long thisbcnum,Principal principal) {
+		
+		System.out.println("thisbcnum ="+thisbcnum);
+		boardservice.insertreply(bcomment, thisbcnum, Long.parseLong(principal.getName()), bnum);
+		
+		return "redirect:/user.boarddetail?bnum="+bnum;
+	}
+	
+	
 	//게시판쓰기
 	@GetMapping("/user.boardwrite")
 	public String boardwrite() {
