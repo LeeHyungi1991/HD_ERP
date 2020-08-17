@@ -87,9 +87,9 @@ public class EmployeeManageController {
 		List<DocumentEntity> ignoredoc = docs.get("ignoredoc");
 		List<DocumentEntity> ingdoc = docs.get("ingdoc");
 		
-//		m.addAttribute("completedoc", completedoc);
-//		m.addAttribute("ignoredoc", ignoredoc);
-//		m.addAttribute("ingdoc", ingdoc);
+		m.addAttribute("completedoc", completedoc);
+		m.addAttribute("ignoredoc", ignoredoc);
+		m.addAttribute("ingdoc", ingdoc);
 		
 		
 		return "empManage/docmanage";

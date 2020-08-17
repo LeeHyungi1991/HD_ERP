@@ -61,19 +61,29 @@ public class EmployeeManageService {
 	
 	//기안하기 폼전송 저장
 	public void documentinsert(DocumentEntity document, String emp1,String emp2, String emp3, String mynum) {
+		System.out.println("시작");
 		DocumentEntity doc = new DocumentEntity();
-		EmployeeEntity appemp1 = employeerepository.findByhdcode(Long.parseLong(emp1)).get();
-		EmployeeEntity appemp2 = employeerepository.findByhdcode(Long.parseLong(emp2)).get();
-		EmployeeEntity appemp3 = employeerepository.findByhdcode(Long.parseLong(emp3)).get();
-		
+		EmployeeEntity appemp1 =null;
+		EmployeeEntity appemp2=null;
+		EmployeeEntity appemp3=null;
+		if(emp1 != null) {
+		appemp1 = employeerepository.findByhdcode(Long.parseLong(emp1)).get();
+		}
+		if(emp2 != null){
+		appemp2 = employeerepository.findByhdcode(Long.parseLong(emp2)).get();
+		}
+		if(emp3 !=null) {
+		appemp3 = employeerepository.findByhdcode(Long.parseLong(emp3)).get();
+		}
+		System.out.println("시작123");
 		EmployeeEntity myemp = employeerepository.findByhdcode(Long.parseLong(mynum)).get();
-		
+		System.out.println("--=-=-=-==-");
 		doc.setDocdate(new Date());
 		doc.setDocfirstemp(appemp1);
 		doc.setDocsecondemp(appemp2);
 		doc.setDocthirdemp(appemp3);
 		doc.setDocdrafter(myemp);
-		
+		System.out.println(myemp);
 		if(myemp.getHdlevel().equals("ADMIN")) {
 			doc.setDocstatus(2);
 		}else if(myemp.getHdlevel().equals("MEMBER")) {
