@@ -43,7 +43,10 @@
                                         	<td th:text="${doc.docnum}"></td>
                                         	<td th:text="${doc.doctitle}"></td>
                                         	<td th:text="${doc.docdate}"></td>
-                                        	<td th:text="${doc.docstatus}"></td>
+                                        	
+                                        	<th:block th:if="${doc.docstatus == 3}">
+                                        	<td th:text="최종"></td>
+                                        	</th:block>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -83,10 +86,18 @@
                                     </thead>
                                     <tbody>
                                         <tr th:each="doc : ${ingdoc}" class="ingdoc">
+                                        
+                                        <th:block th:if="${doc.docdrafter.hdcode} == ${myemp.hdcode}">
                                         	<td th:text="${doc.docnum}"></td>
                                         	<td th:text="${doc.doctitle}"></td>
                                         	<td th:text="${doc.docdate}"></td>
-                                        	<td th:text="${doc.docstatus}"></td>
+                                        	
+                                        	<th:block th:switch="${doc.docstatus}">
+                                        		<td th:case="0"> 1차결재진행중</td>
+                                        		<td th:case="1"> 2차결재진행중</td>
+                                        		<td th:case="2"> 3차결재진행중</td>
+                                        	</th:block>
+                                       	</th:block>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -127,10 +138,15 @@
                                     </thead>
                                     <tbody>
                                         <tr th:each="doc : ${ignoredoc}" class="ignoredoc">
-                                        	<td th:text="${doc.docnum}"></td>
-                                        	<td th:text="${doc.doctitle}"></td>
-                                        	<td th:text="${doc.docdate}"></td>
-                                        	<td th:text="${doc.docstatus}"></td>
+                                       
+                                        	<th:block th:if="${doc.docdrafter.hdcode} == ${myemp.hdcode}">
+	                                        	<td th:text="${doc.docnum}"></td>
+	                                        	<td th:text="${doc.doctitle}"></td>
+	                                        	<td th:text="${doc.docdate}"></td>
+	                                        	<th:block th:if="${doc.docstatus == -1}">
+	                                        	<td th:text="기각됨"></td>
+	                                        	</th:block>
+                                        	</th:block>
                                         </tr>
                                     </tbody>
                                 </table>

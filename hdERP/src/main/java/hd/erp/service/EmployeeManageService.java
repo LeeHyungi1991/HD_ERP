@@ -2,6 +2,7 @@ package hd.erp.service;
 
 import java.io.File;
 import java.io.IOException;
+import java.security.Principal;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -140,7 +141,10 @@ public class EmployeeManageService {
 		documentrepository.save(mydoc);
 		
 	}
-	
+	//사원객체 얻기
+	public EmployeeEntity getemp(Long hdcode) {
+		return employeerepository.findByhdcode(hdcode).get();
+	}
 	
 	//서류관리 들어갔을때 진행중서류,완료서류,기각서류 보기위함
 	public Map<String, List<DocumentEntity>> godocmanage(){
@@ -156,6 +160,8 @@ public class EmployeeManageService {
 		System.out.println("completedoc"+completedoc.size());
 		System.out.println("ignoredoc"+ignoredoc.size());
 		System.out.println("ingdoc"+ingdoc.size());
+		
+		
 		
 		return mydoclists;
 	}

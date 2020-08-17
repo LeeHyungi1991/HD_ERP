@@ -104,7 +104,9 @@ public class EmployeeManageController {
 		m.addAttribute("completedoc", completedoc);
 		m.addAttribute("ignoredoc", ignoredoc);
 		m.addAttribute("ingdoc", ingdoc);
+		EmployeeEntity myemp = employeemanageservice.getemp(Long.parseLong(principal.getName()));
 		
+		m.addAttribute("myemp", myemp);
 		
 		return "empManage/docmanage";
 	}
