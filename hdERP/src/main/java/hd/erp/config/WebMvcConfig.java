@@ -12,7 +12,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @Configuration
 @Component
 public class WebMvcConfig implements WebMvcConfigurer{
-	
+	 
 	@Autowired
 	ApplicationYamlRead applicationyamlread;
 	
