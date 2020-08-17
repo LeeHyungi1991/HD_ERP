@@ -7,10 +7,11 @@
 
 
 <th:block layout:fragment="content">
+		
 		<div class="header"> 
 		
                         <h1 class="page-header">
-                            Dashboard <small>Welcome John 윤</small>
+<!--                             Dashboard <small>Welcome John 윤</small> -->
                         </h1>
 						<ol class="breadcrumb">
 					  <li><a href="#">Home</a></li>
@@ -19,15 +20,77 @@
 					</ol> 
 									
 		</div>
+	
             <div id="page-inner">
-
-            	
-				<form method="post" th:action="@{/user.docwrite}">
-					<input type="text" class="form-control" placeholder="제목" id="btitle" name="btitle"  />
+            <form method="post" th:action="@{/user.docwrite}">
+            	<div style="margin-left: 20%; ">
+            	<th:block sec:authorize="hasAnyRole('ROLE_USER')">
+            		<label for="">1차결재자 : </label>
+            		<select name="docfirstemp_hdcode">
+            		
+            		<th:block th:if="${myemp.hdlevel} == 'USER'">
+            			<option th:text ="${myemp.hdname}" th:value="${myemp.hdcode}"></option>
+            		</th:block>
+            		<th:block th:unless="${myemp.hdlevel} == 'USER'">
+            		<option>1차결재자</option>
+            		<th:block th:each="user : ${userlist}" >
+            		
+             			<option th:text ="${user.hdname}" th:value="${user.hdcode}"></option>
+            		 
+					</th:block>
+					</th:block>
+					
+					</select>
+				</th:block>
+				<th:block sec:authorize="hasAnyRole('ROLE_MEMBER','ROLE_USER')">
+					<label for="">2차결재자 : </label>
+					<select name="docsecondemp_hdcode">
+					
+					<th:block th:if="${myemp.hdlevel} == 'MEMBER'">
+            			<option th:text ="${myemp.hdname}" th:value="${myemp.hdcode}"></option>
+            		</th:block>
+            		<th:block th:unless="${myemp.hdlevel} == 'MEMBER'">
+            		<option>2차결재자</option>
+            		<th:block th:each="member : ${memberlist}">
+            		
+             			<option th:text ="${member.hdname}" th:value="${member.hdcode}"></option>
+            		 
+					</th:block>
+					</th:block>
+					
+					</select>
+					</th:block>
+				<th:block sec:authorize="hasAnyRole('ROLE_ADMIN','ROLE_MEMBER','ROLE_USER')">
+					<label for="">3차결재자 : </label>	
+					<select name="docthirdemp_hdcode">
+					
+					<th:block th:if="${myemp.hdlevel} == 'ADMIN'">
+            			<option th:text ="${myemp.hdname}" th:value="${myemp.hdcode}"></option>
+            		</th:block>
+            		<th:block th:unless="${myemp.hdlevel} == 'ADMIN'">
+            		<option>1차결재자</option>
+            		<th:block th:each="admin : ${adminlist}">
+            		
+             			<option th:text ="${admin.hdname}" th:value="${admin.hdcode}"></option>
+            		 
+					</th:block>
+					</th:block>
+					
+					</select>
+				</th:block>
+            	</div>
+            	<br />
+            	<br />
+				
+					<h1 style="text-align: center;">제목</h1>
+					<br />
+					<input type="text" class="form-control" placeholder="제목" id="btitle" name="doctitle"  />
 					<hr />
-				  <textarea id="summernote" name="bcontent" ></textarea>
-				  <input type="button" class="btn btn-primary btn-lg btn-block" id="submit" value="작성" />
-				  <a th:href="@{/user.board(nowpage=${session.nowpage})}"><button type="button" class="btn btn-warning btn-lg btn-block">뒤로가기</button></a>
+					<h2 style="text-align: center;">내용</h2>
+					<br />
+				  <textarea id="summernote" name="doccontent" ></textarea>
+				  <input type="button" class="btn btn-primary btn-lg btn-block" id="submit" value="기안하기" />
+				  <a th:href="@{/user.docmanage}"><button type="button" class="btn btn-warning btn-lg btn-block">뒤로가기</button></a>
 				</form>
 			  
 				
@@ -116,5 +179,18 @@ window.onload=function(){
 
 <th:block layout:fragment="css">
        <link rel="stylesheet" th:href="@{summernote/summernote-lite.css}">
+       <style>
+       select {
+  width: 200px;
+  padding: .8em .5em;
+  font-family: inherit;
+  background: url(https://farm1.staticflickr.com/379/19928272501_4ef877c265_t.jpg) no-repeat 95% 50%;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  border: 1px solid #999;
+  border-radius: 0px;
+}
+       </style>
 </th:block>
 </html>

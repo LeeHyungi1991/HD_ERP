@@ -10,7 +10,7 @@
 		<div class="header"> 
 		
                         <h1 class="page-header">
-                            Dashboard <small>Welcome John 윤</small>
+<!--                             Dashboard <small>Welcome John 윤</small> -->
                         </h1>
 						<ol class="breadcrumb">
 					  <li><a href="#">Home</a></li>
@@ -20,29 +20,34 @@
 									
 		</div>
             <div id="page-inner">
-				<table border="1">
+            <div id="document">
+				<table>
 					<thead>
 						<tr>
-							<td colspan="4">owspan="4"</td>
+							<td colspan="4"></td>
 						</tr>
 						<tr>
-							<td rowspan="2">olspan="2"</td>
-							<td>1</td>
-							<td>2</td>
-							<td>3</td>
+							<td rowspan="2">HD BANK</td>
+							<td>기안자</td>
+							<td>중간관리자</td>
+							<td>최종관리자</td>
 						</tr>
 						<tr>
 							
-							<td>1-1</td>
-							<td>2-1</td>
-							<td>3-2</td>
+							<td><img th:src="@{img/3/signature.png}" alt=""  style="width: 150px; height: 100px;"/></td>
+							<td><img th:src="@{img/2/signature.png}" alt=""  style="width: 150px; height: 100px;"/></td>
+							<td><img th:src="@{img/1/signature.png}" alt=""  style="width: 150px; height: 100px;"/></td>
 						</tr>
 						
 					</thead>
 					<tbody>
 						<tr>
-							<td colspan="4">asdf</td>
+							<td colspan="4">제목</td>
 							
+						</tr>
+						<tr>
+							<td>작성자</td><td></td>
+							<td>날짜</td><td></td>
 						</tr>
 						<tr>
 							<td colspan="4"> 본문</td>
@@ -55,9 +60,40 @@
 						</tr>
 					</tfoot>
 				</table>
+				
             	
             </div>
-     
+            <div>
+        		<table id="buttons">
+        		<tr>
+        			<td>
+        				<button class="btn btn-primary btn-lg" style="width: 200px;">뒤로가기</button>
+        			</td>
+        			<td>
+        				<button class="btn btn-primary btn-lg" style="width: 200px;">수정하기</button>
+        			</td>
+        			<td>
+        				<button class="btn btn-primary btn-lg" style="width: 200px;">기각하기</button>
+        			</td>
+        			<td>
+        				<button class="btn btn-primary btn-lg" style="width: 200px;">결재하기</button>
+        			</td>
+        		</tr>
+        		</table>
+              
+              		
+             
+            		
+            	 
+            	
+            
+            		
+            </div>	
+              	
+           
+            
+        
+     </div>
            
 </th:block>
 
@@ -73,6 +109,73 @@
 
 
 <th:block layout:fragment="css">
+     <style>
+     #buttons{
+     position: absolute;
+     	
+   		left: 10%;
+   		top: 83%;
+    
+     }
      
+     
+     #document table{
+   		border: 1px solid black;
+   		background: white;
+   		position: absolute;
+   		left: 10%;
+     }
+     #document table thead tr:first-child td{
+     border : 1px solid black;
+     width: 800px;
+     height: 20px;
+     background: lightgreen;
+     }
+      #document table thead tr:nth-child(2) td{
+     background: royalblue;
+     border : 1px solid black;
+     height: 20px;
+     }
+/*      기안자*/
+      #document table thead tr:nth-child(2) td:nth-child(2){
+     background: royalblue;
+     border : 1px solid black;
+   	 width: 150px;
+   	 
+     }
+
+     
+     /*      중관*/
+      #document table thead tr:nth-child(2) td:nth-child(3){
+     background: royalblue;
+     border : 1px solid black;
+   	 width: 150px;
+     }
+     /*      최관*/
+      #document table thead tr:nth-child(2) td:nth-child(4){
+     background: royalblue;
+     border : 1px solid black;
+   	 width: 150px;
+     }
+     #document table thead tr:nth-child(3) td{
+     
+     border : 1px solid black;
+     height: 80px;
+     }
+     
+     #document table tbody tr:nth-child(1) td{
+    border : 1px solid black;
+    height: 150px;
+     }
+     #document table tbody tr:nth-child(3) td{
+    border : 1px solid black;
+    height: 500px;
+     }
+     
+     #document table tfoot tr td{
+    border : 1px solid black;
+    height: 100px;
+     }
+     </style>
 </th:block>
 </html>

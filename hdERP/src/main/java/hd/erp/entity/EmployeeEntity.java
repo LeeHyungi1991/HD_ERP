@@ -42,7 +42,7 @@ public class EmployeeEntity {
 	
 	@Column(name = "hd_level")
 	@NotNull
-	private String hd_level;
+	private String hdlevel;
 	
 	@Column(name = "hd_in_date")
 	@NotNull
@@ -86,7 +86,7 @@ public class EmployeeEntity {
 			String hd_gender, String hd_phn, String hd_email, String hd_loc, String hd_pw,String hd_admin_pw) {
 		super();
 		this.hdcode = hdcode;
-		this.hd_level = hd_level;
+		this.hdlevel = hd_level;
 		this.hd_in_date = hd_in_date;
 		this.hdname = hd_name;
 		this.hd_birth = hd_birth;

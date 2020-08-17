@@ -49,7 +49,7 @@ public class DefaultController {
 	public String loginsuccess() {
 		return"index";
 	}
-	@GetMapping("/register")
+	@GetMapping("/member.register")
 	public String register() {
 		return"register";
 	}

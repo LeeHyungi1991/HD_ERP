@@ -15,9 +15,16 @@
 		<i class="fa fa-bars icon"></i> 
 		</div>
             </div>
-
+<!-- 			<div th:with="value1=${emp.hdname},  value2=false" > -->
+<!-- 			<span th:text="|${value1}|"></span> -->
+<!-- 			</div> -->
             <ul class="nav navbar-top-links navbar-right">
-            <li sec:authentication="name"></li>
+<!--             <li sec:authentication="name"></li> -->
+<!--             <li>번 사원 </li> -->
+<!--             <li th:text="${emp.hdname} == null ? 'sf' : ${emp.hdname}"></li> -->
+<!--             <li> 님 환영합니다.</li> -->
+<!--             <li>내 권한 : </li> -->
+<!--             <li th:text="${emp.hdlevel}"></li> -->
             
 <!--                 <li class="dropdown"> -->
 <!--                     <a class="dropdown-toggle" data-toggle="dropdown" href="#" aria-expanded="false"> -->
@@ -228,5 +235,8 @@
                 <!-- /.dropdown -->
             </ul>
         </nav>
+
+
+
 
 </html>

@@ -39,8 +39,8 @@ public class EmployeeService implements UserDetailsService {
 	public UserDetails loadUserByUsername(String hd_code) throws UsernameNotFoundException {
 		Optional<EmployeeEntity> userEntityWrapper = employeerepository.findByhdcode(Long.parseLong(hd_code));
 		EmployeeEntity userEntity = userEntityWrapper.get();
-		System.out.println("checkval"+userEntity.getHd_level()+","+userEntity.getHdname());
-		String level = userEntity.getHd_level();
+		System.out.println("checkval"+userEntity.getHdlevel()+","+userEntity.getHdname());
+		String level = userEntity.getHdlevel();
 		List<GrantedAuthority> authorities = new ArrayList<>();
 		if(("¿”º∫¿±").equals(userEntity.getHdname())) {
 			authorities.add(new SimpleGrantedAuthority(Role.ADMIN.getValue()));

@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+  layout:decorator="~{layouts/layout}">
+
+
+<th:block layout:fragment="content">
+		<div class="header"> 
+		
+                        <h1 class="page-header">
+<!--                             Dashboard <small>Welcome John 윤</small> -->
+                        </h1>
+						<ol class="breadcrumb">
+					  <li><a href="#">Home</a></li>
+					  <li><a href="#">Dashboard</a></li>
+					  <li class="active">Data</li>
+					</ol> 
+									
+		</div>
+            <div id="page-inner">
+				<div class="row">
+                <div class="col-md-12">
+                     <!--    Hover Rows  -->
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                           완료된 서류
+                        </div>
+                        <div class="panel-body">
+                            <div class="table-responsive">
+                                <table class="table table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th>서류번호</th>
+                                            <th>서류제목</th>
+                                            <th>작성일</th>
+                                            <th>진행상황</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr th:each="doc : ${completedoc}">
+                                        	<td th:text="${doc.docnum}"></td>
+                                        	<td th:text="${doc.doctitle}"></td>
+                                        	<td th:text="${doc.docdate}"></td>
+                                        	<td th:text="${doc.docdtatus}"></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <nav aria-label="Page navigation example">
+						  <ul class="pagination" style="margin-left: 40%">
+						    <li class="page-item"><a class="page-link" href="#">◀</a></li>
+						    <li class="page-item"><a class="page-link" href="#">1</a></li>
+						    <li class="page-item"><a class="page-link" href="#">2</a></li>
+						    <li class="page-item"><a class="page-link" href="#">3</a></li>
+						    <li class="page-item"><a class="page-link" href="#">▶</a></li>
+						  </ul>
+						</nav>
+                    </div>
+                    <!-- End  Hover Rows  -->
+                </div>
+                
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                     <!--    Hover Rows  -->
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                           진행중인 서류
+                        </div>
+                        <div class="panel-body">
+                            <div class="table-responsive">
+                                <table class="table table-hover">
+                                    <thead>
+                                        <tr>
+                                             <th>서류번호</th>
+                                            <th>서류제목</th>
+                                            <th>작성일</th>
+                                            <th>진행상황</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr th:each="doc : ${ingdoc}">
+                                        	<td th:text="${doc.docnum}"></td>
+                                        	<td th:text="${doc.doctitle}"></td>
+                                        	<td th:text="${doc.docdate}"></td>
+                                        	<td th:text="${doc.docdtatus}"></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            
+                        </div>
+                        <nav aria-label="Page navigation example" >
+							  <ul class="pagination" style="margin-left: 40%">
+							    <li class="page-item"><a class="page-link" href="#">◀</a></li>
+							    <li class="page-item"><a class="page-link" href="#">1</a></li>
+							    <li class="page-item"><a class="page-link" href="#">2</a></li>
+							    <li class="page-item"><a class="page-link" href="#">3</a></li>
+							    <li class="page-item"><a class="page-link" href="#">▶</a></li>
+							  </ul>
+							</nav>
+                    </div>
+                    <!-- End  Hover Rows  -->
+                </div>
+                
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                     <!--    Hover Rows  -->
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            기각서류
+                        </div>
+                        <div class="panel-body">
+                            <div class="table-responsive">
+                                <table class="table table-hover">
+                                    <thead>
+                                        <tr>
+                                             <th>서류번호</th>
+                                            <th>서류제목</th>
+                                            <th>작성일</th>
+                                            <th>진행상황</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr th:each="doc : ${ignoredoc}">
+                                        	<td th:text="${doc.docnum}"></td>
+                                        	<td th:text="${doc.doctitle}"></td>
+                                        	<td th:text="${doc.docdate}"></td>
+                                        	<td th:text="${doc.docdtatus}"></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <nav aria-label="Page navigation example">
+						  <ul class="pagination" style="margin-left: 40%">
+						    <li class="page-item"><a class="page-link" href="#">◀</a></li>
+						    <li class="page-item"><a class="page-link" href="#">1</a></li>
+						    <li class="page-item"><a class="page-link" href="#">2</a></li>
+						    <li class="page-item"><a class="page-link" href="#">3</a></li>
+						    <li class="page-item"><a class="page-link" href="#">▶</a></li>
+						  </ul>
+						</nav>
+                    </div>
+                    <!-- End  Hover Rows  -->
+                </div>
+                
+            </div>
+            <div class="row">
+                <div class="col-md-9">
+                     
+                </div>
+                <div class="col-md-3">
+                     <button type="button" class="btn btn-primary btn-lg" id="docwrite">기안하기</button>
+                </div>
+                
+            </div>
+            	
+            </div>
+     
+           
+</th:block>
+
+
+<th:block layout:fragment="script">
+
+<script>
+window.onload=function(){
+	$('#docwrite').click(function() {
+		location.href='/user.docwrite'
+	})
+}
+</script>
+
+
+
+</th:block>
+
+
+
+
+<th:block layout:fragment="css">
+     
+</th:block>
+</html>
