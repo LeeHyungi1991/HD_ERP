@@ -359,7 +359,7 @@ public class BoardService {
 				File targetFile2 = new File(fileRoot);
 				try {
 					file.transferTo(new File(targetFile2.getPath()+"\\"+savedFileName));
-					jsonobject.put("url", "img/board/"+savedFileName);
+					jsonobject.put("url", "/board/"+savedFileName);
 					jsonobject.put("responseCode", "success");
 				} catch (IllegalStateException | IOException e) {
 					// TODO Auto-generated catch block

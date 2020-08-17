@@ -2,6 +2,7 @@ package hd.erp.config;
 
 import javax.annotation.Resource;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Component;
@@ -12,15 +13,25 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @Component
 public class WebMvcConfig implements WebMvcConfigurer{
 	
-
+	@Autowired
+	ApplicationYamlRead applicationyamlread;
 	
 	//web root가 아닌 외부 경로에 있는 리소스를 url로 불러올 수 있도록 설정
     //현재 localhost:8090/summernoteImage/1234.jpg
     //로 접속하면 C:/summernote_image/1234.jpg 파일을 불러온다.
 	@Override
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
+		
+		String staticpath = applicationyamlread.getPath();
+		
+		
+		
 		registry.addResourceHandler("/board/**")
-				.addResourceLocations("file:///C:/ikosmo64/spring/realerp/hdERP/src/main/resources/static/img/board/");
+		.addResourceLocations("file:///"+staticpath+"/img/board/");
+		registry.addResourceHandler("/document/**")
+		.addResourceLocations("file:///"+staticpath+"/img/document/");
+//.addResourceLocations("file:///C:/ikosmo64/spring/realerp/hdERP/src/main/resources/static/img/board/");
+				
 	}
 	
 
