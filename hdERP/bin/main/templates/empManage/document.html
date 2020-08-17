@@ -33,24 +33,100 @@
 							<td>최종관리자</td>
 						</tr>
 						<tr>
+							<td>
+							<th:block th:if="${doc.docfirstemp == null}">
+							공란
+							</th:block>	
+							<th:block th:unless="${doc.docfirstemp == null}">
+								<th:block th:if="${doc.docstatus} == 1 or ${doc.docstatus} == 2 or ${doc.docstatus} == 3">
+								<img th:src="@{${emp1path}}" alt=""  style="width: 150px; height: 100px;"/>
+								</th:block >
+								<th:block th:unless="${doc.docstatus} == 1 or ${doc.docstatus} == 2 or ${doc.docstatus} == 3">
+									<th:block th:if="${doc.docignoreemp } != null">
+										<th:block th:if="${doc.docignorestatus == 0}">
+											<img th:src="@{img/dissmissed.PNG}" alt="" style="width: 150px; height: 100px;" />
+										</th:block>
+										<th:block th:unless="${doc.docignorestatus == 0}">
+											<th:block th:if ="${doc.docignorestatus < 1}">
+												
+											</th:block>
+											<th:block th:unless ="${doc.docignorestatus < 1}">
+												<img th:src="@{${emp1path}}" alt=""  style="width: 150px; height: 100px;"/>
+											</th:block>
+										</th:block>
+									</th:block>
+								</th:block>
+							</th:block>	
+							</td>
+							<td>
+							<th:block th:if="${doc.docsecondemp == null}">
+							공란
+							</th:block>
+							<th:block th:unless="${doc.docsecondemp == null}">
+								<th:block th:if="${doc.docstatus} == 2 or ${doc.docstatus} == 3">
+								<img th:src="@{${emp2path}}" alt=""  style="width: 150px; height: 100px;"/>
+								</th:block >
+								<th:block th:unless="${doc.docstatus} == 2 or ${doc.docstatus} == 3">
+									<th:block th:if="${doc.docignoreemp } != null">
+										<th:block th:if="${doc.docignorestatus == 1}">
+											<img th:src="@{img/dissmissed.PNG}" alt="" style="width: 150px; height: 100px;" />
+										</th:block>
+										<th:block th:unless="${doc.docignorestatus == 1}">
+											<th:block th:if ="${doc.docignorestatus < 2}">
+												
+											</th:block>
+											<th:block th:unless ="${doc.docignorestatus < 2}">
+												<img th:src="@{${emp2path}}" alt=""  style="width: 150px; height: 100px;"/>
+											</th:block>
+										</th:block>
+									</th:block>
+								</th:block>
+							</th:block>
+							</td>
+							<td>
+							<th:block th:if="${doc.docthirdemp == null}">
+							공란
+							</th:block>
+								<th:block th:unless="${doc.docthirdemp == null}">
+								<th:block th:if="${doc.docstatus} == 3">
+								<img th:src="@{${emp3path}}" alt=""  style="width: 150px; height: 100px;"/>
+								</th:block >
+								<th:block th:unless="${doc.docstatus} == 3">
+									<th:block th:if="${doc.docignoreemp } != null">
+										<th:block th:if="${doc.docignorestatus == 2}">
+											<img th:src="@{img/dissmissed.PNG}" alt="" style="width: 150px; height: 100px;" />
+										</th:block>
+										<th:block th:unless="${doc.docignorestatus == 2}">
+											<th:block th:if ="${doc.docignorestatus < 3}">
+												
+											</th:block>
+											<th:block th:unless ="${doc.docignorestatus < 3}">
+												<img th:src="@{${emp3path}}" alt=""  style="width: 150px; height: 100px;"/>
+											</th:block>
+										</th:block>
+									</th:block>
+								</th:block>
+							</th:block>
+							</td>
 							
-							<td><img th:src="@{img/3/signature.png}" alt=""  style="width: 150px; height: 100px;"/></td>
-							<td><img th:src="@{img/2/signature.png}" alt=""  style="width: 150px; height: 100px;"/></td>
-							<td><img th:src="@{img/1/signature.png}" alt=""  style="width: 150px; height: 100px;"/></td>
 						</tr>
 						
 					</thead>
 					<tbody>
 						<tr>
-							<td colspan="4">제목</td>
+							<td colspan="4" th:text="${doc.doctitle}">제목</td>
 							
 						</tr>
 						<tr>
-							<td>작성자</td><td></td>
-							<td>날짜</td><td></td>
+							<td></td><td></td>
+							<td>날짜</td><td th:text ="${doc.docdate}">2020-09-08</td>
 						</tr>
 						<tr>
-							<td colspan="4"> 본문</td>
+							<td></td><td></td>
+							<td>기안자</td><td th:text ="${doc.docdrafter.hdname}">임성윤</td>
+						</tr>
+						<tr>
+							<td colspan="4"  style="width: 800px; height: 500px; overflow: auto;"> <div th:utext="${doc.doccontent}" style="width: 800px; height: 500px; overflow: auto;"></div></td>
 						</tr>
 					
 					</tbody>
@@ -67,17 +143,19 @@
         		<table id="buttons">
         		<tr>
         			<td>
-        				<button class="btn btn-primary btn-lg" style="width: 200px;">뒤로가기</button>
+        				<button class="btn btn-primary btn-lg" style="width: 200px;" id="back">뒤로가기</button>
+        			</td>
+        			<th:block th:if="${doc.docstatus != 3 }">
+        			<td>
+        				<button class="btn btn-primary btn-lg" style="width: 200px;" id="update" >수정하기</button>
         			</td>
         			<td>
-        				<button class="btn btn-primary btn-lg" style="width: 200px;">수정하기</button>
+        				<button class="btn btn-primary btn-lg" style="width: 200px;" id="ignore" data-target="#myModal1" data-toggle="modal">기각하기</button>
         			</td>
         			<td>
-        				<button class="btn btn-primary btn-lg" style="width: 200px;">기각하기</button>
+        				<button class="btn btn-primary btn-lg" style="width: 200px;" id="approval" data-target="#myModal2" data-toggle="modal">결재하기</button>
         			</td>
-        			<td>
-        				<button class="btn btn-primary btn-lg" style="width: 200px;">결재하기</button>
-        			</td>
+        			</th:block>
         		</tr>
         		</table>
               
@@ -94,12 +172,93 @@
             
         
      </div>
-           
+        
+        
+        
+        
+        
+        
+      <!--  Modals1-->
+                   
+                        
+                       
+<!--                             <button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal"> -->
+<!--                               Click  Launch Demo Modal -->
+<!--                             </button> -->
+                            <div class="modal fade" id="myModal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                            <h4 class="modal-title" id="myModalLabel1" ><th:text>기각 코멘트</th:text></h4>
+                                        </div>
+                                        <form th:action="@{/user.docignore}" method="post">
+                                        <div class="modal-body" >
+                                            <textarea id="bcommentupdate" class="form-control" rows="3" style="resize: none;" name="ignorecomment" ></textarea>
+                                        </div>
+                                        <input type="hidden"    th:value="${doc.docnum}" name="docnum" />
+                                        <input type="hidden" th:value="${doc.docstatus}" name="docstatus" />
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                            <button type="submit" class="btn btn-primary">기각하기</button>
+                                        </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                       
+                     <!-- End Modals-->     
+                      <!--  Modals2-->
+                   
+                        
+                       
+<!--                             <button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal"> -->
+<!--                               Click  Launch Demo Modal -->
+<!--                             </button> -->
+                            <div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                            <h4 class="modal-title" id="myModalLabel1" ><th:text>승인 코멘트</th:text></h4>
+                                        </div>
+                                        <form th:action="@{/user.docok}" method="post">
+                                        <div class="modal-body" >
+                                            <textarea id="bcommentupdate" class="form-control" rows="3" style="resize: none;" name="okcomment" ></textarea>
+                                        </div>
+                                         <input type="hidden"    th:value="${doc.docnum}" name="docnum" />
+
+                                         <input type="hidden" th:value="${doc.docstatus}" name="docstatus" />
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                            <button type="submit" class="btn btn-primary">승인하기</button>
+                                        </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                       
+                     <!-- End Modals-->     
 </th:block>
 
 
 <th:block layout:fragment="script">
-
+<script>
+window.onload=function(){
+	$('#back').click(function() {
+		location.href="/user.docmanage"
+	})
+	$('#ignore').click(function() {
+		
+	})
+	$('#update').click(function() {
+		
+	})
+	$('#approval').click(function() {
+		
+	})
+}
+</script>
 
 
 
@@ -162,19 +321,56 @@
      border : 1px solid black;
      height: 80px;
      }
-     
+     /*제목]*/
      #document table tbody tr:nth-child(1) td{
     border : 1px solid black;
-    height: 150px;
+    height: 100px;
+    text-align: center;
+    font-size: 3em;
+    border-bottom: 0px;
+    width: 800px;
      }
-     #document table tbody tr:nth-child(3) td{
+     /* 기안자, 날짜*/
+     #document table tbody tr:nth-child(2) td:nth-child(3){
+    
+     border : 1px solid black;
+    text-align: center;
+    
+     }
+      #document table tbody tr:nth-child(2) td:nth-child(4){
+    
+     border : 1px solid black;
+    text-align: center;
+    
+     }
+      #document table tbody tr:nth-child(3) td:nth-child(3){
+    
     border : 1px solid black;
-    height: 500px;
+    text-align: center;
+    
      }
-     
+     #document table tbody tr:nth-child(3) td:nth-child(4){
+    
+    border : 1px solid black;
+    text-align: center;
+    
+     }
+     /*본문*/
+     #document table tbody tr:nth-child(4) td{
+    border : 1px solid black;
+    text-align: center;
+    vertical-align: top;
+    width: 800px;
+    height: 500px;
+    overflow: auto;
+    word-spa
+   
+     }
+     /*footer*/
      #document table tfoot tr td{
     border : 1px solid black;
     height: 100px;
+    width: 800px;
      }
      </style>
 </th:block>

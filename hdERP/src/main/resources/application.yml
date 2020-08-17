@@ -80,7 +80,7 @@ mybatis:
 ---
 
 common:
-  path: C:\ikosmo64\spring\realerp\hdERP\src\main\resources\static
+  path: C:\Users\lsy\git\hd_erp\hdERP\src\main\resources\static
 #static 경로
 
-
+#C:\ikosmo64\spring\realerp\hdERP\src\main\resources\static

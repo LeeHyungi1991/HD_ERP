@@ -35,7 +35,7 @@ public class DocumentEntity {
 	//@OnDelete(action = OnDeleteAction.CASCADE)
 	private EmployeeEntity docdrafter;
 	
-	//서류 변경 수정일
+	//서류 기안일
 	@Column(name = "doc_date")
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date docdate;
@@ -95,7 +95,16 @@ public class DocumentEntity {
 	@ManyToOne(targetEntity = EmployeeEntity.class)
 	//@OnDelete(action = OnDeleteAction.CASCADE)
 	private EmployeeEntity docthirdemp;
+	
+	//기각한 사람
+	@JoinColumn(name = "doc_ignore_emp")
+	@ManyToOne(targetEntity = EmployeeEntity.class)
+	//@OnDelete(action = OnDeleteAction.CASCADE)
+	private EmployeeEntity docignoreemp;
 		
+	//기각시 서류 상태
+	@Column(name = "doc_ignore_status")
+	private int docignorestatus;
 	
 	
 }

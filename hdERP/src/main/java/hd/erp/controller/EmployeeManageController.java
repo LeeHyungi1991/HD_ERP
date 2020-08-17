@@ -75,7 +75,21 @@ public class EmployeeManageController {
 		return"redirect:/user.docmanage";
 	}
 	
-	
+	//서류 기각
+	@PostMapping("/user.docignore")
+	public String docignore(DocumentEntity document, String ignorecomment,Principal principal) {
+		System.out.println(ignorecomment);
+		employeemanageservice.docignore(document.getDocnum(), document, Long.parseLong(principal.getName()), ignorecomment);
+		return "redirect:/user.docmanage";
+	}
+	//서류 승인
+	@PostMapping("/user.docok")
+	public String docok(DocumentEntity document, String okcomment,Principal principal) {
+		System.out.println(okcomment);
+		employeemanageservice.docok(document, okcomment);
+		return "redirect:/user.docmanage";
+		
+	}
 	
 	
 	//서류관리 클릭
@@ -96,7 +110,26 @@ public class EmployeeManageController {
 	}
 	//서류보기
 	@GetMapping(value = "/user.document")
-	public String docuement() {
+	public String docuement(String docnum, Model m , Principal principal) {
+		System.out.println("docnum>>"+docnum);
+		DocumentEntity doc = employeemanageservice.getdoc(Long.parseLong(docnum));
+		m.addAttribute("doc", doc);
+		String emp1path=null;
+		String emp2path=null;
+		String emp3path=null;
+		if(doc.getDocfirstemp() != null) {
+			emp1path = "img/"+doc.getDocfirstemp().getHdcode()+"/signature.png";
+			m.addAttribute("emp1path", emp1path);
+		}
+		if(doc.getDocsecondemp() != null) {
+			emp2path = "img/"+doc.getDocsecondemp().getHdcode()+"/signature.png";
+			m.addAttribute("emp2path", emp2path);
+		}
+		if(doc.getDocthirdemp() != null) {
+			emp3path = "img/"+doc.getDocthirdemp().getHdcode()+"/signature.png";
+			m.addAttribute("emp3path", emp3path);
+		}
+		
 		return "empManage/document";
 	}
 	//서류 기안 이미지 처리

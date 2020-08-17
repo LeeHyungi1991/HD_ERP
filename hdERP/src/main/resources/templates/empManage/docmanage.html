@@ -29,7 +29,7 @@
                         </div>
                         <div class="panel-body">
                             <div class="table-responsive">
-                                <table class="table table-hover">
+                                <table class="table table-hover" id="completedoc">
                                     <thead>
                                         <tr>
                                             <th>서류번호</th>
@@ -39,7 +39,7 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr th:each="doc : ${completedoc}">
+                                        <tr th:each="doc : ${completedoc}" class="completedoc">
                                         	<td th:text="${doc.docnum}"></td>
                                         	<td th:text="${doc.doctitle}"></td>
                                         	<td th:text="${doc.docdate}"></td>
@@ -72,7 +72,7 @@
                         </div>
                         <div class="panel-body">
                             <div class="table-responsive">
-                                <table class="table table-hover">
+                                <table class="table table-hover" id="ingdoc">
                                     <thead>
                                         <tr>
                                              <th>서류번호</th>
@@ -82,7 +82,7 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr th:each="doc : ${ingdoc}">
+                                        <tr th:each="doc : ${ingdoc}" class="ingdoc">
                                         	<td th:text="${doc.docnum}"></td>
                                         	<td th:text="${doc.doctitle}"></td>
                                         	<td th:text="${doc.docdate}"></td>
@@ -116,7 +116,7 @@
                         </div>
                         <div class="panel-body">
                             <div class="table-responsive">
-                                <table class="table table-hover">
+                                <table class="table table-hover" id="ignoredoc">
                                     <thead>
                                         <tr>
                                              <th>서류번호</th>
@@ -126,7 +126,7 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr th:each="doc : ${ignoredoc}">
+                                        <tr th:each="doc : ${ignoredoc}" class="ignoredoc">
                                         	<td th:text="${doc.docnum}"></td>
                                         	<td th:text="${doc.doctitle}"></td>
                                         	<td th:text="${doc.docdate}"></td>
@@ -173,6 +173,25 @@ window.onload=function(){
 	$('#docwrite').click(function() {
 		location.href='/user.docwrite'
 	})
+	
+	$('.completedoc').click(function() {
+		var compledocnum =$(this).children(1).first().text();
+// 		alert($(this).children(1).first().text())
+		location.href="/user.document?docnum="+compledocnum;
+	})
+	
+	$('.ingdoc').click(function() {
+		var ingdocnum =$(this).children(1).first().text();
+// 		alert($(this).children(1).first().text())
+		location.href="/user.document?docnum="+ingdocnum;
+	})
+	
+	$('.ignoredoc').click(function() {
+		var ignoredocnum =$(this).children(1).first().text();
+// 		alert($(this).children(1).first().text())
+		location.href="/user.document?docnum="+ignoredocnum;
+	})
+	
 }
 </script>
 

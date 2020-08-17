@@ -89,6 +89,9 @@
 					<h2 style="text-align: center;">내용</h2>
 					<br />
 				  <textarea id="summernote" name="doccontent" ></textarea>
+				  <div style="border: 1px solid black;height: 100px; background: lightgray; text-align: center; " class="form-group">
+				  파일을 끌어오세요
+				  </div>
 				  <input type="button" class="btn btn-primary btn-lg btn-block" id="submit" value="기안하기" />
 				  <a th:href="@{/user.docmanage}"><button type="button" class="btn btn-warning btn-lg btn-block">뒤로가기</button></a>
 				</form>
@@ -142,7 +145,7 @@ window.onload=function(){
 		$.ajax({
 			data:data,
 			type: "POST",
-			url:' /user.boardwriteimg',
+			url:' /user.documentwriteimg',
 			//cache:false,
 			contentType:false,
 			enctype:'multipart/form-data',
@@ -152,6 +155,7 @@ window.onload=function(){
             },
 			processData:false,
 			success:function(data){
+				console.log(data)
 				$(editor).summernote('insertImage',data.url);
 			
 			}

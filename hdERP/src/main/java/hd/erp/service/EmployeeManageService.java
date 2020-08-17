@@ -102,6 +102,45 @@ public class EmployeeManageService {
 		log.info("서류 저장{}",doc);
 
 	}
+	//서류 기각했을때
+	public void docignore(Long docnum, DocumentEntity document, Long hdcode,String ignorecomment) {
+		EmployeeEntity emp = employeerepository.findByhdcode(hdcode).get();
+		DocumentEntity mydoc = documentrepository.findById(docnum).get();
+		int docstatus = document.getDocstatus();
+		if(docstatus == 0) {//1차결재가가 기각
+			mydoc.setDoc1ignorecomment(ignorecomment);
+		}else if (docstatus == 1) {//2차결재가가 기각
+			mydoc.setDoc2ignorecomment(ignorecomment);
+		}else if(docstatus == 2) {//3차결재가가 기각
+			mydoc.setDoc3ignorecomment(ignorecomment);
+		}
+		//승인 코멘트들 삭제
+		//mydoc.setDoc1okcomment(null);
+		//mydoc.setDoc2okcomment(null);
+		//mydoc.setDoc3okcomment(null);
+		mydoc.setDocignorestatus(docstatus);
+		mydoc.setDocstatus(-1);
+		mydoc.setDocignoreemp(emp);
+		documentrepository.save(mydoc);
+	}
+	//서류 승인 했을때
+	public void docok(DocumentEntity document,String okcomment) {
+		DocumentEntity mydoc = documentrepository.findById(document.getDocnum()).get();
+		int docstatus = document.getDocstatus();
+		if(docstatus ==0) { //1차결재자 승인
+			mydoc.setDoc1okcomment(okcomment);
+		}else if(docstatus ==1) {//2차 결재자 승인
+			mydoc.setDoc2okcomment(okcomment);
+		}else if(docstatus ==2) {//3차 결재자 승인
+			mydoc.setDoc3okcomment(okcomment);
+		}
+		//결재상태 올라감
+		mydoc.setDocstatus(document.getDocstatus()+1);
+		
+		documentrepository.save(mydoc);
+		
+	}
+	
 	
 	//서류관리 들어갔을때 진행중서류,완료서류,기각서류 보기위함
 	public Map<String, List<DocumentEntity>> godocmanage(){
@@ -121,7 +160,11 @@ public class EmployeeManageService {
 		return mydoclists;
 	}
 	
-	
+	public DocumentEntity getdoc(Long docnum) {
+		Optional<DocumentEntity> mydoc = documentrepository.findById(docnum);
+		
+		return mydoc.get();
+	}
 	
 	//https://programmer93.tistory.com/31
 		//ㅅㅂ
@@ -171,5 +214,6 @@ public class EmployeeManageService {
 			System.out.println(jsonobject);
 			return jsonobject.toString();
 		}
+		
 }
 

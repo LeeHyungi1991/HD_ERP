@@ -326,53 +326,53 @@ public class BoardService {
 	
 	
 	//https://programmer93.tistory.com/31
-	//ㅅㅂ
-	public String summernoteimgupload(MultipartFile file) {
-		JSONObject jsonobject=new JSONObject();
+		//ㅅㅂ
+		public String summernoteimgupload(MultipartFile file) {
+			JSONObject jsonobject=new JSONObject();
+			
+			String staticpath=applicationyamlread.getPath();
+			
+			String fileRoot =staticpath+"\\img\\board";
+			String originalFileName = file.getOriginalFilename();
+			String extension =originalFileName.substring(originalFileName.lastIndexOf("."));
+			String savedFileName =UUID.randomUUID()+extension;
+			File targetFile = new File(fileRoot);
+			
+				
+				 //해당 디렉토리가 없을경우 디렉토리를 생성합니다.
+				if (!targetFile.exists()) {
+					try{
+						targetFile.mkdir(); //폴더 생성합니다.
+					    System.out.println("폴더가 생성되었습니다.");
+					    System.out.println(targetFile.getPath());
+				        } 
+				        catch(Exception e){
+					    e.getStackTrace();
+					}        
+			         }else {
+					System.out.println("이미 폴더가 생성되어 있습니다.");
+				}
+				
+				
+				
+				
+				File targetFile2 = new File(fileRoot);
+				try {
+					file.transferTo(new File(targetFile2.getPath()+"\\"+savedFileName));
+					jsonobject.put("url", "img/board/"+savedFileName);
+					jsonobject.put("responseCode", "success");
+				} catch (IllegalStateException | IOException e) {
+					// TODO Auto-generated catch block
+					jsonobject.put("responseCode", "error");
+					e.printStackTrace();
+				}
+				
 		
-		String staticpath=applicationyamlread.getPath();
-		
-		String fileRoot =staticpath+"\\img\\board";
-		String originalFileName = file.getOriginalFilename();
-		String extension =originalFileName.substring(originalFileName.lastIndexOf("."));
-		String savedFileName =UUID.randomUUID()+extension;
-		File targetFile = new File(fileRoot);
-		
-			
-			 //해당 디렉토리가 없을경우 디렉토리를 생성합니다.
-			if (!targetFile.exists()) {
-				try{
-					targetFile.mkdir(); //폴더 생성합니다.
-				    System.out.println("폴더가 생성되었습니다.");
-				    System.out.println(targetFile.getPath());
-			        } 
-			        catch(Exception e){
-				    e.getStackTrace();
-				}        
-		         }else {
-				System.out.println("이미 폴더가 생성되어 있습니다.");
-			}
-			
-			
-			
-			
-			File targetFile2 = new File(fileRoot);
-			try {
-				file.transferTo(new File(targetFile2.getPath()+"\\"+savedFileName));
-				jsonobject.put("url", "/board/"+savedFileName);
-				jsonobject.put("responseCode", "success");
-			} catch (IllegalStateException | IOException e) {
-				// TODO Auto-generated catch block
-				jsonobject.put("responseCode", "error");
-				e.printStackTrace();
-			}
-			
-	
-			
-			
-		System.out.println(jsonobject);
-		return jsonobject.toString();
-	}
+				
+				
+			System.out.println(jsonobject);
+			return jsonobject.toString();
+		}
 	
 }
 

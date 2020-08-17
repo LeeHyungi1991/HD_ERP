@@ -43,7 +43,8 @@
 
 
 <th:block layout:fragment="script">
-<script th:src="@{summernote/summernote-lite.js}"></script>
+<!-- <script th:src="@{summernote/summernote-lite.js}"></script> -->
+<script th:src="@{summernote/summernote-lite.min.js}"></script>
 <script th:src="@{summernote/summernote-ko-KR.js}"></script>
 
 <script>
@@ -87,6 +88,7 @@ window.onload=function(){
             },
 			processData:false,
 			success:function(data){
+				console.log(data)
 				$(editor).summernote('insertImage',data.url);
 			
 			}
