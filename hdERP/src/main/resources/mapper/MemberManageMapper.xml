@@ -2,8 +2,68 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 	<mapper namespace="hd.erp.dao.MemberDAO">
 	
-	<select id="memberlist" >
-	select * from member
+	<select id="memberlist" resultType="mem" >
+	select mem_code
+			,mem_email
+			,mem_pwd
+			,mem_name
+			,mem_phn
+			,mem_in_date
+			,mem_pri_chk
+			,mem_email_chk
+			,mem_birth
+			,mem_gender
+			,mem_loc
+			,mem_job
+			,mem_reip
+	 from member
+	 order by 1
 	</select>
 	
+	
+<!-- 	member_seq. -->
+	<insert id="memberinsert" parameterType="mem">
+	insert into member
+		values(
+			member_seq.nextVal()
+			,#{mem_email}
+			,#{mem_pwd}
+			,#{mem_name}
+			,#{mem_phn}
+			,#{mem_in_date}
+			,#{mem_pri_chk}
+			,#{mem_email_chk}
+			,#{mem_birth}
+			,#{mem_gender}
+			,#{mem_loc}
+			,#{mem_job}
+			,#{mem_reip}
+		)
+	</insert>
+	
+	<update id="memberupdate" parameterType="mem">
+	update member set
+			mem_email =#{mem_email}
+			,mem_pwd =#{mem_pwd}
+			,mem_name =#{mem_name}
+			,mem_phn =#{mem_phn}
+			,mem_in_date =#{mem_in_date}
+			,mem_pri_chk =#{mem_pri_chk}
+			,mem_email_chk= #{mem_email_chk}
+			,mem_birth= #{mem_birth}
+			,mem_gender= #{mem_gender}
+			,mem_loc= #{mem_loc}
+			,mem_job= #{mem_job}
+			,mem_reip= #{mem_reip}
+			
+		where memcode =#{mem_code}
+	</update>
+	
+	<delete id="memberdelete">
+	delete from member where mem_code =#{mem_code}
+	</delete>
+	
+	<delete id="">
+	
+	</delete>
 	</mapper>

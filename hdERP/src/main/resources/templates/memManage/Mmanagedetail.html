@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+  layout:decorator="~{layouts/layout}">
+<th:block layout:fragment="content">
+<div class="header"> 
+                        <h1 class="page-header">
+                            Dashboard <small>Welcome John 윤</small>
+                        </h1>
+						<ol class="breadcrumb">
+					  <li><a href="#">Home</a></li>
+					  <li><a href="#">Dashboard</a></li>
+					  <li class="active">Data</li>
+					</ol> 
+									
+		</div>
+            <div id="page-inner">
+            	
+            	<div class="row">
+                <div class="col-md-12">
+                     <!--    Hover Rows  -->
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            고객관리
+                        </div>
+                        <div class="panel-body">
+                            <div class="table-responsive">
+                                <table class="table table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th>멤버고유번호</th>
+                                            <th>이름</th>
+                                            <th>이메일</th>
+                                            <th>멤버가입일</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                       <tr th:each ="mem : ${memlist}">
+                                       		<td th:text="${mem.mem_code}"></td>
+                                       		<td th:text="${mem.mem_name}"></td>
+                                       		<td th:text="${mem.mem_email}"></td>
+                                       		<td th:text="${mem.mem_in_date}"></td>
+                                       </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- End  Hover Rows  -->
+                </div>
+                
+            </div>
+                <!-- /. ROW  -->
+            	
+            	
+            </div>
+            
+</th:block>
+
+<th:block layout:fragment="css">
+
+</th:block>
+<th:block layout:fragment="script">
+
+</th:block>
+</html>

@@ -16,8 +16,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import hd.erp.config.ApplicationYamlRead;
+import hd.erp.entity.DocAttachmentEntity;
 import hd.erp.entity.DocumentEntity;
 import hd.erp.entity.EmployeeEntity;
+import hd.erp.repository.DocAttachmentRepository;
 import hd.erp.repository.DocumentRepository;
 import hd.erp.repository.EmployeeRepository;
 import lombok.extern.slf4j.Slf4j;
@@ -34,6 +36,18 @@ public class EmployeeManageService {
 	
 	@Autowired
 	DocumentRepository documentrepository;
+	
+	@Autowired
+	DocAttachmentRepository docattachmentrepository;
+	
+	//사원리스트 가져오기
+	public List<EmployeeEntity> getemplist(){
+		List<EmployeeEntity> emplist = employeerepository.findAll();
+		
+		return emplist;
+	}
+	
+	
 	
 	//기안하기 할때 셀렉트 박스에 들어가는 사람들
 	public Map<String, List<EmployeeEntity>> emplist() {
@@ -170,12 +184,70 @@ public class EmployeeManageService {
 		
 		return mydoclists;
 	}
-	
+	//서류 가져오기
 	public DocumentEntity getdoc(Long docnum) {
 		Optional<DocumentEntity> mydoc = documentrepository.findById(docnum);
 		
 		return mydoc.get();
 	}
+	
+	
+	//서류 첨부파일 처리
+	public String attachment(MultipartFile[] formData) {
+		JSONObject jsonobject = new JSONObject();
+		
+		System.out.println("length : "+formData.length);
+		for(int i = 0; i<formData.length;i++) {
+			
+			DocAttachmentEntity attachment = new DocAttachmentEntity();
+			
+			System.out.println(formData[i].getOriginalFilename());
+			String staticpath =applicationyamlread.getPath();
+			
+			String fileRoot =staticpath+"\\document\\attachment";
+			String originalFileName = formData[i].getOriginalFilename();
+			String extension =originalFileName.substring(originalFileName.lastIndexOf("."));
+			String savedFileName =UUID.randomUUID()+extension;
+			File targetFile = new File(fileRoot);
+			attachment.setAttname(originalFileName);
+			attachment.setAttsavedname(savedFileName);
+				
+				 //해당 디렉토리가 없을경우 디렉토리를 생성합니다.
+				if (!targetFile.exists()) {
+					try{
+						targetFile.mkdir(); //폴더 생성합니다.
+					    System.out.println("폴더가 생성되었습니다.");
+					    System.out.println(targetFile.getPath());
+				        } 
+				        catch(Exception e){
+					    e.getStackTrace();
+					}        
+			         }else {
+					System.out.println("이미 폴더가 생성되어 있습니다.");
+				}
+				
+				
+				
+				
+				File targetFile2 = new File(fileRoot);
+				try {
+					formData[i].transferTo(new File(targetFile2.getPath()+"\\"+savedFileName));
+					jsonobject.put("length", formData[i].getSize());
+				} catch (IllegalStateException | IOException e) {
+					// TODO Auto-generated catch block
+					
+					e.printStackTrace();
+				}
+				
+			
+			
+			
+			
+		}
+		return jsonobject.toString();
+	}
+	
+	
 	
 	//https://programmer93.tistory.com/31
 		//ㅅㅂ

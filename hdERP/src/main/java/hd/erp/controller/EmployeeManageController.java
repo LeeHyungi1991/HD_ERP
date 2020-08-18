@@ -1,9 +1,14 @@
 package hd.erp.controller;
 
+import java.io.File;
+import java.io.IOException;
 import java.security.Principal;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,6 +17,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import hd.erp.entity.DocumentEntity;
 import hd.erp.entity.EmployeeEntity;
@@ -24,7 +30,11 @@ public class EmployeeManageController {
 	
 	//사원관리페이지
 	@GetMapping(value = "/user.empmanage")
-	public String manageindex() {
+	public String manageindex(Model m) {
+		List<EmployeeEntity> emplist = employeemanageservice.getemplist();
+		
+		m.addAttribute("emplist", emplist);
+		
 		return "empManage/Emanage";
 	}
 	
@@ -141,4 +151,18 @@ public class EmployeeManageController {
 	public String uploadSummernoteImageFile(@RequestParam("file") MultipartFile file){
 		return employeemanageservice.summernoteimgupload(file);
 	}
+	
+	
+	
+	//서류 첨부파일 처리
+	@PostMapping(value = "/user.docattupload")
+	@ResponseBody
+	public String asdf(@RequestParam("files") MultipartFile[] formData,String docnum) {
+		
+		String check = employeemanageservice.attachment(formData);
+		
+		return check;
+	}
+
+	
 }

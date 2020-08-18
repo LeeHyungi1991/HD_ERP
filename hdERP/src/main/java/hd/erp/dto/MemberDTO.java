@@ -26,7 +26,7 @@ import lombok.Data;
 public class MemberDTO {
 
 	private int mem_code,mem_pri_chk,mem_email_chk,mem_job;
-	private String mem_email,mem_pwd,mem_name,mem_phn,mem_birth,mem_gender,mem_log,mem_reip;
+	private String mem_email,mem_pwd,mem_name,mem_phn,mem_birth,mem_gender,mem_loc,mem_reip;
 	private Date mem_in_date;
 	
 }
