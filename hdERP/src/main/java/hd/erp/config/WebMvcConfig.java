@@ -37,6 +37,7 @@ public class WebMvcConfig implements WebMvcConfigurer{
 		.addResourceLocations("file:///"+staticpath+"/img/document/");
 		registry.addResourceHandler("/img/**")
 		.addResourceLocations("file:///"+staticpath+"/img/");
+		
 //.addResourceLocations("file:///C:/ikosmo64/spring/realerp/hdERP/src/main/resources/static/img/board/");
 				
 	}

@@ -8,17 +8,23 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import hd.erp.entity.DocAttachmentEntity;
 import hd.erp.entity.DocumentEntity;
 import hd.erp.entity.EmployeeEntity;
 import hd.erp.service.EmployeeManageService;
@@ -66,12 +72,13 @@ public class EmployeeManageController {
 		
 		return "empManage/docwrite";
 	}
-	//서류 기안하기 폼전송
+	//서류 기안하기 폼전송//file 도 있음
 	@PostMapping(value = "/user.docwrite")
 	public String docwriteform(DocumentEntity document, Principal principal
 			,String docfirstemp_hdcode
 			,String docsecondemp_hdcode
-			,String docthirdemp_hdcode) {
+			,String docthirdemp_hdcode
+			,@RequestParam(name = "file")MultipartFile[] file) {
 		System.out.println(document);
 		System.out.println("서류제목"+document.getDoctitle());
 		System.out.println("서류내용"+document.getDoccontent());
@@ -79,7 +86,8 @@ public class EmployeeManageController {
 		System.out.println("서류2결재"+docsecondemp_hdcode);
 		System.out.println("서류3결재"+docthirdemp_hdcode);
 		System.out.println("기안자:"+principal.getName());
-		employeemanageservice.documentinsert(document, docfirstemp_hdcode, docsecondemp_hdcode, docthirdemp_hdcode, principal.getName());
+		System.out.println(file.length);
+		employeemanageservice.documentinsert(document, docfirstemp_hdcode, docsecondemp_hdcode, docthirdemp_hdcode, principal.getName(),file);
 		
 		
 		return"redirect:/user.docmanage";
@@ -143,6 +151,9 @@ public class EmployeeManageController {
 		}
 		EmployeeEntity myemp = employeemanageservice.getemp(Long.parseLong(principal.getName()));
 		m.addAttribute("myemp", myemp);
+		List<DocAttachmentEntity> att = employeemanageservice.getatt(doc);
+		m.addAttribute("att", att);
+		m.addAttribute("html", "/user.fileDown?fileName=");
 		return "empManage/document";
 	}
 	//서류 기안 이미지 처리
@@ -152,14 +163,24 @@ public class EmployeeManageController {
 		return employeemanageservice.summernoteimgupload(file);
 	}
 	
+	//파일다운
+	@RequestMapping(value="/user.fileDown")
+	public String filedown(@RequestParam("fileName") String fileName,
+			HttpSession session,HttpServletRequest request, HttpServletResponse response
+			) throws IOException{
+		
+		employeemanageservice.filedown(request,response,fileName);
+		
+		return "redirect:/user.docmanage";
+	}
 	
 	
-	//서류 첨부파일 처리
+	//서류 첨부파일 처리//ㄴㄴ
 	@PostMapping(value = "/user.docattupload")
 	@ResponseBody
-	public String asdf(@RequestParam("files") MultipartFile[] formData,String docnum) {
+	public String asdf(@RequestParam("files") MultipartFile[] formData,Principal principal) {
 		
-		String check = employeemanageservice.attachment(formData);
+		String check = employeemanageservice.attachment(formData,Long.parseLong(principal.getName()));
 		
 		return check;
 	}

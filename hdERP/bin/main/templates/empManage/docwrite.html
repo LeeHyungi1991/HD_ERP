@@ -22,7 +22,7 @@
 		</div>
 	
             <div id="page-inner">
-            <form method="post" th:action="@{/user.docwrite}" >
+            <form method="post" th:action="@{/user.docwrite}" enctype="multipart/form-data">
             	<div style="margin-left: 20%; ">
             	<th:block sec:authorize="hasAnyRole('ROLE_USER')">
             		<label for="">1차결재자 : </label>
@@ -91,20 +91,20 @@
 				  <textarea id="summernote" name="doccontent" ></textarea>
 				  
 				  
-				  <div id="dropZone" style="border: 1px solid black;height: 100px; background: lightgray; text-align: center; " class="form-group">
-					 <div id="fileDragDesc"> 파일을 드래그 해주세요. </div>
-					 <table id="fileListTable" width="100%" border="0px">
-                    <tbody id="fileTableTbody">
+<!-- 				  <div id="dropZone" style="border: 1px solid black;height: 100px; background: lightgray; text-align: center; " class="form-group"> -->
+<!-- 					 <div id="fileDragDesc"> 파일을 드래그 해주세요. </div> -->
+<!-- 					 <table id="fileListTable" width="100%" border="0px"> -->
+<!--                     <tbody id="fileTableTbody"> -->
     
-                    </tbody>
-                </table>
-				  </div>
-				  
+<!--                     </tbody> -->
+<!--                 </table> -->
+<!-- 				  </div> -->
+				  <input type="file" multiple="multiple" name="file" style="width: 400px;"/>
 				  
 				  <input type="button"  class="btn btn-primary btn-lg btn-block" id="submit"  value="기안하기" />
 				  <a th:href="@{/user.docmanage}"><button type="button" class="btn btn-warning btn-lg btn-block">뒤로가기</button></a>
 					</form>
-					<button >dd</button>
+<!-- 					<button >dd</button> -->
 			  <div class="upload-btn-wrapper" style="visibility: hidden;">
             <input type="file" id="input_file" multiple="multiple" style="height: 100%;" />
             <button class="upload-btn">파일선택</button>
@@ -187,7 +187,7 @@ window.onload=function(){//window.onload
 		}else{
 			if(totalFileSize > 0){	
 				console.log('asdf')
-				uploadFile();
+				//uploadFile();
 			}
 			$('#submit').attr("type", "submit")
 			

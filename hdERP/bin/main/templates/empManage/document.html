@@ -153,7 +153,15 @@
 					</tbody>
 					<tfoot>
 						<tr>
-							<td colspan="4"> 버튼</td>
+							<td colspan="4"> 
+								<th:block th:if="${att != null}">
+									<th:block th:each="att : ${att}">
+									
+<!-- 											[[${html}]] -->
+										<a th:href="${html}+${att.attsavedname}">[[${att.attname}]]</a>
+									</th:block>
+								</th:block>
+							</td>
 						</tr>
 					</tfoot>
 				</table>

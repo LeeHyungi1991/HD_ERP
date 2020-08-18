@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import hd.erp.entity.DocumentEntity;
+import hd.erp.entity.EmployeeEntity;
 
 @Repository
 public interface DocumentRepository extends JpaRepository<DocumentEntity, Long>{
@@ -14,4 +15,7 @@ public interface DocumentRepository extends JpaRepository<DocumentEntity, Long>{
 	List<DocumentEntity> findBydocstatus(int docstatus);
 	//doc_status 범위
 	List<DocumentEntity> findBydocstatusBetween(int docstatus1,int docstatus2);
+	
+	//doc_num Asc로 파일 첨부 넣어야 되니까
+	List<DocumentEntity> findAllBydocdrafterOrderByDocnumDesc(EmployeeEntity employee);
 }
