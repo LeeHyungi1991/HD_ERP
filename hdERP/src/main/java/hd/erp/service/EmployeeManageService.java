@@ -119,7 +119,7 @@ public class EmployeeManageService {
 		//mydoc.setDoc1okcomment(null);
 		//mydoc.setDoc2okcomment(null);
 		//mydoc.setDoc3okcomment(null);
-		mydoc.setDocignorestatus(docstatus);
+		mydoc.setDocignorestatus(String.valueOf(docstatus));
 		mydoc.setDocstatus(-1);
 		mydoc.setDocignoreemp(emp);
 		documentrepository.save(mydoc);
@@ -148,15 +148,20 @@ public class EmployeeManageService {
 	
 	//서류관리 들어갔을때 진행중서류,완료서류,기각서류 보기위함
 	public Map<String, List<DocumentEntity>> godocmanage(){
-		
+		System.out.println("됨!?");
 		Map<String, List<DocumentEntity>> mydoclists =new HashMap<>();
 		List<DocumentEntity> completedoc = documentrepository.findBydocstatus(3);
+		System.out.println("completedoc");
 		List<DocumentEntity> ignoredoc = documentrepository.findBydocstatus(-1);
+		System.out.println("ignoredoc");
 		List<DocumentEntity> ingdoc = documentrepository.findBydocstatusBetween(0, 2);
-		
+		System.out.println("됨?");
 		mydoclists.put("completedoc", completedoc);
+		System.out.println("제발1");
 		mydoclists.put("ignoredoc",ignoredoc);
+		System.out.println("제발2");
 		mydoclists.put("ingdoc", ingdoc);
+		System.out.println("제발3");
 		System.out.println("completedoc"+completedoc.size());
 		System.out.println("ignoredoc"+ignoredoc.size());
 		System.out.println("ingdoc"+ingdoc.size());

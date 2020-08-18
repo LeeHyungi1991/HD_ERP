@@ -60,7 +60,7 @@ public class EmployeeService implements UserDetailsService {
 			}
 			
 		}
-		return new User(String.valueOf(userEntity.getHdcode()),userEntity.getHd_pw(),authorities);
+		return new User(String.valueOf(userEntity.getHdcode()),userEntity.getHdpw(),authorities);
 	}
 
 	

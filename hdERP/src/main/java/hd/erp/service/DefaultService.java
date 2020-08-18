@@ -30,7 +30,7 @@ public class DefaultService {
 	
 	@Autowired
 	EmployeeRepository employeerepository;
-	
+	//회원가입
 	public void register(EmployeeDTO employeedto) {
 		employeeservice.register(employeedto);
 	}
@@ -42,6 +42,58 @@ public class DefaultService {
 		Optional<EmployeeEntity> emp = employeerepository.findById(hdcode);
 		return emp.get();
 	}
+	
+	
+	
+	
+	
+	public EmployeeEntity getuserprofile(Long hd_code) {
+		Optional<EmployeeEntity> emp = employeerepository.findByhdcode(hd_code);
+		return emp.get();
+		
+	}
+	
+	
+	//유저프로필 수정
+	public void uploadprofile(EmployeeEntity employee,Long hdcode) {
+		System.out.println(">>>>>>>>>>>>>>>");
+		System.out.println(employee.getHdcode());
+		System.out.println(employee.getHdadminpw());
+		System.out.println(employee.getHdpw());
+		System.out.println(employee.getHdlevel());
+		System.out.println("-------------------");
+		System.out.println(employee.getHdbirth());
+		System.out.println(employee.getHdphn());
+		System.out.println(employee.getHdloc());
+		System.out.println(employee.getHdemail());
+		System.out.println(employee.getHdgender());
+		System.out.println(employee.getHdname());
+		System.out.println(employee.getHddname());
+		System.out.println(employee.getHdindate());
+		
+		
+		System.out.println("<<<<<<<<<<<<<<<<<");
+		
+		EmployeeEntity myemp = employeerepository.findByhdcode(hdcode).get();
+		myemp.setHdbirth(employee.getHdbirth());
+		myemp.setHdphn(employee.getHdphn());
+		myemp.setHdloc(employee.getHdloc());
+		myemp.setHdemail(employee.getHdemail());
+		myemp.setHdgender(employee.getHdgender());
+		myemp.setHdname(employee.getHdname());
+		myemp.setHddname(employee.getHddname());
+		myemp.setHdindate(employee.getHdindate());
+		
+		employeerepository.save(myemp);
+		
+//		employeerepository.save(employee);
+		
+	}
+	
+	
+	
+	
+	
 	
 	public String userprofileimgupload(MultipartFile mfile,Principal principal) {
 //		System.out.println(mfile.getName());
@@ -72,14 +124,14 @@ public class DefaultService {
 		
 		
 		
-		
-		try {
-			mfile.transferTo(new File(path+"\\"+"profile.png"));
-		} catch (IllegalStateException | IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		if(mfile != null) {
+			try {
+				mfile.transferTo(new File(path+"\\"+"profile.png"));
+			} catch (IllegalStateException | IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
-		
 		log.info("path는 {}",path.toString()+"\\"+"profile.png");
 		
 		return path.toString()+"\\"+"profile.png";
@@ -168,5 +220,10 @@ public class DefaultService {
 //		}
 //		m.addAttribute("path", path);
 	}
+
+
+
+
+	
 	
 }

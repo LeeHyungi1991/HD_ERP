@@ -28,9 +28,30 @@
 						</tr>
 						<tr>
 							<td rowspan="2">HD BANK</td>
-							<td>기안자</td>
-							<td>중간관리자</td>
-							<td>최종관리자</td>
+							<th:block th:if="${doc.docfirstemp != null}">
+								<td>기안자 : <span th:text="${doc.docfirstemp.hdname}">asdf</span></td>
+							</th:block>
+							<th:block th:unless="${doc.docfirstemp != null}">
+								<td></td>
+							</th:block>
+							
+							<th:block th:if="${doc.docsecondemp != null}">
+								<td>중간관리자 : <span th:text="${doc.docsecondemp.hdname}">asdf</span></td>
+							</th:block>
+							<th:block th:unless="${doc.docsecondemp != null}">
+								<td></td>
+							</th:block>
+							
+							
+							
+							<th:block th:if="${doc.docthirdemp != null}">
+								<td>최종관리자 : <span th:text="${doc.docthirdemp.hdname}">asdf</span></td>
+							</th:block>
+							<th:block th:unless="${doc.docthirdemp != null}">
+								<td></td>
+							</th:block>
+						
+							
 						</tr>
 						<tr>
 							<td>
@@ -43,14 +64,14 @@
 								</th:block >
 								<th:block th:unless="${doc.docstatus} == 1 or ${doc.docstatus} == 2 or ${doc.docstatus} == 3">
 									<th:block th:if="${doc.docignoreemp } != null">
-										<th:block th:if="${doc.docignorestatus == 0}">
+										<th:block th:if="${doc.docignorestatus == '0'}">
 											<img th:src="@{img/dissmissed.PNG}" alt="" style="width: 150px; height: 100px;" />
 										</th:block>
-										<th:block th:unless="${doc.docignorestatus == 0}">
-											<th:block th:if ="${doc.docignorestatus < 1}">
+										<th:block th:unless="${doc.docignorestatus == '0'}">
+											<th:block th:if ="${doc.docignorestatus < '1'}">
 												
 											</th:block>
-											<th:block th:unless ="${doc.docignorestatus < 1}">
+											<th:block th:unless ="${doc.docignorestatus < '1'}">
 												<img th:src="@{${emp1path}}" alt=""  style="width: 150px; height: 100px;"/>
 											</th:block>
 										</th:block>
@@ -68,14 +89,14 @@
 								</th:block >
 								<th:block th:unless="${doc.docstatus} == 2 or ${doc.docstatus} == 3">
 									<th:block th:if="${doc.docignoreemp } != null">
-										<th:block th:if="${doc.docignorestatus == 1}">
+										<th:block th:if="${doc.docignorestatus == '1'}">
 											<img th:src="@{img/dissmissed.PNG}" alt="" style="width: 150px; height: 100px;" />
 										</th:block>
-										<th:block th:unless="${doc.docignorestatus == 1}">
-											<th:block th:if ="${doc.docignorestatus < 2}">
+										<th:block th:unless="${doc.docignorestatus == '1'}">
+											<th:block th:if ="${doc.docignorestatus < '2'}">
 												
 											</th:block>
-											<th:block th:unless ="${doc.docignorestatus < 2}">
+											<th:block th:unless ="${doc.docignorestatus < '2'}">
 												<img th:src="@{${emp2path}}" alt=""  style="width: 150px; height: 100px;"/>
 											</th:block>
 										</th:block>
@@ -93,14 +114,14 @@
 								</th:block >
 								<th:block th:unless="${doc.docstatus} == 3">
 									<th:block th:if="${doc.docignoreemp } != null">
-										<th:block th:if="${doc.docignorestatus == 2}">
+										<th:block th:if="${doc.docignorestatus == '2'}">
 											<img th:src="@{img/dissmissed.PNG}" alt="" style="width: 150px; height: 100px;" />
 										</th:block>
-										<th:block th:unless="${doc.docignorestatus == 2}">
-											<th:block th:if ="${doc.docignorestatus < 3}">
+										<th:block th:unless="${doc.docignorestatus == '2'}">
+											<th:block th:if ="${doc.docignorestatus < '3'}">
 												
 											</th:block>
-											<th:block th:unless ="${doc.docignorestatus < 3}">
+											<th:block th:unless ="${doc.docignorestatus < '3'}">
 												<img th:src="@{${emp3path}}" alt=""  style="width: 150px; height: 100px;"/>
 											</th:block>
 										</th:block>
@@ -145,16 +166,53 @@
         			<td>
         				<button class="btn btn-primary btn-lg" style="width: 200px;" id="back">뒤로가기</button>
         			</td>
+<!--         			3이 아닌 애들 -->
         			<th:block th:if="${doc.docstatus != 3 }">
-        			<td>
-        				<button class="btn btn-primary btn-lg" style="width: 200px;" id="update" >수정하기</button>
-        			</td>
-        			<td>
-        				<button class="btn btn-primary btn-lg" style="width: 200px;" id="ignore" data-target="#myModal1" data-toggle="modal">기각하기</button>
-        			</td>
-        			<td>
-        				<button class="btn btn-primary btn-lg" style="width: 200px;" id="approval" data-target="#myModal2" data-toggle="modal">결재하기</button>
-        			</td>
+	        			<th:block th:switch="${doc.docstatus}">
+		        			<th:block th:case="0">
+			        			<th:block th:if="${doc.docfirstemp.hdcode} == ${myemp.hdcode} ">
+			        				<td>
+			        					<button class="btn btn-primary btn-lg" style="width: 200px;" id="update" >수정하기</button>
+				        			</td>
+				        			<td>
+				        				<button class="btn btn-primary btn-lg" style="width: 200px;" id="ignore" data-target="#myModal1" data-toggle="modal">기각하기</button>
+				        			</td>
+				        			<td>
+				        				<button class="btn btn-primary btn-lg" style="width: 200px;" id="approval" data-target="#myModal2" data-toggle="modal">결재하기</button>
+				        			</td>
+			        			</th:block>
+		        			</th:block>
+		        			<th:block th:case="1">
+			        			<th:block th:if="${doc.docsecondemp.hdcode} == ${myemp.hdcode} ">
+			        				<td>
+			        					<button class="btn btn-primary btn-lg" style="width: 200px;" id="update" >수정하기</button>
+				        			</td>
+				        			<td>
+				        				<button class="btn btn-primary btn-lg" style="width: 200px;" id="ignore" data-target="#myModal1" data-toggle="modal">기각하기</button>
+				        			</td>
+				        			<td>
+				        				<button class="btn btn-primary btn-lg" style="width: 200px;" id="approval" data-target="#myModal2" data-toggle="modal">결재하기</button>
+				        			</td>
+			        			</th:block>
+		        			</th:block>
+		        			<th:block th:case="2">
+			        			<th:block th:if="${doc.docthirdemp.hdcode} == ${myemp.hdcode} ">
+			        				<td>
+			        					<button class="btn btn-primary btn-lg" style="width: 200px;" id="update" >수정하기</button>
+				        			</td>
+				        			<td>
+				        				<button class="btn btn-primary btn-lg" style="width: 200px;" id="ignore" data-target="#myModal1" data-toggle="modal">기각하기</button>
+				        			</td>
+				        			<td>
+				        				<button class="btn btn-primary btn-lg" style="width: 200px;" id="approval" data-target="#myModal2" data-toggle="modal">결재하기</button>
+				        			</td>
+			        			</th:block>
+		        			</th:block>
+	        			</th:block>
+        			</th:block>
+<!--         			3인애들 -->
+        			<th:block th:unless="${doc.docstatus != 3 }">
+        			
         			</th:block>
         		</tr>
         		</table>
@@ -167,7 +225,68 @@
             
             		
             </div>	
+              <table id="comments" border="1">
+              	<tr class="commmentsname" >
+              		<th style="text-align: center;">Comments</th>
+              	</tr>
+              	<tr class="commmentsname">
+              		
+              		<td >1차승인 코멘트</td>
+              		
+              	</tr>
+              	<tr>
+              		<th:block th:if="${doc.doc1okcomment != null}">
+              			<td th:text ="${doc.doc1okcomment}">1차승인 코멘트 내용</td>
+              		</th:block>
+              		<th:block th:unless="${doc.doc1okcomment != null}">
+              			<td></td>
+              		</th:block>
+              	</tr>
+              	<tr class="commmentsname">
+              		<td>2차승인 코멘트</td>
+              	</tr>
+              	<tr>
+              		<th:block th:if="${doc.doc2okcomment != null}">
+              			<td th:text ="${doc.doc2okcomment}">2차승인 코멘트 내용</td>
+              		</th:block>
+              		<th:block th:unless="${doc.doc2okcomment != null}">
+              			<td></td>
+              		</th:block>
+              	</tr>
+              	<tr class="commmentsname">
+              		<td>3차승인 코멘트</td>
+              	</tr>
+              	<tr>
+              		<th:block th:if="${doc.doc3okcomment != null}">
+              			<td th:text ="${doc.doc3okcomment}">3차승인 코멘트 내용</td>
+              		</th:block>
+              		<th:block th:unless="${doc.doc3okcomment != null}">
+              			<td></td>
+              		</th:block>
+              	</tr>
               	
+              	<tr style="height: 30px; background: lightgreen;">
+              		<td></td>
+              	</tr>
+              	
+              	<tr class="commmentsname">
+              		<td>기각 코멘트</td>
+              	</tr>
+              	<tr>
+              		<th:block th:if="${doc.doc1ignorecomment != null}">
+              			<td th:text ="${doc.doc1ignorecomment}">1차승인 코멘트 내용</td>
+              		</th:block>
+              		<th:block th:if="${doc.doc2ignorecomment != null}">
+              			<td th:text ="${doc.doc2ignorecomment}">2차승인 코멘트 내용</td>
+              		</th:block>
+              		<th:block th:if="${doc.doc3ignorecomment != null}">
+              			<td th:text ="${doc.doc3ignorecomment}">3차승인 코멘트 내용</td>
+              		</th:block>
+              		<th:block th:if="${doc.doc1ignorecomment == null} and ${doc.doc2ignorecomment == null} and ${doc.doc3ignorecomment == null}">
+              			<td></td>
+              		</th:block>
+              	</tr>
+              </table>	
            
             
         
@@ -269,10 +388,27 @@ window.onload=function(){
 
 <th:block layout:fragment="css">
      <style>
+     .commmentsname{
+     height: 20px;
+     }
+     
+     #comments{
+/*      position: absolute; */
+     left: 70%;
+     width: 300px;
+     
+     height: 905px;
+     text-align: center;
+     float: left; 
+     margin-left: 3%;
+     }
+     
+     
+/*      ---------------- 밑에 도큐번트 위에 코멘츠 */
      #buttons{
      position: absolute;
      	
-   		left: 10%;
+   		left: 5%;
    		top: 83%;
     
      }
@@ -281,8 +417,9 @@ window.onload=function(){
      #document table{
    		border: 1px solid black;
    		background: white;
-   		position: absolute;
-   		left: 10%;
+/*    		position: absolute; */
+   		margin-left:3%;
+   		float: left;
      }
      #document table thead tr:first-child td{
      border : 1px solid black;

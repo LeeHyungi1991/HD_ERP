@@ -131,7 +131,8 @@ public class EmployeeManageController {
 			emp3path = "img/"+doc.getDocthirdemp().getHdcode()+"/signature.png";
 			m.addAttribute("emp3path", emp3path);
 		}
-		
+		EmployeeEntity myemp = employeemanageservice.getemp(Long.parseLong(principal.getName()));
+		m.addAttribute("myemp", myemp);
 		return "empManage/document";
 	}
 	//서류 기안 이미지 처리

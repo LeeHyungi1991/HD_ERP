@@ -87,27 +87,34 @@ public class DefaultController {
 	}
 	
 	
-	
+	//프로필페이지보기
 	@GetMapping("/user.profile")
 	public String profile(Model m,Principal principal) {
-		m.addAttribute("asdf", "asdf123");
-		//String path = "C:\\ikosmo64\\spring\\realerp\\hdERP\\src\\main\\resources\\static\\img\\"+principal.getName(); //폴더 경로
+		EmployeeEntity emp = defaultservice.getuserprofile(Long.parseLong(principal.getName()));
+		
 		String path2 ="img\\"+principal.getName();
 		m.addAttribute("path", path2.toString()+"\\"+"profile.png");
 		m.addAttribute("sigpath", path2.toString()+"\\"+"signature.png");
+		m.addAttribute("emp", emp);
 		return"userprofile";
 	}
+	//프로필이미지,사원정보 업로드
 	@PostMapping("/user.profile")
-	public String postprofile(HttpServletRequest request,@RequestParam("filename")MultipartFile mfile,Principal principal,Model m) {
-		
+	public String postprofile(HttpServletRequest request,@RequestParam(value = "filename",required = false)MultipartFile mfile,Principal principal,Model m,EmployeeEntity employee) {
+		//이미지 업로드
 		String path = defaultservice.userprofileimgupload(mfile, principal);
 		
+		//프로필업로드
+		defaultservice.uploadprofile(employee,Long.parseLong(principal.getName()));
+		//
+		System.out.println("pro up emp >> "+employee.toString());
 		m.addAttribute("path", path);
 	
 		return"redirect:/user.profile";
 		
 	}
 	
+	//사인이미지
 	@PostMapping("/user.profilesigimg")
 	public String saveIamge(@RequestParam(value="file", required=true) MultipartFile [] file,Principal principal) {
 	    

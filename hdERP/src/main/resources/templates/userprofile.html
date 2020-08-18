@@ -43,7 +43,6 @@
                                     </div>
                                 </div>
                                 	<div class="panel-body">
-                                	
 <!--                                 	<span th:text="${asdf}"></span> -->
                                 	
 <!--                                 	<img th:src="@{C:\\Users\\KOSMO_10\\AppData\\Local\\Temp\\tomcat-docbase.5323472152637427991.9090\\upload\\profile.PNG}" alt="" /> -->
@@ -52,30 +51,31 @@
                                 	<form th:action="@{/user.profile}" method="post" id="profileform" enctype="multipart/form-data" >
                                 		<table class="table table-striped table-bordered table-hover">
                                 			<tr>
-                                				<td><label for="">사번</label></td><td><input type="text" value="사번" class="form-control" disabled="disabled" /></td>
+                                				<td><label for="">사번</label></td><td><input type="text" th:value="${emp.hdcode}" name="hdcode" class="form-control" disabled="disabled" /></td>
                                 				<td colspan="2" rowspan="6">
 <!--                                 				[[${path}]] -->
+
                                 				<img th:src="@{${path}}" alt=""  style="border: 1px solid black; width: 260px; height: 260px;margin: 0 auto; display: block; ">
                                 				<input type="file" name="filename" id="profileupload" style="visibility: hidden;" />
                                 				</td>
                                 			</tr>
                                 			<tr>
-                                				<td><label for="">직급</label></td><td><input type="text" value="직급" class="form-control" disabled="disabled"/></td>
+                                				<td><label for="">직급</label></td><td><input type="text" th:value="${emp.hdlevel}" name="hdlevel" class="form-control" disabled="disabled"/></td>
                                 			</tr>
                                 			<tr>
-                                				<td><label for="">이름</label></td><td><input type="text" value="이름" class="form-control" /></td>
+                                				<td><label for="">이름</label></td><td><input type="text" th:value="${emp.hdname}" name="hdname" class="form-control" /></td>
                                 			</tr>
                                 			<tr>
-                                				<td><label for="">입사일</label></td><td><input type="text" value="입사일" class="form-control" /></td>
+                                				<td><label for="">입사일</label></td><td><input type="text" th:value="${emp.hdindate}" name="hdindate" class="form-control" /></td>
                                 			</tr>
                                 			<tr>
-                                				<td><label for="">생년월일</label></td><td><input type="text" value="생년월일" class="form-control" /></td>
+                                				<td><label for="">생년월일</label></td><td><input type="text" th:value="${emp.hdbirth}" name="hdbirth" class="form-control" /></td>
                                 			</tr>
                                 			<tr>
-                                				<td><label for="">부서명</label></td><td><input type="text" value="부서명" class="form-control" /></td>
+                                				<td><label for="">부서명</label></td><td><input type="text" th:value="${emp.hddname}" name="hddname" class="form-control" /></td>
                                 			</tr>
                                 			<tr>
-                                				<td><label for="">성별</label></td><td><input type="text" value="성별" class="form-control" /></td>
+                                				<td><label for="">성별</label></td><td><input type="text" th:value="${emp.hdgender}" name="hdgender" class="form-control" /></td>
                                 				
                                 				<td colspan="2" rowspan="6">
                                 				
@@ -90,13 +90,13 @@
                                 				 </td>
                                 			</tr>
                                 			<tr>
-                                				<td><label for="">전화번호</label></td><td><input type="text" value="전화번호" class="form-control" /></td>
+                                				<td><label for="">전화번호</label></td><td><input type="text" th:value="${emp.hdphn}" name="hdphn" class="form-control" /></td>
                                 			</tr>
                                 			<tr>
-                                				<td><label for="">이메일</label></td><td><input type="text" value="이메일" class="form-control" /></td>
+                                				<td><label for="">이메일</label></td><td><input type="text" th:value="${emp.hdemail}" name="hdemail" class="form-control" /></td>
                                 			</tr>
                                 			<tr>
-                                				<td><label for="">주소</label></td><td><input type="text" value="주소" class="form-control" /></td>
+                                				<td><label for="">주소</label></td><td><input type="text" th:value="${emp.hdloc}" name="hdloc" class="form-control" /></td>
                                 			</tr>
                                 			
                                 			
@@ -105,7 +105,7 @@
 <!--                                 		<input type="text" class="test" /> -->
 <!--                                 		<input type="text" class="test" /> -->
                                 		<button id="cancel" type="button" class="btn btn-primary btn-lg pull-right" style="margin-right: 5%; visibility:hidden;">취소</button>
-                                		<button id="update" type="button" class="btn btn-primary btn-lg pull-right" style=" margin-right: 5%;  "  >수정</button>
+                                		<button id="update" type="button" class="btn btn-primary btn-lg pull-right"  style=" margin-right: 5%;  "  >수정</button>
                                 		
                                 		</form>
                                 		
@@ -135,6 +135,8 @@
 
 <th:block layout:fragment="script">
  			<script>
+ 			var canvaschk=0;
+ 			
  			var canvas, context;
  			var token = $("meta[name='_csrf']").attr("content");
  			var header = $("meta[name='_csrf_header']").attr("content");
@@ -221,6 +223,8 @@
 				$('#signatureimg').height(0)
 				$('#canvas').css('visibility', 'visibility')
 				init()
+				//다시그리기 눌렀으면 업로드 되게
+				canvaschk = canvaschk+1;
 			})
 			
 			window.onload=function(){///////////////////
@@ -251,12 +255,19 @@
 						$('#cancel').css('visibility', 'hidden')
 						$('#profileupload').css('visibility', 'hidden')
 						//$('#update').attr('type', 'button');
-						console.log($('#profileupload').val())
-						if($('#profileupload').val()!=''){
-							$('#profileform').submit()
+// 						console.log($('#profileupload').val())
+// 						alert($('#profileupload').val())
+						//수정
+						if($('#profileupload').val()==''){
+							
+							$('#profileupload').removeAttr('name');
 						}
+						$('#profileform').submit()
 						$('#resignature').css('visibility', 'hidden')
-						saveImage()
+						//캔버스 이미지업로드
+						if(canvaschk != 0){
+							saveImage()
+						}
 						
 					}
 				})

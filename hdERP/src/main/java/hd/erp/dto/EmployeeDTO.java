@@ -39,10 +39,10 @@ public class EmployeeDTO {
 	
 	public EmployeeEntity toEntity() {
 		return EmployeeEntity.builder()
-				.hdcode(hd_code).hd_level(hd_level).hd_name(hd_name)
-				.hd_dname(hd_dname).hd_gender(hd_gender).hd_phn(hd_phn)
-				.hd_email(hd_email).hd_loc(hd_loc).hd_pw(hd_pw)
-				.hd_in_date(hd_in_date).hd_birth(hd_birth).hd_admin_pw(hd_admin_pw).build();
+				.hdcode(hd_code).hdlevel(hd_level).hdname(hd_name)
+				.hddname(hd_dname).hdgender(hd_gender).hdphn(hd_phn)
+				.hdemail(hd_email).hdloc(hd_loc).hdpw(hd_pw)
+				.hdindate(hd_in_date).hdbirth(hd_birth).hdadminpw(hd_admin_pw).build();
 	}
 	
 	

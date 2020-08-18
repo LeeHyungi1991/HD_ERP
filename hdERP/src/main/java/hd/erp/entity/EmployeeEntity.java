@@ -16,6 +16,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
+import lombok.Setter;
 import lombok.experimental.NonFinal;
 /*
  * HD_CODE    NOT NULL NUMBER        
@@ -33,6 +34,7 @@ HD_PW      NOT NULL VARCHAR2(255)
 @Entity
 @Table(name = "employee")
 @Getter
+@Setter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class EmployeeEntity {
 	@Id@GeneratedValue(strategy = GenerationType.SEQUENCE,generator = "hd_code_sequence")
@@ -40,63 +42,74 @@ public class EmployeeEntity {
 	@Column(name = "hd_code")
 	private Long hdcode;
 	
+	//직급
 	@Column(name = "hd_level")
 	@NotNull
 	private String hdlevel;
 	
+	//가입일
 	@Column(name = "hd_in_date")
 	@NotNull
-	private String hd_in_date;
+	private String hdindate;
 	
+	//이름
 	@Column(name = "hd_name")
 	@NotNull
 	private String hdname;
 	
+	//생일
 	@Column(name = "hd_birth")
 	@NotNull
-	private String hd_birth;
+	private String hdbirth;
 	
+	//부서명
 	@Column(name = "hd_dname")
-	private String hd_dname;
+	private String hddname;
 	
+	//성별
 	@Column(name = "hd_gender")
-	private String hd_gender;
+	private String hdgender;
 	
+	//전화번호
 	@Column(name = "hd_phn")
 	@NotNull	
-	private String hd_phn;
+	private String hdphn;
 	
+	//이메일
 	@Column(name = "hd_email")
-	private String hd_email;
+	private String hdemail;
 	
+	//지역
 	@Column(name = "hd_loc")
-	private String hd_loc;
+	private String hdloc;
 	
+	//비번
 	@Column(name = "hd_pw")
 	@NotNull
-	private String hd_pw;
+	private String hdpw;
 	
+	//어드민비번
 	@Column(name = "hd_admin_pw")
 	@NotNull
-	private String hd_admin_pw;
+	private String hdadminpw;
 
 	
 	@Builder
-	public EmployeeEntity(Long hdcode, String hd_level, String hd_in_date, String hd_name, String hd_birth, String hd_dname,
-			String hd_gender, String hd_phn, String hd_email, String hd_loc, String hd_pw,String hd_admin_pw) {
+	public EmployeeEntity(Long hdcode, String hdlevel, String hdindate, String hdname, String hdbirth, String hddname,
+			String hdgender, String hdphn, String hdemail, String hdloc, String hdpw,String hdadminpw) {
 		super();
 		this.hdcode = hdcode;
-		this.hdlevel = hd_level;
-		this.hd_in_date = hd_in_date;
-		this.hdname = hd_name;
-		this.hd_birth = hd_birth;
-		this.hd_dname = hd_dname;
-		this.hd_gender = hd_gender;
-		this.hd_phn = hd_phn;
-		this.hd_email = hd_email;
-		this.hd_loc = hd_loc;
-		this.hd_pw = hd_pw;
-		this.hd_admin_pw = hd_admin_pw;
+		this.hdlevel = hdlevel;
+		this.hdindate = hdindate;
+		this.hdname = hdname;
+		this.hdbirth = hdbirth;
+		this.hddname = hddname;
+		this.hdgender = hdgender;
+		this.hdphn = hdphn;
+		this.hdemail = hdemail;
+		this.hdloc = hdloc;
+		this.hdpw = hdpw;
+		this.hdadminpw = hdadminpw;
 	}
 	
 	

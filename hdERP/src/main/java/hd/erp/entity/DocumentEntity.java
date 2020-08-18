@@ -70,11 +70,11 @@ public class DocumentEntity {
 	@Column(name = "doc_1_ignorecomment")
 	private String doc1ignorecomment;
 	
-	//서류 1차 기각 코멘트
+	//서류 2차 기각 코멘트
 	@Column(name = "doc_2_ignorecomment")
 	private String doc2ignorecomment;
 	
-	//서류 1차 기각 코멘트
+	//서류 3차 기각 코멘트
 	@Column(name = "doc_3_ignorecomment")
 	private String doc3ignorecomment;
 	
@@ -104,7 +104,7 @@ public class DocumentEntity {
 		
 	//기각시 서류 상태
 	@Column(name = "doc_ignore_status")
-	private int docignorestatus;
+	private String docignorestatus;
 	
 	
 }
