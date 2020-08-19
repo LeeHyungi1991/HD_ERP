@@ -34,7 +34,7 @@
                                             <th>이름</th>
                                             <th>이메일</th>
                                             <th>멤버가입일</th>
-                                            <th>상세보기</th>
+                                            <th>상세보기<button data-toggle="modal"  data-target="#myModal2">고객추가</button></th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -43,7 +43,7 @@
                                        		<td th:text="${mem.mem_name}"></td>
                                        		<td th:text="${mem.mem_email}"></td>
                                        		<td th:text="${mem.mem_in_date}"></td>
-                                       		<td><button data-toggle="modal" data-target="#myModal">상세보기</button></td>
+                                       		<td><button data-toggle="modal"  data-target="#myModal" th:data-code="${mem.mem_code}" class="memdetail">상세보기</button></td>
                                        </tr>
                                     </tbody>
                                     
@@ -60,42 +60,415 @@
     
             </div>
   <!--  Modals-->
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            Modals Example
-                        </div>
+<!--                     <div class="panel panel-default"> -->
+<!--                         <div class="panel-heading"> -->
+<!--                             고객 상세보기 -->
+<!--                         </div> -->
                         <div class="panel-body">
-                            <button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
-                              Click  Launch Demo Modal
-                            </button>
+<!--                             <button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal"> -->
+<!--                               Click  Launch Demo Modal -->
+<!--                             </button> -->
                             <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                                 <div class="modal-dialog">
                                     <div class="modal-content">
                                         <div class="modal-header">
                                             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                                            <h4 class="modal-title" id="myModalLabel">Modal title Here</h4>
+                                            <h4 class="modal-title" id="myModalLabel">고객 상세보기</h4>
                                         </div>
                                         <div class="modal-body">
-                                            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                                         <!--    Context Classes  -->
+                    <div class="panel panel-default">
+                       
+                        <div class="panel-heading">
+                            <span id="memtitle">상세보기</span>
+                        </div>
+                        
+                        <div class="panel-body">
+                            <div class="table-responsive">
+                            <form action="" >
+                                <table class="table">
+<!--                                     <thead> -->
+<!--                                         <tr> -->
+<!--                                             <th>#</th> -->
+<!--                                             <th>First Name</th> -->
+<!--                                             <th>Last Name</th> -->
+<!--                                             <th>Username</th> -->
+<!--                                         </tr> -->
+<!--                                     </thead> -->
+                                    <tbody>
+                                    
+                                        <tr class="success">
+                                            <th>멤버고유번호</th>
+                                            <td >
+                                            	<input type="text" id="mem_code" name="mem_code" disabled="disabled" />
+                                            </td>
+                                            <th>멤버이메일</th>
+                                            <td >
+												 <input type="text" id="mem_email" name="mem_email" readonly="readonly"/>
+											</td>
+                                        </tr>
+                                        <tr class="info">
+                                            <th>멤버패스워드</th>
+                                            <td >
+                                            	 <input type="text" id="mem_pwd" name="mem_pwd" readonly="readonly" />
+                                            </td>
+                                            <th>멤버이름</th>
+                                            <td >
+												 <input type="text" id="mem_name"  name="mem_name" readonly="readonly"/>
+											</td>
+                                        </tr>
+                                        <tr class="warning">
+                                            <th>멤버전화번호</th>
+                                            <td >
+                                            	 <input type="text" id="mem_phn" name="mem_phn" readonly="readonly" />
+                                            </td>
+                                            <th>멤버가입일</th>
+                                            <td >
+                                            	 <input type="date" id="mem_in_date" name="mem_in_date" readonly="readonly" />
+                                            </td>
+                                        </tr>
+                                        <tr class="danger">
+                                            <th>개인정보동의</th>
+                                            <td >
+                                            	 <input type="text"  id="mem_pri_chk" name="mem_pri_chk" readonly="readonly"/>
+                                            </td>
+                                            <th>메일전송동의</th>
+                                            <td >
+                                            	 <input type="text" id="mem_email_chk" name="mem_email_chk" readonly="readonly"/>
+                                            </td>
+                                        </tr>
+                                        <tr class="danger">
+                                            <th>멤버생년월일</th>
+                                            <td >
+                                            	 <input type="text" id="mem_birth" name="mem_birth" readonly="readonly" />
+                                            </td>
+                                            <th>멤버성별</th>
+                                            <td >
+                                            	 <input type="text" id="mem_gender" name="mem_gender" readonly="readonly" />
+                                            </td>
+                                        </tr>
+                                        <tr class="danger">
+                                            <th>멤버주소</th>
+                                            <td >
+                                            	 <input type="text" id="mem_loc" name="mem_loc" readonly="readonly"/>
+                                            </td>
+                                            <th>멤버직업</th>
+                                            <td >
+                                            	 <input type="text" id="mem_job" name="mem_job" readonly="readonly"/>
+                                            </td>
+                                        </tr>
+                                        <tr class="danger">
+                                            <th>가입아이피</th>
+                                            <td >
+                                            	 <input type="text" id="mem_reip" name="mem_reip" readonly="readonly"/>
+                                            </td>
+                                            <td>-</td>
+                                            <td >-</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <!--  end  Context Classes  -->
                                         </div>
                                         <div class="modal-footer">
-                                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                            <button type="button" class="btn btn-primary">Save changes</button>
+                                        	<button type="button" class="btn btn-default" data-dismiss="modal" onclick="location.reload()">Close</button>
+                                        	<th:block sec:authorize="hasAnyRole('ROLE_ADMIN','ROLE_MEMBER')">
+                                        	<button type="button" class="btn btn-default" id="delete">멤버삭제</button>
+                                        	</th:block>
+                                        	<button type="button" class="btn btn-default" id="update">수정</button>
+                                            <button type="button" class="btn btn-primary" style="visibility: hidden;" id="submit">Save changes</button>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
+<!--                     </div> -->
+                     <!-- End Modals-->   
+                     
+                     <!--  Modals-->
+<!--                     <div class="panel panel-default"> -->
+<!--                         <div class="panel-heading"> -->
+<!--                             고객 상세보기 -->
+<!--                         </div> -->
+                        <div class="panel-body">
+<!--                             <button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal"> -->
+<!--                               Click  Launch Demo Modal -->
+<!--                             </button> -->
+                            <div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                            <h4 class="modal-title" id="myModalLabel">고객 추가</h4>
+                                        </div>
+                                        <div class="modal-body">
+                                         <!--    Context Classes  -->
+                    <div class="panel panel-default">
+                       
+                        <div class="panel-heading">
+                            <span id="memtitle">추가하기</span>
+                        </div>
+                        
+                        <div class="panel-body">
+                            <div class="table-responsive">
+                            <form action="" >
+                                <table class="table">
+<!--                                     <thead> -->
+<!--                                         <tr> -->
+<!--                                             <th>#</th> -->
+<!--                                             <th>First Name</th> -->
+<!--                                             <th>Last Name</th> -->
+<!--                                             <th>Username</th> -->
+<!--                                         </tr> -->
+<!--                                     </thead> -->
+                                    <tbody>
+                                    
+                                        <tr class="success">
+                                            <th>멤버고유번호</th>
+                                            <td >
+                                            	<input type="text" id="nmem_code" name="mem_code" disabled="disabled" />
+                                            </td>
+                                            <th>멤버이메일</th>
+                                            <td >
+												 <input type="text" id="nmem_email" name="mem_email" />
+											</td>
+                                        </tr>
+                                        <tr class="info">
+                                            <th>멤버패스워드</th>
+                                            <td >
+                                            	 <input type="text" id="nmem_pwd" name="mem_pwd"  />
+                                            </td>
+                                            <th>멤버이름</th>
+                                            <td >
+												 <input type="text" id="nmem_name"  name="mem_name" />
+											</td>
+                                        </tr>
+                                        <tr class="warning">
+                                            <th>멤버전화번호</th>
+                                            <td >
+                                            	 <input type="text" id="nmem_phn" name="mem_phn"  />
+                                            </td>
+                                            <th>멤버가입일</th>
+                                            <td >
+                                            	 <input type="date" id="nmem_in_date" name="mem_in_date" />
+                                            </td>
+                                        </tr>
+                                        <tr class="danger">
+                                            <th>개인정보동의</th>
+                                            <td >
+                                            	 <input type="text"  id="nmem_pri_chk" name="mem_pri_chk" />
+                                            </td>
+                                            <th>메일전송동의</th>
+                                            <td >
+                                            	 <input type="text" id="nmem_email_chk" name="mem_email_chk" />
+                                            </td>
+                                        </tr>
+                                        <tr class="danger">
+                                            <th>멤버생년월일</th>
+                                            <td >
+                                            	 <input type="text" id="nmem_birth" name="mem_birth"  />
+                                            </td>
+                                            <th>멤버성별</th>
+                                            <td >
+                                            	 <input type="text" id="nmem_gender" name="mem_gender" />
+                                            </td>
+                                        </tr>
+                                        <tr class="danger">
+                                            <th>멤버주소</th>
+                                            <td >
+                                            	 <input type="text" id="nmem_loc" name="mem_loc" />
+                                            </td>
+                                            <th>멤버직업</th>
+                                            <td >
+                                            	 <input type="text" id="nmem_job" name="mem_job" />
+                                            </td>
+                                        </tr>
+                                        <tr class="danger">
+                                            <th>가입아이피</th>
+                                            <td >
+                                            	 <input type="text" id="nmem_reip" name="mem_reip"/>
+                                            </td>
+                                            <td>-</td>
+                                            <td >-</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                </form>
+                            </div>
+                        </div>
                     </div>
+                    <!--  end  Context Classes  -->
+                                        </div>
+                                        <div class="modal-footer">
+                                        	<button type="button" class="btn btn-default" data-dismiss="modal" onclick="location.reload()">Close</button>
+                                        	
+                                            <button type="button" class="btn btn-primary"  id="add">add</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+<!--                     </div> -->
                      <!-- End Modals-->       			
 </th:block>
 
 <th:block layout:fragment="css">
-
+<style>
+	table th{
+		font-size: 10px;
+	}
+</style>
 </th:block>
 <th:block layout:fragment="script">
 <script>
+var token = $("meta[name='_csrf']").attr("content");
+var header = $("meta[name='_csrf_header']").attr("content");
+	window.onload=function(){///////////////////////////////////////////////////////////////
+		$('.memdetail').click(function() {
+			console.log($(this).data('code'))
+			var memcode =$(this).data('code')
+			$.ajax({
+				type:'post',
+				url:'/user.memdetail',
+				data : {'memcode':memcode},
+				success : function(data){
+					var mem = JSON.parse(data)
+					$('#mem_code').val(mem.mem_code)
+					$('#mem_email').val(mem.mem_email)
+					$('#mem_pwd').val(mem.mem_pwd)
+					$('#mem_name').val(mem.mem_name)
+					$('#mem_phn').val(mem.mem_phn)
+					$('#mem_in_date').val(mem.mem_in_date)
+					$('#mem_pri_chk').val(mem.mem_pri_chk)
+					$('#mem_email_chk').val(mem.mem_email_chk)
+					$('#mem_birth').val(mem.mem_birth)
+					$('#mem_gender').val(mem.mem_gender)
+					$('#mem_loc').val(mem.mem_loc)
+					$('#mem_job').val(mem.mem_job)
+					$('#mem_reip').val(mem.mem_reip)
+				},
+				
+				beforeSend : function(xhr)
+			    {   /*데이터를 전송하기 전에 헤더에 csrf값을 설정한다*/
+					xhr.setRequestHeader(header, token);
+			    },
+				error : function(e){
+					console.log(e)
+				}
+			})
+		})
+		
+		$('#update').click(function() {
+			$(this).css('visibility', 'hidden')
+			$('#submit').css('visibility', 'visibility')
+			$('#submit').attr('type', 'submit')
+			$('input').attr("readonly",false)
+		})
+		
+		$('#submit').click(function() {
+			$('#submit').attr('type', 'button')
+			$('#submit').css('visibility', 'hidden')
+			$('#update').css('visibility','visibility')
+			$('input').attr("readonly",true)
+			var obj =new Object();
+			
+			obj.mem_code= $('#mem_code').val()
+			obj.mem_email=$('#mem_email').val()
+			obj.mem_pwd=$('#mem_pwd').val()
+			obj.mem_name=$('#mem_name').val()
+			obj.mem_phn=$('#mem_phn').val()
+			obj.mem_in_date= $('#mem_in_date').val()
+			obj.mem_pri_chk=$('#mem_pri_chk').val()
+			obj.mem_email_chk=$('#mem_email_chk').val()
+			obj.mem_birth= $('#mem_birth').val()
+			obj.mem_gender= $('#mem_gender').val()
+			obj.mem_loc=$('#mem_loc').val()
+			obj.mem_job=$('#mem_job').val()
+			obj.mem_reip= $('#mem_reip').val()
+			var str =JSON.stringify(obj);
+			$.ajax({
+				type:'post',
+				url:'/user.memupate',
+				data:{'str':str},
+				beforeSend : function(xhr)
+			    {   /*데이터를 전송하기 전에 헤더에 csrf값을 설정한다*/
+					xhr.setRequestHeader(header, token);
+			    },
+				success:function(data){
+					console.log(data)
+				},
+				error:function(e){
+					console.log(e)
+				}
+				
+			})
+			
+		})
+		
+		$('#delete').click(function() {
+			
+			var mem_code =$('#mem_code').val()
+			$.ajax({
+				url:'/user.memdelete',
+				data:{'mem_code':mem_code},
+				type:'post',
+				beforeSend : function(xhr)
+			    {   /*데이터를 전송하기 전에 헤더에 csrf값을 설정한다*/
+					xhr.setRequestHeader(header, token);
+			    },
+				success:function(data){
+					console.log(data)
+					location.reload();
+				},
+				error:function(e){
+					console.log(e)
+				}
+			})
+		})
+		$('#add').click(function() {
+			var memobj = new Object();
 
+			memobj.mem_code= $('#nmem_code').val()
+			memobj.mem_email=$('#nmem_email').val()
+			memobj.mem_pwd=$('#nmem_pwd').val()
+			memobj.mem_name=$('#nmem_name').val()
+			memobj.mem_phn=$('#nmem_phn').val()
+			memobj.mem_in_date= $('#nmem_in_date').val()
+			memobj.mem_pri_chk=$('#nmem_pri_chk').val()
+			memobj.mem_email_chk=$('#nmem_email_chk').val()
+			memobj.mem_birth= $('#nmem_birth').val()
+			memobj.mem_gender= $('#nmem_gender').val()
+			memobj.mem_loc=$('#nmem_loc').val()
+			memobj.mem_job=$('#nmem_job').val()
+			memobj.mem_reip= $('#nmem_reip').val()
+			var str =JSON.stringify(memobj);
+			
+			
+			
+			
+			$.ajax({
+				url:'/user.meminsert',
+				type:'post',
+				data : {'str':str},
+				beforeSend : function(xhr)
+			    {   /*데이터를 전송하기 전에 헤더에 csrf값을 설정한다*/
+					xhr.setRequestHeader(header, token);
+			    },
+				success : function(data){
+					console.log(data)
+				},
+				error :function(d) {
+					console.log(d)
+				}
+				
+			})
+		})
+		
+		
+	}///////////////////////////////////////////////////////////////////
 </script>
 
 </th:block>

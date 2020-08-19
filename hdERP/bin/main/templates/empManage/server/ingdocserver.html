@@ -1,0 +1,68 @@
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/xhtml">
+
+
+								<tbody>
+                                        <tr th:each="doc : ${ingdoc}" class="ingdoc">
+                                       
+                                        <th:block th:switch="${doc.docstatus}">
+<!--                                         <p>[[${doc.docthirdemp.hdcode}]]</p> -->
+<!--                                         <p>[[${myemp.hdcode}]]</p> -->
+                                        	<th:block th:case="0">
+										<!--   1차결재  자와 기안자만 보게-->
+                                        		<th:block th:if="${doc.docfirstemp != null}" >
+	                                        		<th:block th:if="${doc.docfirstemp.hdcode}==${myemp.hdcode} or ${doc.docdrafter.hdcode}==${myemp.hdcode}">
+	                                        			<td th:text="${doc.docnum}"></td>
+			                                        	<td th:text="${doc.doctitle}"></td>
+			                                        	<th th:text="${doc.docdrafter.hdname}"></th>
+			                                        	<td th:text="${doc.docdate}"></td>
+			                                        	
+				                                        	<th:block th:switch="${doc.docstatus}">
+				                                        		<td th:case="0"> 1차결재진행중</td>
+				                                        		<td th:case="1"> 2차결재진행중</td>
+				                                        		<td th:case="2"> 3차결재진행중</td>
+				                                        	</th:block>
+	                                        		</th:block>
+		                                        </th:block>	
+                                        	</th:block>
+                                        	<th:block th:case="1">
+<!--                                         		<!--   2차결재  자와 기안자만 보게-->
+                                        		<th:block th:if="${doc.docsecondemp != null}" >
+	                                        		<th:block th:if="${doc.docsecondemp.hdcode}==${myemp.hdcode} or ${doc.docdrafter.hdcode}==${myemp.hdcode}">
+	                                        			<td th:text="${doc.docnum}"></td>
+			                                        	<td th:text="${doc.doctitle}"></td>
+			                                        	<th th:text="${doc.docdrafter.hdname}"></th>
+			                                        	<td th:text="${doc.docdate}"></td>
+			                                        	
+				                                        	<th:block th:switch="${doc.docstatus}">
+				                                        		<td th:case="0"> 1차결재진행중</td>
+				                                        		<td th:case="1"> 2차결재진행중</td>
+				                                        		<td th:case="2"> 3차결재진행중</td>
+				                                        	</th:block>
+	                                        		</th:block>
+		                                        </th:block>	
+                                        	</th:block>
+                                        	<th:block th:case="2">
+<!--                                         		<!--   3차결재  자와 기안자만 보게-->
+                                        		<th:block th:if="${doc.docthirdemp != null}" >
+	                                        		<th:block th:if="${doc.docthirdemp.hdcode}==${myemp.hdcode} or ${doc.docdrafter.hdcode}==${myemp.hdcode}">
+	                                        			<td th:text="${doc.docnum}"></td>
+			                                        	<td th:text="${doc.doctitle}"></td>
+			                                        	<th th:text="${doc.docdrafter.hdname}"></th>
+			                                        	<td th:text="${doc.docdate}"></td>
+			                                        	
+				                                        	<th:block th:switch="${doc.docstatus}">
+				                                        		<td th:case="0"> 1차결재진행중</td>
+				                                        		<td th:case="1"> 2차결재진행중</td>
+				                                        		<td th:case="2"> 3차결재진행중</td>
+				                                        	</th:block>
+	                                        		</th:block>
+		                                        </th:block>	
+                                        	</th:block>
+                                       </th:block> 	
+                                       
+                                        </tr>
+                                    </tbody>
+                                    
+                                    
+
+</html>

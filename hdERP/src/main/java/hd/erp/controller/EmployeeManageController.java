@@ -208,6 +208,17 @@ public class EmployeeManageController {
 		return "redirect:/user.docmanage";
 	}
 	
+	//docmanage 其捞隆 ばば
+	@RequestMapping(value = "/user.docmangepaging")
+	@ResponseBody
+	public String docmanagepaging() {
+		
+		return "";
+	}
+	
+	
+	
+	
 	
 	//辑幅 梅何颇老 贸府//いい
 	@PostMapping(value = "/user.docattupload")
@@ -219,5 +230,14 @@ public class EmployeeManageController {
 		return check;
 	}
 
+	////////////////////////////////////////////////////////////////////////responsebody server
+	
+	@PostMapping("/user.ajaxtest")
+	//@ResponseBody
+	public String asdfasdf(Model m) {
+		System.out.println("ajax test ajax testajax testajax test");
+		m.addAttribute("test", "asdf");
+		return "empManage/server/completedocserver";
+	}
 	
 }

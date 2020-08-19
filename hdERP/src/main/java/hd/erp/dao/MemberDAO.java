@@ -12,4 +12,8 @@ import hd.erp.dto.MemberDTO;
 public interface MemberDAO {
 
 	List<MemberDTO> memberlist();
+	MemberDTO member(int mem_code);
+	void memberupdate(MemberDTO member);
+	void memberdelete(String mem_code);
+	void memberinsert(MemberDTO member);
 }

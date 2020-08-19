@@ -19,13 +19,29 @@
 	 from member
 	 order by 1
 	</select>
-	
+	<select id="member" resultType="mem">
+	select mem_code
+			,mem_email
+			,mem_pwd
+			,mem_name
+			,mem_phn
+			,mem_in_date
+			,mem_pri_chk
+			,mem_email_chk
+			,mem_birth
+			,mem_gender
+			,mem_loc
+			,mem_job
+			,mem_reip
+	 from member
+	 where mem_code=#{mem_code}
+	</select>
 	
 <!-- 	member_seq. -->
 	<insert id="memberinsert" parameterType="mem">
 	insert into member
 		values(
-			member_seq.nextVal()
+			member_seq.nextVal
 			,#{mem_email}
 			,#{mem_pwd}
 			,#{mem_name}
@@ -56,14 +72,12 @@
 			,mem_job= #{mem_job}
 			,mem_reip= #{mem_reip}
 			
-		where memcode =#{mem_code}
+		where mem_code =#{mem_code}
 	</update>
 	
-	<delete id="memberdelete">
+	<delete id="memberdelete" parameterType="String">
 	delete from member where mem_code =#{mem_code}
 	</delete>
 	
-	<delete id="">
 	
-	</delete>
 	</mapper>

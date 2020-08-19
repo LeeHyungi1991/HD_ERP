@@ -25,7 +25,7 @@
                      <!--    Hover Rows  -->
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                           완료된 서류
+                           완료된 서류 <button id="ajaxtest">z</button>
                         </div>
                         <div class="panel-body">
                             <div class="table-responsive">
@@ -39,7 +39,8 @@
                                             <th>진행상황</th>
                                         </tr>
                                     </thead>
-                                    <tbody>
+                                    
+                                    <tbody id="ajaxtable">
                                         <tr th:each="doc : ${completedoc}" class="completedoc">
                                         	<td th:text="${doc.docnum}"></td>
                                         	<td th:text="${doc.doctitle}"></td>
@@ -51,16 +52,19 @@
                                         	</th:block>
                                         </tr>
                                     </tbody>
+                                   
                                 </table>
                             </div>
                         </div>
-                        <nav aria-label="Page navigation example">
-						  <ul class="pagination" style="margin-left: 40%">
-						    <li class="page-item"><a class="page-link" href="#">◀</a></li>
-						    <li class="page-item"><a class="page-link" href="#">1</a></li>
-						    <li class="page-item"><a class="page-link" href="#">2</a></li>
-						    <li class="page-item"><a class="page-link" href="#">3</a></li>
-						    <li class="page-item"><a class="page-link" href="#">▶</a></li>
+                        <nav aria-label="Page navigation example" id="completedocpaging">
+						  <ul class="pagination" style="margin-left: 35%">
+						    <li class="page-item"><a class="page-link" id="com_pre">◀</a></li>
+						    <li class="page-item"><a class="page-link" id="com_1" >1</a></li>
+						    <li class="page-item"><a class="page-link" id="com_2" >2</a></li>
+						    <li class="page-item"><a class="page-link" id="com_3" >3</a></li>
+						    <li class="page-item"><a class="page-link" id="com_4" >4</a></li>
+						    <li class="page-item"><a class="page-link" id="com_5" >5</a></li>
+						    <li class="page-item"><a class="page-link" id="com_next" >▶</a></li>
 						  </ul>
 						</nav>
                     </div>
@@ -68,6 +72,9 @@
                 </div>
                 
             </div>
+            
+            
+            
             <div class="row">
                 <div class="col-md-12">
                      <!--    Hover Rows  -->
@@ -152,13 +159,15 @@
                             </div>
                             
                         </div>
-                        <nav aria-label="Page navigation example" >
-							  <ul class="pagination" style="margin-left: 40%">
-							    <li class="page-item"><a class="page-link" href="#">◀</a></li>
-							    <li class="page-item"><a class="page-link" href="#">1</a></li>
-							    <li class="page-item"><a class="page-link" href="#">2</a></li>
-							    <li class="page-item"><a class="page-link" href="#">3</a></li>
-							    <li class="page-item"><a class="page-link" href="#">▶</a></li>
+                        <nav aria-label="Page navigation example"  id="ingdocpaging">
+							  <ul class="pagination" style="margin-left: 35%">
+							    <li class="page-item"><a class="page-link" id="ing_pre" >◀</a></li>
+							    <li class="page-item"><a class="page-link" id="ing_1" >1</a></li>
+							    <li class="page-item"><a class="page-link" id="ing_2" >2</a></li>
+							    <li class="page-item"><a class="page-link" id="ing_3" >3</a></li>
+							    <li class="page-item"><a class="page-link" id="ing_4" >4</a></li>
+						   		<li class="page-item"><a class="page-link" id="ing_5" >5</a></li>
+							    <li class="page-item"><a class="page-link" id="ing_next" >▶</a></li>
 							  </ul>
 							</nav>
                     </div>
@@ -202,13 +211,15 @@
                                 </table>
                             </div>
                         </div>
-                        <nav aria-label="Page navigation example">
-						  <ul class="pagination" style="margin-left: 40%">
-						    <li class="page-item"><a class="page-link" href="#">◀</a></li>
-						    <li class="page-item"><a class="page-link" href="#">1</a></li>
-						    <li class="page-item"><a class="page-link" href="#">2</a></li>
-						    <li class="page-item"><a class="page-link" href="#">3</a></li>
-						    <li class="page-item"><a class="page-link" href="#">▶</a></li>
+                        <nav aria-label="Page navigation example" id="ignoredocpaging">
+						  <ul class="pagination" style="margin-left: 35%">
+						    <li class="page-item"><a class="page-link" id="ign_pre">◀</a></li>
+						    <li class="page-item"><a class="page-link" id="ign_1" >1</a></li>
+						    <li class="page-item"><a class="page-link" id="ign_2" >2</a></li>
+						    <li class="page-item"><a class="page-link" id="ign_3" >3</a></li>
+						    <li class="page-item"><a class="page-link" id="ign_4" >4</a></li>
+						    <li class="page-item"><a class="page-link" id="ign_5" >5</a></li>
+						    <li class="page-item"><a class="page-link" id="ign_next" >▶</a></li>
 						  </ul>
 						</nav>
                     </div>
@@ -235,6 +246,8 @@
 <th:block layout:fragment="script">
 
 <script>
+var token = $("meta[name='_csrf']").attr("content");
+var header = $("meta[name='_csrf_header']").attr("content");
 window.onload=function(){//////////////////window.onload
 	$('#docwrite').click(function() {
 		location.href='/user.docwrite'
@@ -257,6 +270,136 @@ window.onload=function(){//////////////////window.onload
 // 		alert($(this).children(1).first().text())
 		location.href="/user.document?docnum="+ignoredocnum;
 	})
+	
+	
+	
+	
+	
+	$('#ajaxtest').click(function() {
+		alert('asdfasdf')
+		$.ajax({
+			url:'/user.ajaxtest',
+			type:'post',
+			beforeSend : function(xhr)
+		    {   /*데이터를 전송하기 전에 헤더에 csrf값을 설정한다*/
+				xhr.setRequestHeader(header, token);
+		    },
+			success:function(data){
+				console.log(data)
+				$('#ajaxtable').html(data)
+				
+			}
+		})
+	})
+	////completedoc paging///◀▶
+	
+	//변수선언
+	var completedoc_max_stage=0;
+	var completedoc_stage=0;
+	var completedoc_now=0;
+	
+	
+	/*<![CDATA[*/
+		
+  //  var totalcount = "[[${totalcount}]]";
+//	var size = "[[${size}]]";
+//	var np="[[${nowpage}]]";
+	var com_totalcnt =0; //몇개의 서류가 있는지
+	var com_size = 0; //
+	var com_np =0; //현재페이지
+	var com_stage =0; //leftpage 또는 rightpage 누를때올라가거나 내려감
+	
+	var ing_totalcnt =0;
+	var ing_size = 0;
+	var ing_np =0;
+	var ing_stage =0;
+	
+	var ign_totalcnt =0;
+	var ign_size = 0;
+	var ign_np =0;
+	var ign_stage =0;
+	
+	/*]]>*/
+	
+	
+	//완성 그거
+	$('#completedocpaging li').click(function() {
+		console.log('c'+ $(this).text())
+		
+		if($(this).text() === '▶' ){
+			
+			$('#com_1').text(parseInt($('#com_1').text())+5)
+			$('#com_2').text(parseInt($('#com_2').text())+5)
+			$('#com_3').text(parseInt($('#com_3').text())+5)
+			$('#com_4').text(parseInt($('#com_4').text())+5)
+			$('#com_5').text(parseInt($('#com_5').text())+5)
+			com_stage ++;
+
+			
+		}
+		
+		if($(this).text() === '◀' && com_stage > 0){
+			$('#com_1').text(parseInt($('#com_1').text())-5)
+			$('#com_2').text(parseInt($('#com_2').text())-5)
+			$('#com_3').text(parseInt($('#com_3').text())-5)
+			$('#com_4').text(parseInt($('#com_4').text())-5)
+			$('#com_5').text(parseInt($('#com_5').text())-5)
+			com_stage --;
+		}
+		
+	})
+	
+	$('#ingdocpaging li').click(function() {
+		console.log('ing'+ $(this).text())
+		
+		if($(this).text() === '▶'){
+			
+			$('#ing_1').text(parseInt($('#ing_1').text())+5)
+			$('#ing_2').text(parseInt($('#ing_2').text())+5)
+			$('#ing_3').text(parseInt($('#ing_3').text())+5)
+			$('#ing_4').text(parseInt($('#ing_4').text())+5)
+			$('#ing_5').text(parseInt($('#ing_5').text())+5)
+			ing_stage ++;
+
+			
+		}
+		
+		if($(this).text() === '◀'  && ing_stage > 0){
+			$('#ing_1').text(parseInt($('#ing_1').text())-5)
+			$('#ing_2').text(parseInt($('#ing_2').text())-5)
+			$('#ing_3').text(parseInt($('#ing_3').text())-5)
+			$('#ing_4').text(parseInt($('#ing_4').text())-5)
+			$('#ing_5').text(parseInt($('#ing_5').text())-5)
+			ing_stage --;
+		}
+	})
+	
+	$('#ignoredocpaging li').click(function() {
+		console.log('ign'+ $(this).text())
+		
+if($(this).text() === '▶'){
+			
+			$('#ign_1').text(parseInt($('#ign_1').text())+5)
+			$('#ign_2').text(parseInt($('#ign_2').text())+5)
+			$('#ign_3').text(parseInt($('#ign_3').text())+5)
+			$('#ign_4').text(parseInt($('#ign_4').text())+5)
+			$('#ign_5').text(parseInt($('#ign_5').text())+5)
+			
+			ign_stage ++;
+			
+		}
+		
+		if($(this).text() === '◀'  && ign_stage > 0){
+			$('#ign_1').text(parseInt($('#ign_1').text())-5)
+			$('#ign_2').text(parseInt($('#ign_2').text())-5)
+			$('#ign_3').text(parseInt($('#ign_3').text())-5)
+			$('#ign_4').text(parseInt($('#ign_4').text())-5)
+			$('#ign_5').text(parseInt($('#ign_5').text())-5)
+			ign_stage --;
+		}
+	})
+	
+	
 	
 }//////////////////window.onload 끝
 </script>

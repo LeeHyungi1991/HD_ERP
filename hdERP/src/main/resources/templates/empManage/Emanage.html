@@ -47,7 +47,12 @@
                                        		<td th:text="${emp.hdlevel}"></td>
                                        		<td th:text="${emp.hdgender}"></td>
                                        		<td th:text="${emp.hdindate}"></td>
-                                       		<td><button data-toggle="modal" data-target="#myModal">상세보기</button></td>
+                                       		<td>
+                                       		 <th:block sec:authorize="hasRole('ROLE_ADMIN')">
+                                          
+                                       		<button data-toggle="modal" data-target="#myModal">상세보기</button>
+                                       		  </th:block>
+                                       		</td>
                                        </tr>
                                     </tbody>
                                     
@@ -85,6 +90,11 @@
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                                             <button type="button" class="btn btn-primary">Save changes</button>
+                                            
+                                            
+                                           
+                                            
+                                            
                                         </div>
                                     </div>
                                 </div>
