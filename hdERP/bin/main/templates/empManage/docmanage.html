@@ -25,7 +25,7 @@
                      <!--    Hover Rows  -->
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                           완료된 서류 <button id="ajaxtest">z</button>
+                           완료된 서류 
                         </div>
                         <div class="panel-body">
                             <div class="table-responsive">
@@ -253,19 +253,25 @@ window.onload=function(){//////////////////window.onload
 		location.href='/user.docwrite'
 	})
 	
-	$('.completedoc').click(function() {
+	
+	$(document).one('click', '.completedoc', function() {
+	//$('.completedoc').click(function() {
 		var compledocnum =$(this).children(1).first().text();
-// 		alert($(this).children(1).first().text())
+//  		alert($(this).children(1).first().text())
 		location.href="/user.document?docnum="+compledocnum;
 	})
 	
-	$('.ingdoc').click(function() {
+	
+	$(document).one('click', '.ingdoc', function() {
+	//$('.ingdoc').click(function() {
 		var ingdocnum =$(this).children(1).first().text();
 // 		alert($(this).children(1).first().text())
 		location.href="/user.document?docnum="+ingdocnum;
 	})
 	
-	$('.ignoredoc').click(function() {
+	
+	$(document).one('click', '.ignoredoc', function() {
+	//$('.ignoredoc').click(function() {
 		var ignoredocnum =$(this).children(1).first().text();
 // 		alert($(this).children(1).first().text())
 		location.href="/user.document?docnum="+ignoredocnum;
@@ -275,22 +281,24 @@ window.onload=function(){//////////////////window.onload
 	
 	
 	
-	$('#ajaxtest').click(function() {
-		alert('asdfasdf')
-		$.ajax({
-			url:'/user.ajaxtest',
-			type:'post',
-			beforeSend : function(xhr)
-		    {   /*데이터를 전송하기 전에 헤더에 csrf값을 설정한다*/
-				xhr.setRequestHeader(header, token);
-		    },
-			success:function(data){
-				console.log(data)
-				$('#ajaxtable').html(data)
+// 	$('#ajaxtest').click(function() {
+// 		alert('asdfasdf')
+// 		$.ajax({
+// 			url:'/user.completedoc',
+// 			type:'post',
+// 			data:{'page':0,'size':5},
+// 			beforeSend : function(xhr)
+// 		    {   /*데이터를 전송하기 전에 헤더에 csrf값을 설정한다*/
+// 				xhr.setRequestHeader(header, token);
+// 		    },
+// 			success:function(data){
+// 				console.log(data)
+// 				$('#ajaxtable').html(data)
+// 				window.onload()
 				
-			}
-		})
-	})
+// 			}
+// 		})
+// 	})
 	////completedoc paging///◀▶
 	
 	//변수선언
@@ -304,7 +312,8 @@ window.onload=function(){//////////////////window.onload
   //  var totalcount = "[[${totalcount}]]";
 //	var size = "[[${size}]]";
 //	var np="[[${nowpage}]]";
-	var com_totalcnt =0; //몇개의 서류가 있는지
+	var com_totalElements ="[[${completedoc_totalElements}]]"; //몇개의 서류가 있는지
+	var com_totalPages ="[[${completedoc_totalPages}]]";
 	var com_size = 0; //
 	var com_np =0; //현재페이지
 	var com_stage =0; //leftpage 또는 rightpage 누를때올라가거나 내려감
@@ -320,25 +329,93 @@ window.onload=function(){//////////////////window.onload
 	var ign_stage =0;
 	
 	/*]]>*/
+	///////////////////////////////////////////////completedoc onload,var event
+// 		var page = $(this).text()//전송할 페이지
+		var size =5 //원하면 변경 가능하다
+		console.log('c'+ $(this).text())
+		$('#com_1').parent().addClass('page-item active')//처음엔 1버튼 선택 국룰
+		com_doc_show()
+	function com_doc_show(){
+		$('#com_1').show()
+		$('#com_2').show()
+		$('#com_3').show()
+		$('#com_4').show()
+		$('#com_5').show()
+	}
+	if(parseInt(com_totalPages) < size){ //총 페이지 수가 size(5개 디폴트) 보다 적으면 실행되서 버튼들을 감춘다
+		if(com_totalPages === '4'){//페이지가 4개이면 5번 버튼 display : none
+			$('#com_5').hide()
+		}
+		if(com_totalPages === '3'){//페이지가 3개이면 5,4번 버튼 display : none
+			$('#com_5').hide()
+			$('#com_4').hide()
+		}
+		if(com_totalPages === '2'){//페이지가 2개이면 5,4,3번 버튼 display : none
+			$('#com_5').hide()
+			$('#com_4').hide()
+			$('#com_3').hide()
+		}
+		if(com_totalPages === '1'){//페이지가 1개이면 5,4,3,2번 버튼 display : none
+			$('#com_5').hide()
+			$('#com_4').hide()
+			$('#com_3').hide()
+			$('#com_2').hide()
+		}
+	}
 	
+	
+	/////////////////////////////////////////////////
 	
 	//완성 그거
-	$('#completedocpaging li').click(function() {
-		console.log('c'+ $(this).text())
+	$(document).on('click', '#completedocpaging > ul > li', function() {
+		var page = $(this).text()//전송할 페이지
+		var size =5 //원하면 변경 가능하다
+	//$('#completedocpaging > ul > li').on('click', function() {
 		
-		if($(this).text() === '▶' ){
+		console.log(com_totalElements);
+		console.log(com_totalPages);
+		console.log(Math.ceil(parseInt(com_totalPages)/size))
+		console.log(com_stage)
+		
+		
+		
+		
+		if($(this).text() === '▶' && com_stage+1 < Math.ceil(parseInt(com_totalPages)/size)  ){ //오른쪽 버튼 눌렀을때 // 총페이지는 size(디폴트는 5개) 보다 커야 작동된다
 			
 			$('#com_1').text(parseInt($('#com_1').text())+5)
 			$('#com_2').text(parseInt($('#com_2').text())+5)
 			$('#com_3').text(parseInt($('#com_3').text())+5)
 			$('#com_4').text(parseInt($('#com_4').text())+5)
 			$('#com_5').text(parseInt($('#com_5').text())+5)
+			//alert(com_stage+1)
+			//alert( Math.ceil(parseInt(com_totalPages)/size))
 			com_stage ++;
-
+			if(com_stage+1 === Math.ceil(parseInt(com_totalPages)/size)){//만약 마지막 페이지 라면?
+				console.log('마지막 페이지')
+				console.log( ((com_stage+1)*size) -(parseInt(com_totalPages)) )
+				
+				
+				if(((com_stage+1)*size) -(parseInt(com_totalPages)) === 4){ //1번 버튼만 보여준다
+					$('#com_5').hide()
+					$('#com_4').hide()
+					$('#com_3').hide()
+					$('#com_2').hide()
+				}else if(((com_stage+1)*size) -(parseInt(com_totalPages)) === 3){//1,2번 버튼만 보여준다
+					$('#com_5').hide()
+					$('#com_4').hide()
+					$('#com_3').hide()
+				}else if(((com_stage+1)*size) -(parseInt(com_totalPages)) === 2){//1,2,3번 버튼만 보여준다
+					$('#com_5').hide()
+					$('#com_4').hide()
+				}else if(((com_stage+1)*size) -(parseInt(com_totalPages)) === 1){//1,2,3,4번 버튼만 보여준다
+					$('#com_5').hide()
+				}
+			}
 			
 		}
 		
-		if($(this).text() === '◀' && com_stage > 0){
+		if($(this).text() === '◀' && com_stage > 0){//왼쪽 버튼 눌렀을때
+			com_doc_show()
 			$('#com_1').text(parseInt($('#com_1').text())-5)
 			$('#com_2').text(parseInt($('#com_2').text())-5)
 			$('#com_3').text(parseInt($('#com_3').text())-5)
@@ -347,7 +424,31 @@ window.onload=function(){//////////////////window.onload
 			com_stage --;
 		}
 		
-	})
+		$(this).siblings().removeClass('page-item active')// 형제 클릭 활성화 지우기
+		$(this).siblings().addClass('page-item')// 형제 클릭 디폴트로
+		
+		$(this).addClass('page-item active')//선택된것은 클릭
+		
+		if($(this).text() != '◀' && $(this).text() != '▶' ){
+			$.ajax({////그냥 페이지 버튼 눌렀을땐 이게 실행 되어야 한다
+				url:'/user.completedoc',
+				type:'post',
+				data:{'page':page,'size':size},
+				dataType:'html',
+				beforeSend : function(xhr)
+			    {   /*데이터를 전송하기 전에 헤더에 csrf값을 설정한다*/
+					xhr.setRequestHeader(header, token);
+			    },
+				success:function(data){
+					//console.log(data)
+					
+					$('#ajaxtable').html(data)
+					
+					
+				}
+			})
+		}
+	});
 	
 	$('#ingdocpaging li').click(function() {
 		console.log('ing'+ $(this).text())

@@ -14,6 +14,7 @@ import javax.servlet.http.HttpSession;
 
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -115,15 +116,30 @@ public class EmployeeManageController {
 	//서류관리 클릭
 	@GetMapping(value = "/user.docmanage")
 	public String documentmanage(Model m, Principal principal) {
-		Map<String, List<DocumentEntity>>docs = employeemanageservice.godocmanage();
+		Map<String, Page<DocumentEntity>>docs = employeemanageservice.godocmanage();
 		
-		List<DocumentEntity> completedoc = docs.get("completedoc");
-		List<DocumentEntity> ignoredoc = docs.get("ignoredoc");
-		List<DocumentEntity> ingdoc = docs.get("ingdoc");
+		List<DocumentEntity> completedoc = docs.get("completedoc").getContent();
+		List<DocumentEntity> ignoredoc = docs.get("ignoredoc").getContent();
+		List<DocumentEntity> ingdoc = docs.get("ingdoc").getContent();
 		
 		m.addAttribute("completedoc", completedoc);
-		m.addAttribute("ignoredoc", ignoredoc);
+		m.addAttribute("completedoc_totalPages", docs.get("completedoc").getTotalPages());
+		m.addAttribute("completedoc_totalElements", docs.get("completedoc").getTotalElements());
+		System.out.println("getTotalPages()"+docs.get("completedoc").getTotalPages());
+		System.out.println("getTotalElements()"+docs.get("completedoc").getTotalElements());
+		
 		m.addAttribute("ingdoc", ingdoc);
+		m.addAttribute("ingdoc_totalPages", docs.get("ingdoc").getTotalPages());
+		m.addAttribute("ingdoc_totalElements", docs.get("ingdoc").getTotalElements());
+		
+		m.addAttribute("ignoredoc", ignoredoc);
+		m.addAttribute("ignoredoc_totalPages", docs.get("ignoredoc").getTotalPages());
+		m.addAttribute("ignoredoc_totalElements", docs.get("ignoredoc").getTotalElements());
+		
+		
+		
+		
+		
 		EmployeeEntity myemp = employeemanageservice.getemp(Long.parseLong(principal.getName()));
 		
 		m.addAttribute("myemp", myemp);
@@ -232,11 +248,16 @@ public class EmployeeManageController {
 
 	////////////////////////////////////////////////////////////////////////responsebody server
 	
-	@PostMapping("/user.ajaxtest")
+	@PostMapping("/user.completedoc")
 	//@ResponseBody
-	public String asdfasdf(Model m) {
+	public String asdfasdf(Model m,String page,String size) {
 		System.out.println("ajax test ajax testajax testajax test");
 		m.addAttribute("test", "asdf");
+		
+		Page<DocumentEntity> completedoc = employeemanageservice.getcompltedocpaging(Integer.parseInt(page),Integer.parseInt(size));
+		
+		List<DocumentEntity> comdoc_pagelist = completedoc.getContent();
+		m.addAttribute("completedoc", comdoc_pagelist);
 		return "empManage/server/completedocserver";
 	}
 	

@@ -18,13 +18,16 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import hd.erp.config.ApplicationYamlRead;
-
+import hd.erp.entity.BoardEntity;
 import hd.erp.entity.DocAttachmentEntity;
 import hd.erp.entity.DocumentEntity;
 import hd.erp.entity.EmployeeEntity;
@@ -240,24 +243,33 @@ public class EmployeeManageService {
 	}
 	
 	//서류관리 들어갔을때 진행중서류,완료서류,기각서류 보기위함
-	public Map<String, List<DocumentEntity>> godocmanage(){
+	public Map<String, Page<DocumentEntity>> godocmanage(){
 		
-		Map<String, List<DocumentEntity>> mydoclists =new HashMap<>();
-		List<DocumentEntity> completedoc = documentrepository.findBydocstatus(3,Sort.by(Direction.DESC,"docnum"));
+		Map<String, Page<DocumentEntity>> mydoclists =new HashMap<>();
+//		List<DocumentEntity> completedoc = documentrepository.findBydocstatus(3,Sort.by(Direction.DESC,"docnum"));
+//		
+//		List<DocumentEntity> ignoredoc = documentrepository.findBydocstatus(-1,Sort.by(Direction.DESC,"docnum"));
+//		
+//		List<DocumentEntity> ingdoc = documentrepository.findBydocstatusBetween(0, 2,Sort.by(Direction.DESC,"docnum"));
 		
-		List<DocumentEntity> ignoredoc = documentrepository.findBydocstatus(-1,Sort.by(Direction.DESC,"docnum"));
+		Page<DocumentEntity> completedoc = documentrepository.findBydocstatus(3, PageRequest.of(0, 5,Sort.by("docnum").descending()));
 		
-		List<DocumentEntity> ingdoc = documentrepository.findBydocstatusBetween(0, 2,Sort.by(Direction.DESC,"docnum"));
+		Page<DocumentEntity> ignoredoc = documentrepository.findBydocstatus(-1,PageRequest.of(0, 5,Sort.by("docnum").descending()));
+		
+		Page<DocumentEntity> ingdoc = documentrepository.findBydocstatusBetween(0, 2,PageRequest.of(0, 5,Sort.by("docnum").descending()));
 		
 		mydoclists.put("completedoc", completedoc);
 		
+		
 		mydoclists.put("ignoredoc",ignoredoc);
+		
 		
 		mydoclists.put("ingdoc", ingdoc);
 		
-		System.out.println("completedoc"+completedoc.size());
-		System.out.println("ignoredoc"+ignoredoc.size());
-		System.out.println("ingdoc"+ingdoc.size());
+		
+		System.out.println("completedoc"+completedoc.getContent().size());
+		System.out.println("ignoredoc"+ignoredoc.getContent().size());
+		System.out.println("ingdoc"+ingdoc.getContent().size());
 		
 		
 		
@@ -457,6 +469,22 @@ public class EmployeeManageService {
 		public void deletedoc(String docnum) {
 			documentrepository.deleteById(Long.parseLong(docnum));
 			
+		}
+
+
+		
+		
+		
+		
+		
+		//최종 서류 가져오기 
+		public Page<DocumentEntity> getcompltedocpaging(int page, int size) {
+			//Page<BoardEntity> pagelist = boardrepository.findAll(PageRequest.of(page, size,Sort.by("bnum").descending()));
+			
+			Page<DocumentEntity> comdoc_pagelists = documentrepository.findBydocstatus(3, PageRequest.of(page-1, size ,Sort.by("docnum").descending()));
+			
+			//List<DocumentEntity> domdoc_pagelist =comdoc_pagelists.getContent();
+			return comdoc_pagelists;
 		}
 
 
