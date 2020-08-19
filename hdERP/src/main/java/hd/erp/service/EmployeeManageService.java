@@ -438,7 +438,7 @@ public class EmployeeManageService {
 				mimeType = "application/octet - stream"; //브라우저로 다운로드를 진행하겠다는 마임타입을 설정
 			}
 			//지정된 마임타입 세팅
-			//setContentType("text/html; charset=euc-kr") //html로 브라우저가 응답 준비
+			//setContentType("text/html; charset=euc-kr"); //html로 브라우저가 응답 준비
 			response.setContentType(mimeType);
 			//다운로드 될 파일의 길이 세팅
 			response.setContentLength((int) downloadFile.length());
