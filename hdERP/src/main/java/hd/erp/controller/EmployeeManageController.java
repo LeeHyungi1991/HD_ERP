@@ -78,7 +78,7 @@ public class EmployeeManageController {
 			,String docfirstemp_hdcode
 			,String docsecondemp_hdcode
 			,String docthirdemp_hdcode
-			,@RequestParam(name = "file")MultipartFile[] file) {
+			,@RequestParam(name = "file",required = false)MultipartFile[] file) {
 		System.out.println(document);
 		System.out.println("서류제목"+document.getDoctitle());
 		System.out.println("서류내용"+document.getDoccontent());
@@ -86,7 +86,9 @@ public class EmployeeManageController {
 		System.out.println("서류2결재"+docsecondemp_hdcode);
 		System.out.println("서류3결재"+docthirdemp_hdcode);
 		System.out.println("기안자:"+principal.getName());
-		System.out.println(file.length);
+		System.out.println("파일 길이 " + file.length);
+		System.out.println("파일 사이즈 " + file[0].getSize());
+		
 		employeemanageservice.documentinsert(document, docfirstemp_hdcode, docsecondemp_hdcode, docthirdemp_hdcode, principal.getName(),file);
 		
 		
@@ -156,6 +158,38 @@ public class EmployeeManageController {
 		m.addAttribute("html", "/user.fileDown?fileName=");
 		return "empManage/document";
 	}
+	//서류삭제
+	@PostMapping(value = "/user.docdelete")
+	public String deletedoc(String docnum) {
+		employeemanageservice.deletedoc(docnum);
+		return "redirect:/user.docmanage";
+	}
+	
+	//서류수정
+	@GetMapping(value = "/user.docupdate")
+	public String docupdate(String docnum,Model m,Principal principal) {
+		Map<String, List<EmployeeEntity>> empmap = employeemanageservice.emplist();
+		List<EmployeeEntity> adminlist = empmap.get("adminlist");
+		List<EmployeeEntity> memberlist = empmap.get("memberlist");
+		List<EmployeeEntity> userlist = empmap.get("userlist");
+		
+		m.addAttribute("adminlist", adminlist);
+		m.addAttribute("memberlist", memberlist);
+		m.addAttribute("userlist", userlist);
+		System.out.println("docnum>>>> up" + docnum);
+		DocumentEntity doc =employeemanageservice.getdoc(Long.parseLong(docnum));
+		EmployeeEntity myemp = employeemanageservice.getemp(Long.parseLong(principal.getName()));
+		m.addAttribute("doc", doc);
+		m.addAttribute("myemp",myemp);
+		
+		
+		List<DocAttachmentEntity> att = employeemanageservice.getatt(doc);
+		m.addAttribute("att", att);
+		
+		return "empManage/docupdate";
+	}
+	
+	
 	//서류 기안 이미지 처리
 	@PostMapping(value = "/user.documentwriteimg",produces = "application/json")
 	@ResponseBody
@@ -166,10 +200,10 @@ public class EmployeeManageController {
 	//파일다운
 	@RequestMapping(value="/user.fileDown")
 	public String filedown(@RequestParam("fileName") String fileName,
-			HttpSession session,HttpServletRequest request, HttpServletResponse response
+			HttpSession session,HttpServletRequest request, HttpServletResponse response,Principal principal
 			) throws IOException{
 		
-		employeemanageservice.filedown(request,response,fileName);
+		employeemanageservice.filedown(request,response,fileName,principal.getName());
 		
 		return "redirect:/user.docmanage";
 	}

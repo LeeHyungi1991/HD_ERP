@@ -23,64 +23,71 @@
 	
             <div id="page-inner">
             <form method="post" th:action="@{/user.docwrite}" enctype="multipart/form-data">
-            	<div style="margin-left: 20%; ">
+            	<div style="margin-left: 10%; background: white; display: inline-block; border: 1px solid black; ">
+            	<h1>결재자</h1>
+            	<br />
             	<th:block sec:authorize="hasAnyRole('ROLE_USER')">
-            		<label for="">1차결재자 : </label>
-            		<select name="docfirstemp_hdcode">
-            		
-            		<th:block th:if="${myemp.hdlevel} == 'USER'">
-            			<option th:text ="${myemp.hdname}" th:value="${myemp.hdcode}"></option>
-            		</th:block>
-            		<th:block th:unless="${myemp.hdlevel} == 'USER'">
-            		<option>1차결재자</option>
-            		<th:block th:each="user : ${userlist}" >
-            		
-             			<option th:text ="${user.hdname}" th:value="${user.hdcode}"></option>
-            		 
-					</th:block>
-					</th:block>
-					
-					</select>
+            		<div>
+            			<label for="">1차결재자 : </label>
+	            		<select name="docfirstemp_hdcode" id="firstemp">
+	            		
+	            		<th:block th:if="${myemp.hdlevel} == 'USER'">
+	            			<option th:text ="${myemp.hdname}" th:value="${myemp.hdcode}"></option>
+	            		</th:block>
+	            		<th:block th:unless="${myemp.hdlevel} == 'USER'">
+	            		<option>1차결재자</option>
+	            		<th:block th:each="user : ${userlist}" >
+	            		
+	             			<option th:text ="${user.hdname}" th:value="${user.hdcode}"></option>
+	            		 
+						</th:block>
+						</th:block>
+						
+						</select>
+            		</div>
 				</th:block>
 				<th:block sec:authorize="hasAnyRole('ROLE_MEMBER','ROLE_USER')">
-					<label for="">2차결재자 : </label>
-					<select name="docsecondemp_hdcode">
-					
-					<th:block th:if="${myemp.hdlevel} == 'MEMBER'">
-            			<option th:text ="${myemp.hdname}" th:value="${myemp.hdcode}"></option>
-            		</th:block>
-            		<th:block th:unless="${myemp.hdlevel} == 'MEMBER'">
-            		<option>2차결재자</option>
-            		<th:block th:each="member : ${memberlist}">
-            		
-             			<option th:text ="${member.hdname}" th:value="${member.hdcode}"></option>
-            		 
-					</th:block>
-					</th:block>
-					
-					</select>
+						<div>
+							<label for="">2차결재자 : </label>
+							<select name="docsecondemp_hdcode" id="secondemp">
+							
+							<th:block th:if="${myemp.hdlevel} == 'MEMBER'">
+		            			<option th:text ="${myemp.hdname}" th:value="${myemp.hdcode}"></option>
+		            		</th:block>
+		            		<th:block th:unless="${myemp.hdlevel} == 'MEMBER'">
+		            		<option>2차결재자</option>
+		            		<th:block th:each="member : ${memberlist}">
+		            		
+		             			<option th:text ="${member.hdname}" th:value="${member.hdcode}"></option>
+		            		 
+							</th:block>
+							</th:block>
+							
+							</select>
+						</div>
 					</th:block>
 				<th:block sec:authorize="hasAnyRole('ROLE_ADMIN','ROLE_MEMBER','ROLE_USER')">
-					<label for="">3차결재자 : </label>	
-					<select name="docthirdemp_hdcode">
-					
-					<th:block th:if="${myemp.hdlevel} == 'ADMIN'">
-            			<option th:text ="${myemp.hdname}" th:value="${myemp.hdcode}"></option>
-            		</th:block>
-            		<th:block th:unless="${myemp.hdlevel} == 'ADMIN'">
-            		<option>1차결재자</option>
-            		<th:block th:each="admin : ${adminlist}">
-            		
-             			<option th:text ="${admin.hdname}" th:value="${admin.hdcode}"></option>
-            		 
-					</th:block>
-					</th:block>
-					
-					</select>
+						<div>
+							<label for="">3차결재자 : </label>	
+							<select name="docthirdemp_hdcode" id="thirdemp">
+							
+							<th:block th:if="${myemp.hdlevel} == 'ADMIN'">
+		            			<option th:text ="${myemp.hdname}" th:value="${myemp.hdcode}"></option>
+		            		</th:block>
+		            		<th:block th:unless="${myemp.hdlevel} == 'ADMIN'">
+		            		<option>3차결재자</option>
+		            		<th:block th:each="admin : ${adminlist}">
+		            		
+		             			<option th:text ="${admin.hdname}" th:value="${admin.hdcode}"></option>
+		            		 
+							</th:block>
+							</th:block>
+							
+							</select>
+						</div>
 				</th:block>
             	</div>
-            	<br />
-            	<br />
+            	
 				
 					<h1 style="text-align: center;">제목</h1>
 					<br />
@@ -99,16 +106,27 @@
 <!--                     </tbody> -->
 <!--                 </table> -->
 <!-- 				  </div> -->
-				  <input type="file" multiple="multiple" name="file" style="width: 400px;"/>
+<!-- 				  <input type="file" multiple="multiple" name="file" style="width: 400px;"/> -->
+				  <!--input box-->
+				  
+				  
+<input type="text" class="upload_text" readonly="readonly">
+<!--button-->
+<div class="upload-btn_wrap">
+  <button type="button" title="파일찾기">
+   <span>파일찾기</span>  
+  </button>
+  <input type="file" multiple="multiple" name="file" class="input_file" id="files" title="파일찾기">
+</div>
 				  
 				  <input type="button"  class="btn btn-primary btn-lg btn-block" id="submit"  value="기안하기" />
 				  <a th:href="@{/user.docmanage}"><button type="button" class="btn btn-warning btn-lg btn-block">뒤로가기</button></a>
 					</form>
 <!-- 					<button >dd</button> -->
-			  <div class="upload-btn-wrapper" style="visibility: hidden;">
-            <input type="file" id="input_file" multiple="multiple" style="height: 100%;" />
-            <button class="upload-btn">파일선택</button>
-        </div>
+<!-- 			  <div class="upload-btn-wrapper" style="visibility: hidden;"> -->
+<!--             <input type="file" id="input_file" multiple="multiple" style="height: 100%;" /> -->
+<!--             <button class="upload-btn">파일선택</button> -->
+<!--         </div> -->
 				
 
 <!-- 				<div class="jumbotron"> -->
@@ -131,6 +149,9 @@
 
 
 window.onload=function(){//window.onload
+	
+	
+	
 	
 	
 	//alert('asdf')
@@ -178,17 +199,27 @@ window.onload=function(){//window.onload
 	}
 	
 	
-	$('#submit').click(function() {////////////////////////폼전송
+	$('#submit').click(function() {////////////////////////폼전송*********************
 		
 		if($('#btitle').val()===""){
 			$('#submit').attr("type", "button")
 			alert("제목을 적어야 합니다.")
 			
+		}else if($('#secondemp').val()==="2차결재자"){
+			$('#submit').attr("type", "button")
+			alert("결재자 확인 바랍니다.")
+			
+		}else if($('#thirdemp').val()==="3차결재자"){
+			$('#submit').attr("type", "button")
+			alert("결재자 확인 바랍니다.")
+			
 		}else{
-			if(totalFileSize > 0){	
-				console.log('asdf')
+		
+			//if(totalFileSize > 0){	
+			//	console.log('asdf')
 				//uploadFile();
-			}
+			//}
+			
 			$('#submit').attr("type", "submit")
 			
 		}
@@ -463,8 +494,32 @@ $(function() {
 	        });
 	    }
 	}
-
-
+/////////////////////
+//새로운 type file
+	$(function(){
+		$('.upload_text').val('미리보여줄 텍스트.');
+		$('.input_file').change(function(){
+			
+			var upstr ="";
+			
+			var i = $(this);
+			var file = document.getElementById('files');
+			var files = file.files;
+			console.log(typeof(i))
+			console.log(i.length)
+			console.log(typeof(files))
+			console.log(files.length)
+			
+			for (var i = 0; i < files.length; i++) {
+                
+                file = files[i];
+                upstr +=file.name;
+                upstr +=", "
+                //alert(file.name);
+            }
+			$('.upload_text').val(upstr);
+		});
+	});
 </script>
 
 </th:block>
@@ -490,6 +545,42 @@ $(function() {
 
 
 /* -------------------파이 업로드 */
+
+input.upload_text {/*읽기전용 인풋텍스트*/
+	float:left;
+	width:80%;/* 버튼 포함 전체 가로 길이*/
+	height:19px;
+	line-height:19px;
+	padding:0 3px;
+	border:1px solid #bbb;
+}
+
+div.upload-btn_wrap input.input_file {/*파일찾기 폼 투명하게*/
+	position:absolute;
+	top:0;
+	right:0;
+	cursor:pointer;
+	opacity:0;
+	filter:alpha(opacity=0);
+	-ms-filter:"alpha(opacity=0)";
+	-moz-opacity:0;
+}
+div.upload-btn_wrap {/*버튼테두리 감싼 div*/
+	overflow:hidden;
+	position:relative;
+	float:left;
+	width:70px;/*width, height 값은 button(찾아보기)값과 같아야함 */
+	height:21px;
+	padding-left:3px;
+}
+div.upload-btn_wrap button {/*버튼 div*/
+	width:70px;
+	height:21px;
+	font-weight:bold;
+	background:#333;
+	border:1px solid #333;
+	color:#fff;
+}
        </style>
 </th:block>
 </html>

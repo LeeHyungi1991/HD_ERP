@@ -27,7 +27,7 @@
 							<td colspan="4"></td>
 						</tr>
 						<tr>
-							<td rowspan="2">HD BANK</td>
+							<td rowspan="2"><img th:src="@{img/HDlogo.png}" alt="" style="width: 350px; height: 120px;" /></td>
 							<th:block th:if="${doc.docfirstemp != null}">
 								<td>기안자 : <span th:text="${doc.docfirstemp.hdname}">asdf</span></td>
 							</th:block>
@@ -155,11 +155,13 @@
 						<tr>
 							<td colspan="4"> 
 								<th:block th:if="${att != null}">
+								<ul>
 									<th:block th:each="att : ${att}">
 									
 <!-- 											[[${html}]] -->
-										<a th:href="${html}+${att.attsavedname}">[[${att.attname}]]</a>
+										<li><a th:href="${html}+${att.attsavedname}">[[${att.attname}]]</a></li>
 									</th:block>
+								</ul>
 								</th:block>
 							</td>
 						</tr>
@@ -177,10 +179,30 @@
 <!--         			3이 아닌 애들 -->
         			<th:block th:if="${doc.docstatus != 3 }">
 	        			<th:block th:switch="${doc.docstatus}">
+	        				<th:block th:case="-1">
+			        			<th:block th:if="${doc.docdrafter.hdcode} == ${myemp.hdcode} ">
+			        			
+				        				<td>
+				        				
+				        					<a th:href="@{/user.docupdate(docnum=${doc.docnum})}"><button class="btn btn-primary btn-lg" style="width: 200px;" id="update">다시올리기</button></a>
+				        					
+					        			</td>
+				        			
+				        				<td>
+				        					<form th:action="@{/user.docdelete}" method="post">
+				        					
+				        						<input type="hidden" name="docnum" th:value="${doc.docnum}" />
+				        						<button class="btn btn-primary btn-lg" style="width: 200px;" type="submit"  >삭제하기</button>
+				        					
+				        					</form>
+				        				</td>
+			        			</th:block>
+		        			</th:block>
+		        			
 		        			<th:block th:case="0">
 			        			<th:block th:if="${doc.docfirstemp.hdcode} == ${myemp.hdcode} ">
 			        				<td>
-			        					<button class="btn btn-primary btn-lg" style="width: 200px;" id="update" >수정하기</button>
+<!-- 			        					<button class="btn btn-primary btn-lg" style="width: 200px;" id="update" >수정하기</button> -->
 				        			</td>
 				        			<td>
 				        				<button class="btn btn-primary btn-lg" style="width: 200px;" id="ignore" data-target="#myModal1" data-toggle="modal">기각하기</button>
@@ -193,7 +215,7 @@
 		        			<th:block th:case="1">
 			        			<th:block th:if="${doc.docsecondemp.hdcode} == ${myemp.hdcode} ">
 			        				<td>
-			        					<button class="btn btn-primary btn-lg" style="width: 200px;" id="update" >수정하기</button>
+<!-- 			        					<button class="btn btn-primary btn-lg" style="width: 200px;" id="update" >수정하기</button> -->
 				        			</td>
 				        			<td>
 				        				<button class="btn btn-primary btn-lg" style="width: 200px;" id="ignore" data-target="#myModal1" data-toggle="modal">기각하기</button>
@@ -205,9 +227,13 @@
 		        			</th:block>
 		        			<th:block th:case="2">
 			        			<th:block th:if="${doc.docthirdemp.hdcode} == ${myemp.hdcode} ">
-			        				<td>
-			        					<button class="btn btn-primary btn-lg" style="width: 200px;" id="update" >수정하기</button>
-				        			</td>
+			        			
+<!-- 			        				<th:block th:if="${doc.docstatus == }"> -->
+				        				<td>
+<!-- 				        					<button class="btn btn-primary btn-lg" style="width: 200px;" id="update" >수정하기</button> -->
+					        			</td>
+<!-- 				        			</th:block> -->
+				        			
 				        			<td>
 				        				<button class="btn btn-primary btn-lg" style="width: 200px;" id="ignore" data-target="#myModal1" data-toggle="modal">기각하기</button>
 				        			</td>
@@ -410,6 +436,12 @@ window.onload=function(){
      float: left; 
      margin-left: 3%;
      }
+      @media (max-width:1505px){
+    		 #comments{
+    		display: none;
+    		background: red;
+    		 } 
+		}
      
      
 /*      ---------------- 밑에 도큐번트 위에 코멘츠 */

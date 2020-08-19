@@ -34,6 +34,7 @@
                                         <tr>
                                             <th>서류번호</th>
                                             <th>서류제목</th>
+                                            <th>기안자</th>
                                             <th>작성일</th>
                                             <th>진행상황</th>
                                         </tr>
@@ -42,6 +43,7 @@
                                         <tr th:each="doc : ${completedoc}" class="completedoc">
                                         	<td th:text="${doc.docnum}"></td>
                                         	<td th:text="${doc.doctitle}"></td>
+                                        	<th th:text="${doc.docdrafter.hdname}"></th>
                                         	<td th:text="${doc.docdate}"></td>
                                         	
                                         	<th:block th:if="${doc.docstatus == 3}">
@@ -80,6 +82,7 @@
                                         <tr>
                                              <th>서류번호</th>
                                             <th>서류제목</th>
+                                            <th>기안자</th>
                                             <th>작성일</th>
                                             <th>진행상황</th>
                                         </tr>
@@ -96,6 +99,7 @@
 	                                        		<th:block th:if="${doc.docfirstemp.hdcode}==${myemp.hdcode} or ${doc.docdrafter.hdcode}==${myemp.hdcode}">
 	                                        			<td th:text="${doc.docnum}"></td>
 			                                        	<td th:text="${doc.doctitle}"></td>
+			                                        	<th th:text="${doc.docdrafter.hdname}"></th>
 			                                        	<td th:text="${doc.docdate}"></td>
 			                                        	
 				                                        	<th:block th:switch="${doc.docstatus}">
@@ -112,6 +116,7 @@
 	                                        		<th:block th:if="${doc.docsecondemp.hdcode}==${myemp.hdcode} or ${doc.docdrafter.hdcode}==${myemp.hdcode}">
 	                                        			<td th:text="${doc.docnum}"></td>
 			                                        	<td th:text="${doc.doctitle}"></td>
+			                                        	<th th:text="${doc.docdrafter.hdname}"></th>
 			                                        	<td th:text="${doc.docdate}"></td>
 			                                        	
 				                                        	<th:block th:switch="${doc.docstatus}">
@@ -128,6 +133,7 @@
 	                                        		<th:block th:if="${doc.docthirdemp.hdcode}==${myemp.hdcode} or ${doc.docdrafter.hdcode}==${myemp.hdcode}">
 	                                        			<td th:text="${doc.docnum}"></td>
 			                                        	<td th:text="${doc.doctitle}"></td>
+			                                        	<th th:text="${doc.docdrafter.hdname}"></th>
 			                                        	<td th:text="${doc.docdate}"></td>
 			                                        	
 				                                        	<th:block th:switch="${doc.docstatus}">
@@ -174,6 +180,7 @@
                                         <tr>
                                              <th>서류번호</th>
                                             <th>서류제목</th>
+                                            <th>기안자</th>
                                             <th>작성일</th>
                                             <th>진행상황</th>
                                         </tr>
@@ -184,6 +191,7 @@
                                         	<th:block th:if="${doc.docdrafter.hdcode} == ${myemp.hdcode}">
 	                                        	<td th:text="${doc.docnum}"></td>
 	                                        	<td th:text="${doc.doctitle}"></td>
+	                                        	<th th:text="${doc.docdrafter.hdname}"></th>
 	                                        	<td th:text="${doc.docdate}"></td>
 	                                        	<th:block th:if="${doc.docstatus == -1}">
 	                                        	<td th:text="기각됨"></td>
@@ -227,7 +235,7 @@
 <th:block layout:fragment="script">
 
 <script>
-window.onload=function(){
+window.onload=function(){//////////////////window.onload
 	$('#docwrite').click(function() {
 		location.href='/user.docwrite'
 	})
@@ -250,7 +258,7 @@ window.onload=function(){
 		location.href="/user.document?docnum="+ignoredocnum;
 	})
 	
-}
+}//////////////////window.onload 끝
 </script>
 
 

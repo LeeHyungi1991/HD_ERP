@@ -119,11 +119,25 @@ public class EmployeeManageService {
 		
 		doc.setDoctitle(document.getDoctitle());
 		doc.setDoccontent(document.getDoccontent());
+		
+		doc.setDoc1ignorecomment(null);
+		doc.setDoc2ignorecomment(null);
+		doc.setDoc3ignorecomment(null);
+		
+		doc.setDoc1okcomment(null);
+		doc.setDoc2okcomment(null);
+		doc.setDoc3okcomment(null);
+		System.out.println("수정시 doc num" + document.getDocnum());
+		System.out.println("수정시 doc status "+document.getDocstatus());
+		//수정되면 파일넘 유지해야되는데
+		if(document.getDocstatus() == -1) {
+			doc.setDocnum(document.getDocnum());
+		}
 		documentrepository.save(doc);
 		System.out.println("서류 저장");
 		log.info("서류 저장{}",doc.getDocnum());
 		
-		if(file.length != 0) {
+		if(file[0].getSize() != 0) {
 			
 			for(int i = 0; i<file.length;i++) {
 				DocAttachmentEntity attachment = new DocAttachmentEntity();
@@ -132,7 +146,7 @@ public class EmployeeManageService {
 				System.out.println(file[i].getOriginalFilename());
 				String staticpath =applicationyamlread.getPath();
 				
-				String fileRoot =staticpath+"\\document\\attachment";
+				String fileRoot =staticpath+"\\document\\"+mynum+"\\attachment";
 				String originalFileName = file[i].getOriginalFilename();
 				String extension =originalFileName.substring(originalFileName.lastIndexOf("."));
 				String savedFileName =UUID.randomUUID()+extension;
@@ -143,7 +157,7 @@ public class EmployeeManageService {
 					 //해당 디렉토리가 없을경우 디렉토리를 생성합니다.
 					if (!targetFile.exists()) {
 						try{
-							targetFile.mkdir(); //폴더 생성합니다.
+							targetFile.mkdirs(); //폴더 생성합니다.
 						    System.out.println("폴더가 생성되었습니다.");
 						    System.out.println(targetFile.getPath());
 					        } 
@@ -159,7 +173,8 @@ public class EmployeeManageService {
 					
 					File targetFile2 = new File(fileRoot);
 					try {
-						file[i].transferTo(new File(targetFile2.getPath()+"\\"+savedFileName));
+						file[i].transferTo(new File(targetFile2.getPath()+"\\"+originalFileName));
+						
 						
 					} catch (IllegalStateException | IOException e) {
 						// TODO Auto-generated catch block
@@ -168,7 +183,7 @@ public class EmployeeManageService {
 					}
 					
 					attachment.setAttname(originalFileName);
-					attachment.setAttsavedname(savedFileName);
+					attachment.setAttsavedname(originalFileName);////////////////
 					attachment.setDocument(doc);
 					docattachmentrepository.save(attachment);
 				
@@ -371,27 +386,21 @@ public class EmployeeManageService {
 		}
 
 
-
+//첨부리스트가져오기
 		public List<DocAttachmentEntity> getatt(DocumentEntity doc) {
 			List<DocAttachmentEntity> att = docattachmentrepository.findByDocument(doc);
 			return att;
 		}
 
 
-
-		public void filedown(HttpServletRequest  request,HttpServletResponse response,String fileName) throws IOException {
-			
-			
-			   
-			
-			
-			
+//파일다운
+		public void filedown(HttpServletRequest  request,HttpServletResponse response,String fileName,String mynum) throws IOException {
 			
 			
 			ServletContext context = request.getServletContext();
 //			String r_path = session.getServletContext().getRealPath("/");
 //			System.out.println("Path : "+r_path);
-			String staticpath = applicationyamlread.getPath()+"\\document\\attachment\\";
+			String staticpath = applicationyamlread.getPath()+"\\document\\"+mynum+"\\attachment\\";
 			String filename = fileName;
 //			System.out.println("imgPath : "+img_path);
 			StringBuffer path = new StringBuffer();
@@ -420,7 +429,10 @@ public class EmployeeManageService {
 			response.setContentLength((int) downloadFile.length());
 			//다운로드 Type을 설정함
 			String headerKey = "Content-Disposition";
+			
 			String headerValue= String.format("attachment; filename=\"%s\"",downloadFile.getName());
+			//String headerValue= String.format("attachment; filename=\"%s\"",filename);
+			
 			//위의 다운로드 타입의 정보를 해더로 설정해서 브라우저로 전송하면 브라우저가 해당 창에 맞게 다운로드 view
 			response.setHeader(headerKey, headerValue);
 			//브라우저로부터 스트림을 연결
@@ -436,6 +448,16 @@ public class EmployeeManageService {
 			outStream.close();
 			
 		}
-		
+
+
+		//서류삭제
+		public void deletedoc(String docnum) {
+			documentrepository.deleteById(Long.parseLong(docnum));
+			
+		}
+
+
+
+	
 }
 

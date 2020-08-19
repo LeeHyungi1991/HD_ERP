@@ -91,11 +91,11 @@
 				
 					<h1 style="text-align: center;">제목</h1>
 					<br />
-					<input type="text" class="form-control" placeholder="제목" id="btitle" name="doctitle"  />
+					<input type="text" class="form-control" placeholder="제목" th:value="${doc.doctitle}" id="btitle" name="doctitle"  />
 					<hr />
 					<h2 style="text-align: center;">내용</h2>
 					<br />
-				  <textarea id="summernote" name="doccontent" ></textarea>
+				  <textarea id="summernote" name="doccontent" >[[${doc.doccontent}]]</textarea>
 				  
 				  
 <!-- 				  <div id="dropZone" style="border: 1px solid black;height: 100px; background: lightgray; text-align: center; " class="form-group"> -->
@@ -118,6 +118,9 @@
   </button>
   <input type="file" multiple="multiple" name="file" class="input_file" id="files" title="파일찾기">
 </div>
+				  
+				  <input type="hidden" name="docstatus" th:value="${doc.docstatus}" />
+				  <input type="hidden"  name="docnum" th:value="${doc.docnum}"/>
 				  
 				  <input type="button"  class="btn btn-primary btn-lg btn-block" id="submit"  value="기안하기" />
 				  <a th:href="@{/user.docmanage}"><button type="button" class="btn btn-warning btn-lg btn-block">뒤로가기</button></a>
