@@ -116,7 +116,9 @@ public class EmployeeManageController {
 	//서류관리 클릭
 	@GetMapping(value = "/user.docmanage")
 	public String documentmanage(Model m, Principal principal) {
-		Map<String, Page<DocumentEntity>>docs = employeemanageservice.godocmanage();
+		
+		
+		Map<String, Page<DocumentEntity>>docs = employeemanageservice.godocmanage(Long.parseLong(principal.getName()));
 		
 		List<DocumentEntity> completedoc = docs.get("completedoc").getContent();
 		List<DocumentEntity> ignoredoc = docs.get("ignoredoc").getContent();
@@ -131,6 +133,8 @@ public class EmployeeManageController {
 		m.addAttribute("ingdoc", ingdoc);
 		m.addAttribute("ingdoc_totalPages", docs.get("ingdoc").getTotalPages());
 		m.addAttribute("ingdoc_totalElements", docs.get("ingdoc").getTotalElements());
+		System.out.println("ingdocgetTotalPages()"+docs.get("ingdoc").getTotalPages());
+		System.out.println("ingdocgetTotalElements()"+docs.get("ingdoc").getTotalElements());
 		
 		m.addAttribute("ignoredoc", ignoredoc);
 		m.addAttribute("ignoredoc_totalPages", docs.get("ignoredoc").getTotalPages());
@@ -250,15 +254,41 @@ public class EmployeeManageController {
 	
 	@PostMapping("/user.completedoc")
 	//@ResponseBody
-	public String asdfasdf(Model m,String page,String size) {
+	public String completedocserver(Model m,String page,String size) {
 		System.out.println("ajax test ajax testajax testajax test");
-		m.addAttribute("test", "asdf");
+		//m.addAttribute("test", "asdf");
 		
 		Page<DocumentEntity> completedoc = employeemanageservice.getcompltedocpaging(Integer.parseInt(page),Integer.parseInt(size));
 		
 		List<DocumentEntity> comdoc_pagelist = completedoc.getContent();
 		m.addAttribute("completedoc", comdoc_pagelist);
 		return "empManage/server/completedocserver";
+	}
+	
+	
+	@PostMapping("/user.ingdoc")
+	public String ingdocserver(Model m,String page,String size,Principal principal) {
+		
+		
+		Page<DocumentEntity> ingedoc = employeemanageservice.getingdocpaging(Integer.parseInt(page),Integer.parseInt(size),Long.parseLong(principal.getName()));
+		
+		List<DocumentEntity> ingdoc_pagelist = ingedoc.getContent();
+		m.addAttribute("ingdoc", ingdoc_pagelist);
+		EmployeeEntity myemp = employeemanageservice.getemp(Long.parseLong(principal.getName()));
+		m.addAttribute("myemp", myemp);
+		
+		return "empManage/server/ingdocserver";
+	}
+	
+	@PostMapping("/user.ignoredoc")
+	public String ignoredocserver(Model m,String page,String size,Principal principal) {
+		Page<DocumentEntity> ignedoc = employeemanageservice.getigndocpaging(Integer.parseInt(page),Integer.parseInt(size),Long.parseLong(principal.getName()));
+		
+		List<DocumentEntity> igndoc_pagelist = ignedoc.getContent();
+		m.addAttribute("ignoredoc", igndoc_pagelist);
+		EmployeeEntity myemp = employeemanageservice.getemp(Long.parseLong(principal.getName()));
+		m.addAttribute("myemp", myemp);
+		return "empManage/server/ignoredocserver";
 	}
 	
 }

@@ -243,7 +243,9 @@ public class EmployeeManageService {
 	}
 	
 	//서류관리 들어갔을때 진행중서류,완료서류,기각서류 보기위함
-	public Map<String, Page<DocumentEntity>> godocmanage(){
+	public Map<String, Page<DocumentEntity>> godocmanage(Long hdcode){
+		EmployeeEntity emp = getemp(hdcode);
+		
 		
 		Map<String, Page<DocumentEntity>> mydoclists =new HashMap<>();
 //		List<DocumentEntity> completedoc = documentrepository.findBydocstatus(3,Sort.by(Direction.DESC,"docnum"));
@@ -254,9 +256,9 @@ public class EmployeeManageService {
 		
 		Page<DocumentEntity> completedoc = documentrepository.findBydocstatus(3, PageRequest.of(0, 5,Sort.by("docnum").descending()));
 		
-		Page<DocumentEntity> ignoredoc = documentrepository.findBydocstatus(-1,PageRequest.of(0, 5,Sort.by("docnum").descending()));
+		Page<DocumentEntity> ignoredoc = documentrepository.findByDocdrafterAndDocstatus(emp,-1,PageRequest.of(0, 5,Sort.by("docnum").descending()));
 		
-		Page<DocumentEntity> ingdoc = documentrepository.findBydocstatusBetween(0, 2,PageRequest.of(0, 5,Sort.by("docnum").descending()));
+		Page<DocumentEntity> ingdoc = documentrepository.findByDocdrafterAndDocstatusBetween(emp,0, 2,PageRequest.of(0, 5,Sort.by("docnum").descending()));
 		
 		mydoclists.put("completedoc", completedoc);
 		
@@ -485,6 +487,28 @@ public class EmployeeManageService {
 			
 			//List<DocumentEntity> domdoc_pagelist =comdoc_pagelists.getContent();
 			return comdoc_pagelists;
+		}
+
+
+		//진행중서류 가져오기
+		public Page<DocumentEntity> getingdocpaging(int page, int size,Long hdcode) {
+
+			EmployeeEntity emp = getemp(hdcode);
+			
+			Page<DocumentEntity> comdoc_pagelists = documentrepository.findByDocdrafterAndDocstatusBetween(emp,0, 2, PageRequest.of(page-1, size ,Sort.by("docnum").descending()));
+			
+			
+			return comdoc_pagelists;
+		}
+
+
+		//기각서류 가져오기
+		public Page<DocumentEntity> getigndocpaging(int page, int size,Long hdcode) {
+		EmployeeEntity emp = getemp(hdcode);
+			Page<DocumentEntity> igndoc_pagelists = documentrepository.findByDocdrafterAndDocstatus(emp,-1, PageRequest.of(page-1, size ,Sort.by("docnum").descending()));
+			
+			
+			return igndoc_pagelists;
 		}
 
 

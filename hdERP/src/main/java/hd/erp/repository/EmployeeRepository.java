@@ -17,4 +17,8 @@ public interface EmployeeRepository extends JpaRepository<EmployeeEntity, Long> 
 	//////////////////////////////////
 	List<EmployeeEntity> findByhdlevel(String hdlevel);
 	
+	
+	/////////////////////////uercheck
+	
+	Long countByhdcode(Long hdcode);
 }

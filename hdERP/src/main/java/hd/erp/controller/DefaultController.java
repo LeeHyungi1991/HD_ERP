@@ -3,6 +3,7 @@ package hd.erp.controller;
 import java.io.File;
 import java.io.IOException;
 import java.security.Principal;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -14,10 +15,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import hd.erp.config.ApplicationYamlRead;
 import hd.erp.dto.EmployeeDTO;
+import hd.erp.entity.BoardEntity;
+import hd.erp.entity.DocumentEntity;
 import hd.erp.entity.EmployeeEntity;
 import hd.erp.service.DefaultService;
 import hd.erp.service.EmployeeService;
@@ -42,6 +46,13 @@ public class DefaultController {
 	public String index(Principal principal,Model m) {
 		EmployeeEntity emp = defaultservice.findindexname(Long.parseLong(principal.getName()));
 		m.addAttribute("emp", emp);
+		
+		//index 에서 최근 게시판 가져오기, 최근서류 가져오기
+		List<BoardEntity> recentboard =defaultservice.getrecentboardlist();
+		List<DocumentEntity> recentdocument = defaultservice.getrecentdocument();
+		m.addAttribute("recentboards",recentboard);
+		m.addAttribute("recentdocs",recentdocument);
+		
 		return "index";
 	}
 	
@@ -158,4 +169,28 @@ public class DefaultController {
 	    
 	    return"redirect:/user.profile";
 	}
+	
+	
+	
+	
+	//로그인 정보 있는지 가져오기
+	@PostMapping("/user.usercheck")
+	@ResponseBody
+	public String usercheck(String id) {
+		
+		Long chk = defaultservice.usercheck(Long.parseLong(id));
+		
+		System.out.println("chk = "+chk);
+		
+		if(chk >0) {
+			return "ok";
+		}else {
+			return "no";
+		}
+		
+		
+	}
+	
+	
+	
 }

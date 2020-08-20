@@ -40,7 +40,7 @@
                                         </tr>
                                     </thead>
                                     
-                                    <tbody id="ajaxtable">
+                                    <tbody id="comajaxtable">
                                         <tr th:each="doc : ${completedoc}" class="completedoc">
                                         	<td th:text="${doc.docnum}"></td>
                                         	<td th:text="${doc.doctitle}"></td>
@@ -94,7 +94,7 @@
                                             <th>진행상황</th>
                                         </tr>
                                     </thead>
-                                    <tbody>
+                                    <tbody id="ingajaxtable">
                                         <tr th:each="doc : ${ingdoc}" class="ingdoc">
                                        
                                         <th:block th:switch="${doc.docstatus}">
@@ -194,7 +194,7 @@
                                             <th>진행상황</th>
                                         </tr>
                                     </thead>
-                                    <tbody>
+                                    <tbody id="ignajaxtable">
                                         <tr th:each="doc : ${ignoredoc}" class="ignoredoc">
                                        
                                         	<th:block th:if="${doc.docdrafter.hdcode} == ${myemp.hdcode}">
@@ -318,18 +318,20 @@ window.onload=function(){//////////////////window.onload
 	var com_np =0; //현재페이지
 	var com_stage =0; //leftpage 또는 rightpage 누를때올라가거나 내려감
 	
-	var ing_totalcnt =0;
+	var ing_totalElements ="[[${ingdoc_totalElements}]]";
+	var ing_totalPages ="[[${ingdoc_totalPages}]]";
 	var ing_size = 0;
 	var ing_np =0;
 	var ing_stage =0;
 	
-	var ign_totalcnt =0;
+	var ign_totalElements ="[[${ignoredoc_totalElements}]]";
+	var ign_totalPages ="[[${ignoredoc_totalPages}]]"
 	var ign_size = 0;
 	var ign_np =0;
 	var ign_stage =0;
 	
 	/*]]>*/
-	///////////////////////////////////////////////completedoc onload,var event
+	///////////////////////////////////////////////completedoc onload,var event START
 // 		var page = $(this).text()//전송할 페이지
 		var size =5 //원하면 변경 가능하다
 		console.log('c'+ $(this).text())
@@ -364,9 +366,86 @@ window.onload=function(){//////////////////window.onload
 	}
 	
 	
-	/////////////////////////////////////////////////
+	///////////////////////////////////////////////// completedoc onload,var event END
 	
-	//완성 그거
+	
+	///////////////////////////////////////////////ingdoc onload,var event START
+//		var page = $(this).text()//전송할 페이지
+//	var size =5 //원하면 변경 가능하다
+	console.log('ing'+ $(this).text())
+	$('#ing_1').parent().addClass('page-item active')//처음엔 1버튼 선택 국룰
+	ing_doc_show()
+function ing_doc_show(){
+	$('#ing_1').show()
+	$('#ing_2').show()
+	$('#ing_3').show()
+	$('#ing_4').show()
+	$('#ing_5').show()
+}
+if(parseInt(ing_totalPages) < size){ //총 페이지 수가 size(5개 디폴트) 보다 적으면 실행되서 버튼들을 감춘다
+	if(ing_totalPages === '4'){//페이지가 4개이면 5번 버튼 display : none
+		$('#ing_5').hide()
+	}
+	if(ing_totalPages === '3'){//페이지가 3개이면 5,4번 버튼 display : none
+		$('#ing_5').hide()
+		$('#ing_4').hide()
+	}
+	if(ing_totalPages === '2'){//페이지가 2개이면 5,4,3번 버튼 display : none
+		$('#ing_5').hide()
+		$('#ing_4').hide()
+		$('#ing_3').hide()
+	}
+	if(ing_totalPages === '1'){//페이지가 1개이면 5,4,3,2번 버튼 display : none
+		$('#ing_5').hide()
+		$('#ing_4').hide()
+		$('#ing_3').hide()
+		$('#ing_2').hide()
+	}
+}
+	
+	///////////////////////////////////////////////ingdoc onload,var event END
+	
+///////////////////////////////////////////////ignoredoc onload,var event START
+//var page = $(this).text()//전송할 페이지
+//var size =5 //원하면 변경 가능하다
+		console.log('ign'+ $(this).text())
+		$('#ign_1').parent().addClass('page-item active')//처음엔 1버튼 선택 국룰
+		ign_doc_show()
+		function ign_doc_show(){
+			$('#ign_1').show()
+			$('#ign_2').show()
+			$('#ign_3').show()
+			$('#ign_4').show()
+			$('#ign_5').show()
+		}
+		if(parseInt(ign_totalPages) < size){ //총 페이지 수가 size(5개 디폴트) 보다 적으면 실행되서 버튼들을 감춘다
+			if(ign_totalPages === '4'){//페이지가 4개이면 5번 버튼 display : none
+				$('#ign_5').hide()
+			}
+			if(ign_totalPages === '3'){//페이지가 3개이면 5,4번 버튼 display : none
+				$('#ign_5').hide()
+				$('#ign_4').hide()
+			}
+			if(ign_totalPages === '2'){//페이지가 2개이면 5,4,3번 버튼 display : none
+				$('#ign_5').hide()
+				$('#ign_4').hide()
+				$('#ign_3').hide()
+			}
+			if(ign_totalPages === '1'){//페이지가 1개이면 5,4,3,2번 버튼 display : none
+				$('#ign_5').hide()
+				$('#ign_4').hide()
+				$('#ign_3').hide()
+				$('#ign_2').hide()
+			}
+		}
+
+///////////////////////////////////////////////ignoredoc onload,var event END
+	
+	
+	
+	
+	
+	//completedoc btn 클릭 이벤트 그거
 	$(document).on('click', '#completedocpaging > ul > li', function() {
 		var page = $(this).text()//전송할 페이지
 		var size =5 //원하면 변경 가능하다
@@ -442,30 +521,63 @@ window.onload=function(){//////////////////window.onload
 				success:function(data){
 					//console.log(data)
 					
-					$('#ajaxtable').html(data)
+					$('#comajaxtable').html(data)
 					
 					
 				}
 			})
 		}
 	});
-	
-	$('#ingdocpaging li').click(function() {
-		console.log('ing'+ $(this).text())
+	//ingdoc 클릭 이벤트
+	$(document).on('click', '#ingdocpaging > ul > li', function() {
+		var page = $(this).text()//전송할 페이지
+		var size =5 //원하면 변경 가능하다
+	//$('#completedocpaging > ul > li').on('click', function() {
 		
-		if($(this).text() === '▶'){
+		console.log('ing'+ing_totalElements);
+		console.log('ing'+ ing_totalPages);
+		console.log('ing'+ Math.ceil(parseInt(ing_totalPages)/size))
+		console.log('ing'+ ing_stage)
+		
+		
+		
+		
+		if($(this).text() === '▶' && ing_stage+1 < Math.ceil(parseInt(ing_totalPages)/size)  ){ //오른쪽 버튼 눌렀을때 // 총페이지는 size(디폴트는 5개) 보다 커야 작동된다
 			
 			$('#ing_1').text(parseInt($('#ing_1').text())+5)
 			$('#ing_2').text(parseInt($('#ing_2').text())+5)
 			$('#ing_3').text(parseInt($('#ing_3').text())+5)
 			$('#ing_4').text(parseInt($('#ing_4').text())+5)
 			$('#ing_5').text(parseInt($('#ing_5').text())+5)
+			//alert(com_stage+1)
+			//alert( Math.ceil(parseInt(com_totalPages)/size))
 			ing_stage ++;
-
+			if(ing_stage+1 === Math.ceil(parseInt(ing_totalPages)/size)){//만약 마지막 페이지 라면?
+				console.log('마지막 페이지')
+				console.log( ((ing_stage+1)*size) -(parseInt(ing_totalPages)) )
+				
+				
+				if(((ing_stage+1)*size) -(parseInt(ing_totalPages)) === 4){ //1번 버튼만 보여준다
+					$('#ing_5').hide()
+					$('#ing_4').hide()
+					$('#ing_3').hide()
+					$('#ing_2').hide()
+				}else if(((ing_stage+1)*size) -(parseInt(ing_totalPages)) === 3){//1,2번 버튼만 보여준다
+					$('#ing_5').hide()
+					$('#ing_4').hide()
+					$('#ing_3').hide()
+				}else if(((ing_stage+1)*size) -(parseInt(ing_totalPages)) === 2){//1,2,3번 버튼만 보여준다
+					$('#ing_5').hide()
+					$('#ing_4').hide()
+				}else if(((ing_stage+1)*size) -(parseInt(ing_totalPages)) === 1){//1,2,3,4번 버튼만 보여준다
+					$('#ing_5').hide()
+				}
+			}
 			
 		}
 		
-		if($(this).text() === '◀'  && ing_stage > 0){
+		if($(this).text() === '◀' && ing_stage > 0){// ing왼쪽 버튼 눌렀을때
+			ing_doc_show()
 			$('#ing_1').text(parseInt($('#ing_1').text())-5)
 			$('#ing_2').text(parseInt($('#ing_2').text())-5)
 			$('#ing_3').text(parseInt($('#ing_3').text())-5)
@@ -473,24 +585,84 @@ window.onload=function(){//////////////////window.onload
 			$('#ing_5').text(parseInt($('#ing_5').text())-5)
 			ing_stage --;
 		}
-	})
-	
-	$('#ignoredocpaging li').click(function() {
-		console.log('ign'+ $(this).text())
 		
-if($(this).text() === '▶'){
+		$(this).siblings().removeClass('page-item active')// 형제 클릭 활성화 지우기
+		$(this).siblings().addClass('page-item')// 형제 클릭 디폴트로
+		
+		$(this).addClass('page-item active')//선택된것은 클릭
+		
+		if($(this).text() != '◀' && $(this).text() != '▶' ){
+			$.ajax({////그냥 페이지 버튼 눌렀을땐 이게 실행 되어야 한다
+				url:'/user.ingdoc',
+				type:'post',
+				data:{'page':page,'size':size},
+				dataType:'html',
+				beforeSend : function(xhr)
+			    {   /*데이터를 전송하기 전에 헤더에 csrf값을 설정한다*/
+					xhr.setRequestHeader(header, token);
+			    },
+				success:function(data){
+					//console.log(data)
+					
+					$('#ingajaxtable').html(data)
+					
+					
+				}
+			})
+		}
+	});
+	
+	
+	//기각 페이징 클릭 이벤트
+	$(document).on('click', '#ignoredocpaging > ul > li', function() {
+		var page = $(this).text()//전송할 페이지
+		var size =5 //원하면 변경 가능하다
+	//$('#completedocpaging > ul > li').on('click', function() {
+		
+		console.log('ign'+ign_totalElements);
+		console.log('ign'+ ign_totalPages);
+		console.log('ign'+ Math.ceil(parseInt(ign_totalPages)/size))
+		console.log('ign'+ ign_stage)
+		
+		
+		
+		
+		if($(this).text() === '▶' && ign_stage+1 < Math.ceil(parseInt(ign_totalPages)/size)  ){ //오른쪽 버튼 눌렀을때 // 총페이지는 size(디폴트는 5개) 보다 커야 작동된다
 			
 			$('#ign_1').text(parseInt($('#ign_1').text())+5)
 			$('#ign_2').text(parseInt($('#ign_2').text())+5)
 			$('#ign_3').text(parseInt($('#ign_3').text())+5)
 			$('#ign_4').text(parseInt($('#ign_4').text())+5)
 			$('#ign_5').text(parseInt($('#ign_5').text())+5)
-			
+			//alert(com_stage+1)
+			//alert( Math.ceil(parseInt(com_totalPages)/size))
 			ign_stage ++;
+			if(ign_stage+1 === Math.ceil(parseInt(ign_totalPages)/size)){//만약 마지막 페이지 라면?
+				console.log('마지막 페이지')
+				console.log( ((ign_stage+1)*size) -(parseInt(ign_totalPages)) )
+				
+				
+				if(((ign_stage+1)*size) -(parseInt(ign_totalPages)) === 4){ //1번 버튼만 보여준다
+					$('#ign_5').hide()
+					$('#ign_4').hide()
+					$('#ign_3').hide()
+					$('#ign_2').hide()
+				}else if(((ign_stage+1)*size) -(parseInt(ign_totalPages)) === 3){//1,2번 버튼만 보여준다
+					$('#ign_5').hide()
+					$('#ign_4').hide()
+					$('#ign_3').hide()
+				}else if(((ign_stage+1)*size) -(parseInt(ign_totalPages)) === 2){//1,2,3번 버튼만 보여준다
+					$('#ign_5').hide()
+					$('#ign_4').hide()
+				}else if(((ign_stage+1)*size) -(parseInt(ign_totalPages)) === 1){//1,2,3,4번 버튼만 보여준다
+					$('#ign_5').hide()
+				}
+			}
 			
 		}
 		
-		if($(this).text() === '◀'  && ign_stage > 0){
+		if($(this).text() === '◀' && ign_stage > 0){// ing왼쪽 버튼 눌렀을때
+			ign_doc_show()
 			$('#ign_1').text(parseInt($('#ign_1').text())-5)
 			$('#ign_2').text(parseInt($('#ign_2').text())-5)
 			$('#ign_3').text(parseInt($('#ign_3').text())-5)
@@ -498,7 +670,32 @@ if($(this).text() === '▶'){
 			$('#ign_5').text(parseInt($('#ign_5').text())-5)
 			ign_stage --;
 		}
-	})
+		
+		$(this).siblings().removeClass('page-item active')// 형제 클릭 활성화 지우기
+		$(this).siblings().addClass('page-item')// 형제 클릭 디폴트로
+		
+		$(this).addClass('page-item active')//선택된것은 클릭
+		
+		if($(this).text() != '◀' && $(this).text() != '▶' ){
+			$.ajax({////그냥 페이지 버튼 눌렀을땐 이게 실행 되어야 한다
+				url:'/user.ignoredoc',
+				type:'post',
+				data:{'page':page,'size':size},
+				dataType:'html',
+				beforeSend : function(xhr)
+			    {   /*데이터를 전송하기 전에 헤더에 csrf값을 설정한다*/
+					xhr.setRequestHeader(header, token);
+			    },
+				success:function(data){
+					//console.log(data)
+					
+					$('#ignajaxtable').html(data)
+					
+					
+				}
+			})
+		}
+	});
 	
 	
 	
