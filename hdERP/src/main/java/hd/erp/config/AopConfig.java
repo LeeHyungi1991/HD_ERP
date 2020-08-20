@@ -3,6 +3,8 @@ package hd.erp.config;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.After;
 import org.aspectj.lang.annotation.Aspect;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.ui.Model;
@@ -12,10 +14,12 @@ import lombok.extern.slf4j.Slf4j;
 
 @Aspect
 @Component
-@Slf4j
+//@Slf4j //롬복 ㅠㅠ
 public class AopConfig {
 
 	
+	private static final Logger log = LoggerFactory.getLogger(AopConfig.class);
+
 	
 	
 	//ㅋㅋ model을 list로 못바꾸네 ;;
