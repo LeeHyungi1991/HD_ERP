@@ -15,10 +15,10 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-import lombok.Data;
+
 
 @Entity
-@Data
+
 @Table(name = "homework")
 public class Homework {
 	@Id@GeneratedValue(strategy = GenerationType.SEQUENCE,generator = "homework_seq")
@@ -37,4 +37,38 @@ public class Homework {
 	@JoinColumn(name = "student_s_num")
 	@ManyToOne
 	private Student snum;
+
+	public Long getHnum() {
+		return hnum;
+	}
+
+	public void setHnum(Long hnum) {
+		this.hnum = hnum;
+	}
+
+	public String getHname() {
+		return hname;
+	}
+
+	public void setHname(String hname) {
+		this.hname = hname;
+	}
+
+	public Date getHdate() {
+		return hdate;
+	}
+
+	public void setHdate(Date hdate) {
+		this.hdate = hdate;
+	}
+
+	public Student getSnum() {
+		return snum;
+	}
+
+	public void setSnum(Student snum) {
+		this.snum = snum;
+	}
+	
+	
 }

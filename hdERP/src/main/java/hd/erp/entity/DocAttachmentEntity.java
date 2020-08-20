@@ -13,10 +13,10 @@ import javax.persistence.Table;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
-import lombok.Data;
+
 
 @Table(name = "docattachment")
-@Data
+//@Data ทาบน คะ
 @Entity
 public class DocAttachmentEntity {
 	
@@ -35,4 +35,42 @@ public class DocAttachmentEntity {
 	@JoinColumn(name="document_doc_num")
 	@OnDelete(action = OnDeleteAction.CASCADE)
 	private DocumentEntity document;
+
+	public Long getAttnum() {
+		return attnum;
+	}
+
+	public void setAttnum(Long attnum) {
+		this.attnum = attnum;
+	}
+
+	public String getAttname() {
+		return attname;
+	}
+
+	public void setAttname(String attname) {
+		this.attname = attname;
+	}
+
+	public String getAttsavedname() {
+		return attsavedname;
+	}
+
+	public void setAttsavedname(String attsavedname) {
+		this.attsavedname = attsavedname;
+	}
+
+	public DocumentEntity getDocument() {
+		return document;
+	}
+
+	public void setDocument(DocumentEntity document) {
+		this.document = document;
+	}
+	
+	
+	
+	
+	
+	
 }

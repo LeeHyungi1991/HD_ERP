@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
@@ -17,14 +20,19 @@ import hd.erp.dto.EmployeeDTO;
 import hd.erp.entity.EmployeeEntity;
 import hd.erp.repository.EmployeeRepository;
 import hd.erp.security.Role;
-import lombok.AllArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 
-@Slf4j
+
+//@Slf4j
 @Service
-@AllArgsConstructor
+//@AllArgsConstructor
 public class EmployeeService implements UserDetailsService {
 	
+	
+	private static final Logger log = LoggerFactory.getLogger(EmployeeService.class);
+
+	
+	
+	@Autowired
 	private EmployeeRepository employeerepository;
 	
 	public Long register(EmployeeDTO employeedto) {

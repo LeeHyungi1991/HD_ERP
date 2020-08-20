@@ -3,14 +3,25 @@ package hd.erp.config;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
 
-import lombok.Getter;
-import lombok.Setter;
+
 
 @Configuration
 @ConfigurationProperties(prefix = "common")
-@Getter
-@Setter
+//@Getter 롬복 ㅠㅠ
+//@Setter 롬복 ㅠㅠ
 public class ApplicationYamlRead {
 
 	private String path;
+
+	public String getPath() {
+		return path;
+	}
+
+	public void setPath(String path) {
+		this.path = path;
+	}
+	
+	
+	
+	
 }

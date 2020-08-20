@@ -18,11 +18,11 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-import lombok.Data;
+
 
 @Entity
 @Table(name = "board")
-@Data
+//@Data ทาบน คะ
 public class BoardEntity {
 	/*
 create sequence board_seq
@@ -53,8 +53,69 @@ INCREMENT by 1;
 	
 	@ManyToOne@JoinColumn(name = "employee_hd_code")
 	private EmployeeEntity employee;
+
+	public Long getBnum() {
+		return bnum;
+	}
+
+	public void setBnum(Long bnum) {
+		this.bnum = bnum;
+	}
+
+	public Long getBhit() {
+		return bhit;
+	}
+
+	public void setBhit(Long bhit) {
+		this.bhit = bhit;
+	}
+
+	public Date getBdate() {
+		return bdate;
+	}
+
+	public void setBdate(Date bdate) {
+		this.bdate = bdate;
+	}
+
+	public String getBtitle() {
+		return btitle;
+	}
+
+	public void setBtitle(String btitle) {
+		this.btitle = btitle;
+	}
+
+	public String getBcontent() {
+		return bcontent;
+	}
+
+	public void setBcontent(String bcontent) {
+		this.bcontent = bcontent;
+	}
+
+	public Long getBlike() {
+		return blike;
+	}
+
+	public void setBlike(Long blike) {
+		this.blike = blike;
+	}
+
+	public EmployeeEntity getEmployee() {
+		return employee;
+	}
+
+	public void setEmployee(EmployeeEntity employee) {
+		this.employee = employee;
+	}
 	
 //	@OneToMany(mappedBy = "boardentity")
 //	private List<BcommentEntity> bcommentlist = new ArrayList<BcommentEntity>();
 
+	
+	
+	
+	
+	
 }

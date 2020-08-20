@@ -14,11 +14,10 @@ import javax.persistence.TemporalType;
 
 import org.apache.ibatis.type.Alias;
 
-import lombok.Data;
 
 @Entity
 @Table(name = "testtable")
-@Data
+//@Data
 @Alias(value = "test")
 public class TestEntitiy {
 	@Id@GeneratedValue
@@ -27,6 +26,26 @@ public class TestEntitiy {
 	private String testvarchar;
 	@Temporal(TemporalType.DATE)
 	private Date testdate;
+	public int getTestnum() {
+		return testnum;
+	}
+	public void setTestnum(int testnum) {
+		this.testnum = testnum;
+	}
+	public String getTestvarchar() {
+		return testvarchar;
+	}
+	public void setTestvarchar(String testvarchar) {
+		this.testvarchar = testvarchar;
+	}
+	public Date getTestdate() {
+		return testdate;
+	}
+	public void setTestdate(Date testdate) {
+		this.testdate = testdate;
+	}
+	
+	
 	
 }
 

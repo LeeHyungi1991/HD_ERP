@@ -8,6 +8,8 @@ import java.util.Optional;
 
 import javax.servlet.http.HttpSession;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -23,11 +25,14 @@ import hd.erp.entity.EmployeeEntity;
 import hd.erp.repository.BoardRepository;
 import hd.erp.repository.DocumentRepository;
 import hd.erp.repository.EmployeeRepository;
-import lombok.extern.slf4j.Slf4j;
 
-@Slf4j
+
+//@Slf4j
 @Service
 public class DefaultService {
+
+	
+	private static final Logger log = LoggerFactory.getLogger(DefaultService.class);
 
 	
 	@Autowired

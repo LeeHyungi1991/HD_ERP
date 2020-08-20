@@ -9,11 +9,10 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import lombok.Data;
 
 @Entity
 @Table(name = "book")
-@Data
+
 public class Book {
 	@Id@Column(name = "no")
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -25,4 +24,31 @@ public class Book {
 	@ManyToOne
 	@JoinColumn(name = "category_no")
 	private Category category;
+
+	public Integer getNo() {
+		return no;
+	}
+
+	public void setNo(Integer no) {
+		this.no = no;
+	}
+
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
+	public Category getCategory() {
+		return category;
+	}
+
+	public void setCategory(Category category) {
+		this.category = category;
+	}
+	
+	
+	
 }

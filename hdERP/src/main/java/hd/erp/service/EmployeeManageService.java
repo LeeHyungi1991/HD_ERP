@@ -17,6 +17,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.json.JSONObject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -34,12 +36,17 @@ import hd.erp.entity.EmployeeEntity;
 import hd.erp.repository.DocAttachmentRepository;
 import hd.erp.repository.DocumentRepository;
 import hd.erp.repository.EmployeeRepository;
-import lombok.extern.slf4j.Slf4j;
 
 
-@Slf4j
+
+//@Slf4j
 @Service
 public class EmployeeManageService {
+	
+	
+	private static final Logger log = LoggerFactory.getLogger(EmployeeManageService.class);
+
+	
 	private static final int BUFFER_SIZE = 4068;
 	@Autowired
 	ApplicationYamlRead applicationyamlread;

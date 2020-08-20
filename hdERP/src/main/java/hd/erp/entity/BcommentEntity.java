@@ -26,10 +26,10 @@ import org.apache.ibatis.type.Alias;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
-import lombok.Data;
+
 @Entity
 @Table(name = "bcomment")
-@Data
+//@Data
 public class BcommentEntity implements Serializable {
 	/**
 	 * 
@@ -79,6 +79,108 @@ INCREMENT by 1;
 	
 	@Column(name = "bc_depth")
 	private Long bcdepth;
+
+
+
+	public Long getBcnum() {
+		return bcnum;
+	}
+
+
+
+	public void setBcnum(Long bcnum) {
+		this.bcnum = bcnum;
+	}
+
+
+
+	public BcommentEntity getBcreply() {
+		return bcreply;
+	}
+
+
+
+	public void setBcreply(BcommentEntity bcreply) {
+		this.bcreply = bcreply;
+	}
+
+
+
+	public String getBcwriter() {
+		return bcwriter;
+	}
+
+
+
+	public void setBcwriter(String bcwriter) {
+		this.bcwriter = bcwriter;
+	}
+
+
+
+	public String getBccontent() {
+		return bccontent;
+	}
+
+
+
+	public void setBccontent(String bccontent) {
+		this.bccontent = bccontent;
+	}
+
+
+
+	public Date getBcdate() {
+		return bcdate;
+	}
+
+
+
+	public void setBcdate(Date bcdate) {
+		this.bcdate = bcdate;
+	}
+
+
+
+	public BoardEntity getBoard() {
+		return board;
+	}
+
+
+
+	public void setBoard(BoardEntity board) {
+		this.board = board;
+	}
+
+
+
+	public EmployeeEntity getEmployee() {
+		return employee;
+	}
+
+
+
+	public void setEmployee(EmployeeEntity employee) {
+		this.employee = employee;
+	}
+
+
+
+	public Long getBcdepth() {
+		return bcdepth;
+	}
+
+
+
+	public void setBcdepth(Long bcdepth) {
+		this.bcdepth = bcdepth;
+	}
+
+
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
 	
 	
 //	@OneToMany(fetch = FetchType.LAZY,cascade = {CascadeType.PERSIST, CascadeType.MERGE}, mappedBy = "bcreply")
@@ -88,5 +190,9 @@ INCREMENT by 1;
 //	@OneToMany(fetch = FetchType.EAGER,cascade = CascadeType.ALL,targetEntity = BcommentEntity.class)
 //	@JoinColumn(name = "bc_reply")
 //	private List<BcommentEntity> children = new ArrayList<BcommentEntity>();
+	
+	
+	
+	
 	
 }

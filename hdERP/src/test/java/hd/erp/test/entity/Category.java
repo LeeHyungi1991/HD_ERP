@@ -7,11 +7,11 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-import lombok.Data;
+
 
 @Entity
 @Table(name = "category")
-@Data
+
 public class Category {
 	@Id@Column(name = "no")
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -19,6 +19,22 @@ public class Category {
 	
 	@Column(name = "name",nullable = false, length = 100)
 	private String name;
+
+	public Integer getNo() {
+		return no;
+	}
+
+	public void setNo(Integer no) {
+		this.no = no;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
 	
 	
 

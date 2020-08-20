@@ -2,7 +2,7 @@ package hd.erp.controller;
 
 
 import java.security.Principal;
-import java.util.Date;
+
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -12,7 +12,7 @@ import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.jackson.JsonComponent;
 import org.springframework.data.domain.Page;
-import org.springframework.http.HttpRequest;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,7 +23,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import hd.erp.entity.BcommentEntity;
 import hd.erp.entity.BoardEntity;
-import hd.erp.entity.EmployeeEntity;
+
 import hd.erp.service.BoardService;
 
 @Controller

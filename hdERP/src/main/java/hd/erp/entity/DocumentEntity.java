@@ -17,11 +17,11 @@ import javax.persistence.TemporalType;
 
 
 
-import lombok.Data;
+
 
 @Table(name = "document")
 @Entity
-@Data
+//@Data 롬복 ㅠ
 public class DocumentEntity {
 	//서류 번호
 	@Id@GeneratedValue(strategy = GenerationType.SEQUENCE,generator = "doc_seq")
@@ -105,6 +105,149 @@ public class DocumentEntity {
 	//기각시 서류 상태
 	@Column(name = "doc_ignore_status")
 	private String docignorestatus;
+
+	public Long getDocnum() {
+		return docnum;
+	}
+
+	public void setDocnum(Long docnum) {
+		this.docnum = docnum;
+	}
+
+	public EmployeeEntity getDocdrafter() {
+		return docdrafter;
+	}
+
+	public void setDocdrafter(EmployeeEntity docdrafter) {
+		this.docdrafter = docdrafter;
+	}
+
+	public Date getDocdate() {
+		return docdate;
+	}
+
+	public void setDocdate(Date docdate) {
+		this.docdate = docdate;
+	}
+
+	public int getDocstatus() {
+		return docstatus;
+	}
+
+	public void setDocstatus(int docstatus) {
+		this.docstatus = docstatus;
+	}
+
+	public String getDoctitle() {
+		return doctitle;
+	}
+
+	public void setDoctitle(String doctitle) {
+		this.doctitle = doctitle;
+	}
+
+	public String getDoccontent() {
+		return doccontent;
+	}
+
+	public void setDoccontent(String doccontent) {
+		this.doccontent = doccontent;
+	}
+
+	public String getDoc1okcomment() {
+		return doc1okcomment;
+	}
+
+	public void setDoc1okcomment(String doc1okcomment) {
+		this.doc1okcomment = doc1okcomment;
+	}
+
+	public String getDoc2okcomment() {
+		return doc2okcomment;
+	}
+
+	public void setDoc2okcomment(String doc2okcomment) {
+		this.doc2okcomment = doc2okcomment;
+	}
+
+	public String getDoc3okcomment() {
+		return doc3okcomment;
+	}
+
+	public void setDoc3okcomment(String doc3okcomment) {
+		this.doc3okcomment = doc3okcomment;
+	}
+
+	public String getDoc1ignorecomment() {
+		return doc1ignorecomment;
+	}
+
+	public void setDoc1ignorecomment(String doc1ignorecomment) {
+		this.doc1ignorecomment = doc1ignorecomment;
+	}
+
+	public String getDoc2ignorecomment() {
+		return doc2ignorecomment;
+	}
+
+	public void setDoc2ignorecomment(String doc2ignorecomment) {
+		this.doc2ignorecomment = doc2ignorecomment;
+	}
+
+	public String getDoc3ignorecomment() {
+		return doc3ignorecomment;
+	}
+
+	public void setDoc3ignorecomment(String doc3ignorecomment) {
+		this.doc3ignorecomment = doc3ignorecomment;
+	}
+
+	public EmployeeEntity getDocfirstemp() {
+		return docfirstemp;
+	}
+
+	public void setDocfirstemp(EmployeeEntity docfirstemp) {
+		this.docfirstemp = docfirstemp;
+	}
+
+	public EmployeeEntity getDocsecondemp() {
+		return docsecondemp;
+	}
+
+	public void setDocsecondemp(EmployeeEntity docsecondemp) {
+		this.docsecondemp = docsecondemp;
+	}
+
+	public EmployeeEntity getDocthirdemp() {
+		return docthirdemp;
+	}
+
+	public void setDocthirdemp(EmployeeEntity docthirdemp) {
+		this.docthirdemp = docthirdemp;
+	}
+
+	public EmployeeEntity getDocignoreemp() {
+		return docignoreemp;
+	}
+
+	public void setDocignoreemp(EmployeeEntity docignoreemp) {
+		this.docignoreemp = docignoreemp;
+	}
+
+	public String getDocignorestatus() {
+		return docignorestatus;
+	}
+
+	public void setDocignorestatus(String docignorestatus) {
+		this.docignorestatus = docignorestatus;
+	}
+	
+	
+	
+	
+	
+	
+	
 	
 	
 }

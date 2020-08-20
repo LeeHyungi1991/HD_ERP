@@ -13,10 +13,10 @@ import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
-import lombok.Data;
+
 
 @Entity
-@Data
+
 @Table(name = "class")
 public class Class {
 	@Id@GeneratedValue(strategy = GenerationType.SEQUENCE,generator = "class_seq")
@@ -32,7 +32,42 @@ public class Class {
 	
 	@Column(name = "c_date")
 	private Date cdate;
+
+	public Long getCnum() {
+		return cnum;
+	}
+
+	public void setCnum(Long cnum) {
+		this.cnum = cnum;
+	}
+
+	public String getCname() {
+		return cname;
+	}
+
+	public void setCname(String cname) {
+		this.cname = cname;
+	}
+
+	public int getCmax() {
+		return cmax;
+	}
+
+	public void setCmax(int cmax) {
+		this.cmax = cmax;
+	}
+
+	public Date getCdate() {
+		return cdate;
+	}
+
+	public void setCdate(Date cdate) {
+		this.cdate = cdate;
+	}
 	
 //	@OneToMany(mappedBy = "cnum")
 //	public List<Student> students = new ArrayList<Student>();
+	
+	
+	
 }

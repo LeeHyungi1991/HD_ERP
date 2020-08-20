@@ -12,10 +12,10 @@ import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
-import lombok.Data;
+
 
 @Entity
-@Data
+
 @Table(name = "student")
 public class Student {
 	@Id@GeneratedValue(strategy = GenerationType.SEQUENCE,generator = "student_seq")
@@ -34,4 +34,38 @@ public class Student {
 	@ManyToOne
 	private Class cnum;
 
+	public Long getSnum() {
+		return snum;
+	}
+
+	public void setSnum(Long snum) {
+		this.snum = snum;
+	}
+
+	public String getSname() {
+		return sname;
+	}
+
+	public void setSname(String sname) {
+		this.sname = sname;
+	}
+
+	public String getSgender() {
+		return sgender;
+	}
+
+	public void setSgender(String sgender) {
+		this.sgender = sgender;
+	}
+
+	public Class getCnum() {
+		return cnum;
+	}
+
+	public void setCnum(Class cnum) {
+		this.cnum = cnum;
+	}
+
+	
+	
 }

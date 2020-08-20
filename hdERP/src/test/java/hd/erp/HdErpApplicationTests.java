@@ -10,6 +10,8 @@ import java.util.Scanner;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.junit.jupiter.api.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
@@ -24,12 +26,16 @@ import hd.erp.test.repository.BookRepository;
 import hd.erp.test.repository.CategoryRepository;
 import hd.erp.test.repository.ClassRepository;
 import hd.erp.test.repository.StudentRepository;
-import lombok.extern.slf4j.Slf4j;
 
-@Slf4j
+
+
 @SpringBootTest
 @EnableJpaRepositories
 class HdErpApplicationTests {
+	
+	
+	private static final Logger log = LoggerFactory.getLogger(HdErpApplicationTests.class);
+
 	
 	@Autowired
 	ClassRepository classrepository;

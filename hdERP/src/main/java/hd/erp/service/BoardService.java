@@ -11,6 +11,8 @@ import java.util.UUID;
 import javax.persistence.EntityManager;
 
 import org.json.JSONObject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -27,12 +29,16 @@ import hd.erp.entity.EmployeeEntity;
 import hd.erp.repository.BcommentRepository;
 import hd.erp.repository.BoardRepository;
 import hd.erp.repository.EmployeeRepository;
-import lombok.extern.slf4j.Slf4j;
 
-@Slf4j
+
+//@Slf4j ทา บน คะ
 @Service
 public class BoardService {
 
+	
+	private static final Logger log = LoggerFactory.getLogger(BoardService.class);
+
+	
 	@Autowired
 	EmployeeRepository employeerepository;
 	
