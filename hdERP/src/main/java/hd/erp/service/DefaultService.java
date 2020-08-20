@@ -3,17 +3,25 @@ package hd.erp.service;
 import java.io.File;
 import java.io.IOException;
 import java.security.Principal;
+import java.util.List;
 import java.util.Optional;
 
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import hd.erp.config.ApplicationYamlRead;
 import hd.erp.dto.EmployeeDTO;
+import hd.erp.entity.BoardEntity;
+import hd.erp.entity.DocumentEntity;
 import hd.erp.entity.EmployeeEntity;
+import hd.erp.repository.BoardRepository;
+import hd.erp.repository.DocumentRepository;
 import hd.erp.repository.EmployeeRepository;
 import lombok.extern.slf4j.Slf4j;
 
@@ -30,6 +38,13 @@ public class DefaultService {
 	
 	@Autowired
 	EmployeeRepository employeerepository;
+	
+	@Autowired
+	BoardRepository boardrepository;
+	
+	@Autowired
+	DocumentRepository documenetrespository;
+	
 	//회원가입
 	public void register(EmployeeDTO employeedto) {
 		employeeservice.register(employeedto);
@@ -138,89 +153,41 @@ public class DefaultService {
 		
 		
 		
-//		HttpSession session = request.getSession();
-//		String r_path=session.getServletContext().getRealPath("/");
-//		System.out.println("RPATH="+r_path);
-//		String r_path2=session.getServletContext().getRealPath("");
-//		System.out.println("RPATH2="+r_path2);
-//
-//
-//		
-//		//이미지 이름을 연결
-//		String oriFn =mfile.getOriginalFilename(); //업로드 된 이미지 이름
-//		
-//		System.out.println("FullPath2 : "+r_path+oriFn+"\\upload\\");//실제 이미지가 저장될 경로
-//		
-//		
-//		
-//		File Folder2 = new File(r_path+"\\upload\\");
-//		
-//		
-//		 //해당 디렉토리가 없을경우 디렉토리를 생성합니다.
-//		if (!Folder2.exists()) {
-//			try{
-//			    Folder2.mkdir(); //폴더 생성합니다.
-//			    System.out.println("폴더가 생성되었습니다.");
-//			    System.out.println(Folder2.getPath());
-//		        } 
-//		        catch(Exception e){
-//			    e.getStackTrace();
-//			}        
-//	         }else {
-//			System.out.println("이미 폴더가 생성되어 있습니다.");
-//		}
-//		
-//		
-//		File f = new File(Folder2.getPath()+"//"+oriFn);
-//		try {
-//			mfile.transferTo(f); //스프링의 transferTo를 호출해서 이미지를 저장장소에 복사
-//		} catch (IllegalStateException | IOException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-		
-//		
-//		System.out.println("rPath : "+r_path);
-//		String img_path ="static\\img";
-//		System.out.println("imgPath : "+r_path);
-//		StringBuffer path= new StringBuffer();
-//		path.append(r_path).append(img_path);
-//		
-//		System.out.println("FullPath : "+path);//실제 이미지가 저장될 경로
-//		//파일 업로드 실행
-//		
-//		File Folder = new File(path.toString());
-//		 //해당 디렉토리가 없을경우 디렉토리를 생성합니다.
-//		if (!Folder.exists()) {
-//			try{
-//			    Folder.mkdir(); //폴더 생성합니다.
-//			    System.out.println("폴더가 생성되었습니다.");
-//			    System.out.println(Folder.getPath());
-//		        } 
-//		        catch(Exception e){
-//			    e.getStackTrace();
-//			}        
-//	         }else {
-//			System.out.println("이미 폴더가 생성되어 있습니다.");
-//		}
-//		
-//		
-//		//이미지 이름을 연결
-//		String oriFn = "\\"+mfile.getOriginalFilename(); //업로드 된 이미지 이름
-//		path.append(oriFn);
-//		System.out.println("FullPath2 : "+path);//실제 이미지가 저장될 경로
-//		
-//		
-//		File f = new File(path.toString());
-//		try {
-//			mfile.transferTo(f); //스프링의 transferTo를 호출해서 이미지를 저장장소에 복사
-//		} catch (IllegalStateException | IOException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-//		m.addAttribute("path", path);
+
 	}
 
+
+
+	//최근 서류가져오기
+	public List<DocumentEntity> getrecentdocument() {
+		Page<DocumentEntity> recentdoc = documenetrespository.findBydocstatus(3, (PageRequest.of(0, 3,Sort.by("docnum").descending())));
+		return recentdoc.getContent();
+	}
+
+
+
+	//최근 게시판 가져오기
+	public List<BoardEntity> getrecentboardlist() {
+		Page<BoardEntity> recentboard= boardrepository.findAll(PageRequest.of(0, 3,Sort.by("bnum").descending()));
+		return recentboard.getContent();
+	}
+
+
+
+	
+	//로그인 정보 있는지 가져오기
+	public Long usercheck(long hdcode) {
+		
+		//Long e = employeerepository.cou
+		Long cnt =employeerepository.countByhdcode(hdcode);
+		
+		return cnt;
+	}
+
+	
+	
+
+	
 
 
 

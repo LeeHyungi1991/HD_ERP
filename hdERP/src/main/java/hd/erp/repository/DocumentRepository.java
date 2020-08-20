@@ -23,9 +23,15 @@ public interface DocumentRepository extends JpaRepository<DocumentEntity, Long>{
 	//doc_status 로 리스트 뽑아오기 페이징 버전 Pageable //sort가 없어야 한다
 	Page<DocumentEntity> findBydocstatus(int docstatus,Pageable pageable);
 	
-	//doc_status 범위 페이징 버전 //sort가 없어야 한다
+	//doc_status 범위 페이징 버전 //sort가 없어야 한다 //Docdrafter 붙음
 	Page<DocumentEntity> findBydocstatusBetween(int docstatus1,int docstatus2,Pageable pageable);
 	
+	//doc_status 범위 페이징 버전(인자값 두개) //sort가 없어야 한다 //Docdrafter 붙음
+		Page<DocumentEntity> findByDocdrafterAndDocstatusBetween(EmployeeEntity drafter,int docstatus1,int docstatus2,Pageable pageable);
+		
+		
+		//doc_status(인자값 한개) 로 리스트 뽑아오기 페이징 버전 Pageable //sort가 없어야 한다//Docdrafter 붙음
+		Page<DocumentEntity> findByDocdrafterAndDocstatus(EmployeeEntity drafter , int docstatus,Pageable pageable);
 	
 	
 	//doc_num Asc로 파일 첨부 넣어야 되니까

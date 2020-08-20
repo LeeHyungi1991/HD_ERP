@@ -6,6 +6,9 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <meta name="description" content="" />
         <meta name="author" content="" />
+        <meta id="_csrf" name="_csrf" th:content="${_csrf.token}"/>
+		<!-- default header name is X-CSRF-TOKEN -->
+		<meta id="_csrf_header" name="_csrf_header" th:content="${_csrf.headerName}"/>
         <title>Page Title - SB Admin</title>
         <link href="css/styles.css" rel="stylesheet" />
         <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/js/all.min.js" crossorigin="anonymous"></script>
@@ -23,7 +26,7 @@
                                         <form th:action="@{/login}" method="post">
                                             <div class="form-group">
                                                 <label class="small mb-1" for="inputEmailAddress">사번</label>
-                                                <input class="form-control py-4" id="inputEmailAddress" type="text" name="username" placeholder="사번을 입력하세요" />
+                                                <input class="form-control py-4" id="inputid" type="text" name="username" placeholder="사번을 입력하세요" />
                                             </div>
                                             <div class="form-group">
                                                 <label class="small mb-1" for="inputPassword">비밀번호</label>
@@ -37,7 +40,7 @@
 <!--                                             </div> -->
                                             <div class="form-group d-flex align-items-center justify-content-between mt-4 mb-0">
 <!--                                                 <a class="small" href="password.html">Forgot Password?</a> -->
-                                                <button class="btn btn-primary" type="submit">Login</button>
+                                                <button class="btn btn-primary" type="submit" id="loginbtn">Login</button>
                                             </div>
                                         </form>
                                     </div>
@@ -69,4 +72,39 @@
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
         <script src="js/scripts.js"></script>
     </body>
+    <script>
+    var token = $("meta[name='_csrf']").attr("content");
+    var header = $("meta[name='_csrf_header']").attr("content");
+    window.onload=function(){
+    	$('#loginbtn').click(function() {
+    		
+    		var id = $('#inputid').val();
+    		console.log(id)
+    		$.ajax({
+    			url:'/user.usercheck',
+    			type:'post',
+    			dataType: 'text',
+    			beforeSend : function(xhr)
+			    {   /*데이터를 전송하기 전에 헤더에 csrf값을 설정한다*/
+					xhr.setRequestHeader(header, token);
+			    },
+			    data:{'id':id},
+			    success:function(s){
+			    	console.log(s)
+			    },
+			    error:function(e){
+			    	console.log(e)
+			    }
+    		})
+    		
+    		
+    		
+//     		if(){
+    			
+//     		}
+    		
+    		
+    	})
+    }
+    </script>
 </html>

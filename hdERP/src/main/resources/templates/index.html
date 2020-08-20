@@ -93,7 +93,7 @@
                 </div>
 <!-- 				     <div class="row"> -->
  						<div class="col-sm-6 col-xs-12">
-                            <div class="panel panel-default chartJs">
+                            <div class="panel panel-default">
 <!--                                 <div class="panel-heading"> -->
 <!--                                     <div class="card-title"> -->
 <!--                                         <div class="title">??</div> -->
@@ -111,14 +111,14 @@
 															                <input type="hidden" id="name" placeholder="Username" th:value="${emp.hdname}" autocomplete="off" class="form-control" />
 															            </div>
 															            <div class="form-group">
-															                <button type="submit" class="accent username-submit">Test</button>
+															                <button type="submit" class="accent username-submit">대화하기</button>
 															            </div>
 															        </form>
 															    </div>
 															</div>
 															
 															<div id="chat-page" class="hidden">
-															    <div class="chat-container">
+															    <div class="chat-container" style="height: 475px;">
 <!-- 															        <div class="chat-header"> -->
 <!-- 															            <h2>Spring WebSocket Chat Demo</h2> -->
 <!-- 															        </div> -->
@@ -132,8 +132,8 @@
 															        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 															            <div class="form-group">
 															                <div class="input-group clearfix">
-															                    <input type="text" id="message" placeholder="Type a message..." autocomplete="off" class="form-control" />
-															                    <button type="submit" class="primary">보내기</button>
+															                    <input type="text" id="message" placeholder="Type a message..." style="width: 230%;" autocomplete="off" class="form-control" />
+															                    <button type="submit" class="primary hidden" >보내기</button>
 															                </div>
 															            </div>
 															        </form>
@@ -144,29 +144,71 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-sm-6 col-xs-12">  
-                            <div class="panel panel-default chartJs">
-                                <div class="panel-heading">
-                                    <div class="card-title">
-                                        <div class="title">Line Chart</div>
-                                    </div>
-                                </div>
-                                <div class="panel-body">
-                                    <canvas id="line-chart" class="chart"></canvas>
-                                </div>
+                        <div class="col-sm-6 col-xs-12" >  
+                            <div class="panel panel-default">
+                        <div class="panel-heading">
+                            최근서류
+                        </div>
+                        <div class="panel-body" style="height: 200px;">
+                            <div class="table-responsive">
+                                <table class="table table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th>서류번호</th>
+                                            <th>서류제목</th>
+                                            <th>기안자</th>
+                                            <th>작성일</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="recentdoc">
+                                   		<tr th:each =" doc : ${recentdocs} ">
+	                                   		<td th:text="${doc.docnum}"></td>
+                                        	<td th:text="${doc.doctitle}"></td>
+                                        	<th th:text="${doc.docdrafter.hdname}"></th>
+                                        	<td th:text="${doc.docdate}"></td>
+                                   		
+                                   		</tr>
+                                   
+                                    </tbody>
+                                    
+                                </table>
                             </div>
                         </div>
+                    </div>
+                        </div>
                          <div class="col-sm-6 col-xs-12">  
-                            <div class="panel panel-default chartJs">
-                                <div class="panel-heading">
-                                    <div class="card-title">
-                                        <div class="title">Line Chart</div>
-                                    </div>
-                                </div>
-                                <div class="panel-body">
-                                    <canvas id="line-chart" class="chart"></canvas>
-                                </div>
+                            <div class="panel panel-default">
+                        <div class="panel-heading">
+                           최근게시판
+                        </div>
+                        <div class="panel-body" style="height: 200px;">
+                            <div class="table-responsive">
+                                <table class="table table-hover" >
+                                    <thead>
+                                        <tr>
+                                          <th >번호</th>
+                                            <th >제목</th>
+                                            <th >작성자</th>
+                                            <th >날짜</th>
+                                            <th>조회수</th>
+                                        </tr>
+                                    </thead>
+                                    
+                                   
+                                    <tbody id="recentboard">
+                                    <tr th:each =" board : ${recentboards} ">
+                                   			<td th:text="${board.bnum}">번호</td>
+                                            <td th:text="${board.btitle}">제목</td>
+                                            <td th:text="${board.employee.hdname}">작성자</td>
+                                            <td th:text="${board.bdate}">날짜</td>
+                                            <td th:text="${board.bhit}">조회수</td>
+                                  	</tr>
+                                    </tbody>
+                                    
+                                </table>
                             </div>
+                        </div>
+                    </div>
                         </div>
                        
                        
@@ -442,12 +484,12 @@ html,body {
     display: none;
 }
 
-.form-control {
-     width: 100%; 
-    min-height: 38px;
-    font-size: 15px;
-    border: 1px solid #c8c8c8;
-}
+ .form-control { 
+      width: 100%; 
+     min-height: 38px; 
+    font-size: 15px; 
+     border: 1px solid #c8c8c8; 
+ } 
 
 .form-group {
     margin-bottom: 15px;
@@ -526,7 +568,7 @@ button.accent {
 /*     right: 0; */
 /*     margin: 0 auto; */
 /*     margin-top: -160px; */
-		height: 425px;
+		height: 463px;
  } 
 
 .username-page-container .username-submit {
@@ -537,6 +579,7 @@ button.accent {
 #chat-page {
     position: relative;
     height: 100%;
+    m
 }
 
  .chat-container { 
@@ -564,6 +607,7 @@ button.accent {
 
 #chat-page #messageForm {
     padding: 00px;
+    
 }
 
 #chat-page ul li {
@@ -627,7 +671,8 @@ button.accent {
 
 #messageForm .input-group input {
 /*     float: left; */
-    width: calc(100% - 85px);
+/*     width: calc(100% - 85px); */
+    width: 100%;
 }
 
 #messageForm .input-group button {
@@ -669,7 +714,8 @@ button.accent {
 
 @media screen and (max-width: 480px) {
     .chat-container {
-        height: calc(100% - 30px);
+         height: calc(100% - 30px);  
+/*  		height: 100%;  */
     }
 
     .username-page-container {
@@ -712,6 +758,21 @@ button.accent {
 <script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.4.0/sockjs.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
 <script>
+window.onload=function(){
+	$('#recentdoc tr').click(function() {
+		//alert($(this).children().first().text())
+		location.href="/user.document?docnum="+$(this).children().first().text();
+	})
+	
+	$('#recentboard tr').click(function() {
+		///user.boarddetail
+		location.href="/user.boarddetail?bnum="+$(this).children().first().text();
+	})
+}
+
+
+
+
 'use strict';
 
 var usernamePage = document.querySelector('#username-page');
