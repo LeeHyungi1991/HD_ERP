@@ -43,7 +43,11 @@ public class DefaultController {
 	ApplicationYamlRead applicationyamlread;
 	
 	@GetMapping("/")
-	public String firstaccess() {
+	public String firstaccess(Model m) {
+		System.out.println("시작시작");
+		List<EmployeeEntity> emp = defaultservice.getemplist();
+		m.addAttribute("emplist", emp);
+		
 		return "login";
 	}
 	
@@ -103,7 +107,10 @@ public class DefaultController {
 		return "denied";
 	}
 	@GetMapping("/login")
-	public String login2() {
+	public String login2(Model m) {
+		System.out.println("시작시작");
+		List<EmployeeEntity> emp = defaultservice.getemplist();
+		m.addAttribute("emplist", emp);
 		return "login";
 	}
 	@PostMapping("/login")
@@ -118,10 +125,33 @@ public class DefaultController {
 	public String profile(Model m,Principal principal) {
 		EmployeeEntity emp = defaultservice.getuserprofile(Long.parseLong(principal.getName()));
 		
+		String staticpath =applicationyamlread.getPath();
+		
+		
+		
 		String path2 ="img\\"+principal.getName();
+		
+		String path1 =staticpath+"\\"+path2 +"\\signature.png"; //->signatur 있는지 체크 path
+		File f = new File(path1);
+		if(f.exists()) {
+		     System.out.println("사인파일 존재");
+		     m.addAttribute("sigpath", path2.toString()+"\\"+"signature.png");
+		} else {
+		      System.out.println("사인파일 없음");        
+		     m.addAttribute("sigpath", "img\\nosign.PNG");
+		}
+		
 		m.addAttribute("path", path2.toString()+"\\"+"profile.png");
-		m.addAttribute("sigpath", path2.toString()+"\\"+"signature.png");
+		
 		m.addAttribute("emp", emp);
+		
+		
+		
+		
+		
+
+		
+		
 		return"userprofile";
 	}
 	//프로필이미지,사원정보 업로드

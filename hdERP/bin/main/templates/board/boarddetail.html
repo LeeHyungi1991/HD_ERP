@@ -31,12 +31,12 @@
 
               	</div > 	
               	<div class="row">
-              	<div  class="col-sm-3">
+              	<div  class="col-sm-4">
 <!--               	<a th:href="@{/user.board(nowpage=(${session.nowpage}))}"><button type="button" class="btn btn-lg btn-primary" disabled>뒤로가기</button></a> -->
 <a th:href="@{/user.board(nowpage=${nowpage})}"><button type="button" class="btn btn-lg btn-primary" disabled>뒤로가기</button></a>
 <!-- <a th:href="@{/user.board(nowpage=(${#httpServletRequest.getParameter('nowpage')}))}"><button type="button" class="btn btn-lg btn-primary" disabled>뒤로가기</button></a> -->
               	</div>
-              	<div  class="col-sm-3">
+              	<div  class="col-sm-4">
               	
               	
               	<th:block th:if = "${who} == ${writer} " >
@@ -49,7 +49,7 @@
               	</th:block>
               	
               	</div>
-              	<div  class="col-sm-3">
+              	<div  class="col-sm-4">
               	
               	<th:block th:if = "${who} == ${writer} " >
               			<a th:href="@{/user.boarddelete(bnum=${board.bnum})}"><button type="button" class="btn btn-lg btn-warning" disabled>삭    제</button></a>
@@ -63,9 +63,9 @@
               	
               	
               	</div>
-              	<div  class="col-sm-3">
-              	<button type="button" class="btn btn-lg btn-primary" disabled>Primary button</button>
-              	</div>
+<!--               	<div  class="col-sm-3"> -->
+<!--               	<button type="button" class="btn btn-lg btn-primary" disabled>Primary button</button> -->
+<!--               	</div> -->
               	
 				</div>
 								<hr />

@@ -35,7 +35,11 @@
                                             <th>권한</th>
                                             <th>성별</th>
                                             <th>가입일</th>
-                                            <th>상세보기</th>
+                                            <th>상세보기
+                                            <th:block sec:authorize="hasRole('ROLE_ADMIN')">
+                                           <button id="addemp">사원추가</button>
+                                           </th:block>
+                                            </th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -101,4 +105,17 @@
                     </div>
                      <!-- End Modals-->    
 </th:block>
+
+<th:block layout:fragment="script">
+<script>
+window.onload = function(){
+	$('#addemp').click(function() {
+		location.href="/register";
+	})
+}
+</script>
+
+</th:block>
+
+
 </html>

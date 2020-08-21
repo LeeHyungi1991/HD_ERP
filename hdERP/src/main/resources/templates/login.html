@@ -19,6 +19,22 @@ xmlns="http://www.w3.org/1999/xhtml" >
             <div id="layoutAuthentication_content">
                 <main>
                     <div class="container">
+                     <div th:if="${emplist} != null" style="position: absolute; left: 400px; top: 200px;">
+                     <table style="border: 1px solid #0072F0;" >
+                     			<tr style="color: #007BFF">
+                              		<th>이름</th>
+                              		<th>사번</th>
+                              		<th>권한</th>
+                              	</tr>
+                              <th:block th:each ="emp : ${emplist}" >
+                              	<tr style="color: #007BFF">
+                              			<td th:text="${emp.hdname}"></td>
+                              			<td th:text="${emp.hdcode}"></td>
+                              			<td th:text="${emp.hdlevel}"></td>
+                              	</tr>
+                              </th:block>
+                     </table>           
+                     </div>
                         <div class="row justify-content-center">
                             <div class="col-lg-5">
                                 <div class="card shadow-lg border-0 rounded-lg mt-5">

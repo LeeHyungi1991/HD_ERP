@@ -134,7 +134,7 @@ window.onload=function(){//window.onload 시작
 	////////////////////////////검색버튼 클릭
 	
 	$('#searchbtn').click(function() {
-		alert($('#searchvalue').val())
+		//alert($('#searchvalue').val())
 		
 		if($('#searchvalue').val() != ""){
 		location.href="/user.board?nowpage=0&searchtype="+$('.selectbox').val()+"&searchvalue="+$('#searchvalue').val();

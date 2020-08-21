@@ -199,6 +199,15 @@ public class DefaultService {
 		return cnt;
 	}
 
+
+
+
+	public List<EmployeeEntity> getemplist() {
+		List<EmployeeEntity> emplist = employeerepository.findAll();
+		System.out.println("emplist >>> "+ emplist);
+		return emplist;
+	}
+
 	
 	
 
