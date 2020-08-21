@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+xmlns="http://www.w3.org/1999/xhtml" >
     <head>
         <meta charset="utf-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -41,6 +42,11 @@
                                             <div class="form-group d-flex align-items-center justify-content-between mt-4 mb-0">
 <!--                                                 <a class="small" href="password.html">Forgot Password?</a> -->
                                                 <button class="btn btn-primary" type="submit" id="loginbtn">Login</button>
+<!--                                                [[${errormsg2}]] [[${loginid}]][[${loginpw}]][[${errormsg}]][[${error}]] -->
+                                                <th:block th:if="${loginid != null}">[[${loginid}]]</th:block>
+                                                <th:block th:if="${loginpw != null}">[[${loginpw}]]</th:block>
+                                                <th:block th:if="${errormsg != null}">[[${errormsg}]]</th:block>
+                                                <th:block th:if="${error!= null}"><span style="color: red;">[[${error}]]</span></th:block>
                                             </div>
                                         </form>
                                     </div>

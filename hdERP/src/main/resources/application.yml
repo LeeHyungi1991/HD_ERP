@@ -29,9 +29,9 @@ spring:
 spring:
   datasource:
     driver-class-name: oracle.jdbc.OracleDriver
-    url: jdbc:oracle:thin:@192.168.0.18:1521:orcl
-    username: hdbank
-    password: hdbank
+    url: jdbc:oracle:thin:@192.168.0.122:1521:orcl
+    username: hd
+    password: hd
 #오라클드라이버    
 ---
 spring:

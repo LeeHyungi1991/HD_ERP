@@ -9,6 +9,19 @@
         <title>Page Title - SB Admin</title>
         <link th:href="@{css/styles.css}" rel="stylesheet" />
         <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/js/all.min.js" crossorigin="anonymous"></script>
+        <style>
+         select {
+  width: 200px;
+  padding: .8em .5em;
+  font-family: inherit;
+  background: url(https://farm1.staticflickr.com/379/19928272501_4ef877c265_t.jpg) no-repeat 95% 50%;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  border: 1px solid #999;
+  border-radius: 0px;
+}
+        </style>
     </head>
     <body class="bg-primary">
         <div id="layoutAuthentication">
@@ -24,65 +37,72 @@
                                             <div class="form-row">
                                                 <div class="col-md-6">
                                                     <div class="form-group">
-                                                        <label class="small mb-1" for="inputFirstName">HD_LEVEL권한</label>
-                                                        <input class="form-control py-4" id="inputFirstName" type="text" name="hd_level" placeholder="ADMIN" />
+                                                        <label class="small mb-1" for="inputFirstName">권한</label>
+                                                        <br />
+                                                        <select name="hd_level" id="">
+                                                        	<option value="ADMIN">ADMIN</option>
+                                                        	<option value="MEMBER">MEMBER</option>
+                                                        	<option value="USER">USER</option>
+                                                        	<option value="NO">NO</option>
+                                                        </select>
+<!--                                                         <input class="form-control py-4" id="inputFirstName" type="text" name="hd_level" placeholder="ADMIN" /> -->
                                                     </div>
                                                 </div>
                                                 <div class="col-md-6">
                                                     <div class="form-group">
-                                                        <label class="small mb-1" for="inputLastName">HD_IN_DATE 가입일</label>
+                                                        <label class="small mb-1" for="inputLastName">가입일</label>
                                                         <input class="form-control py-4" id="inputLastName" type="date" name="hd_in_date" placeholder="2020-08-01" />
                                                     </div>
                                                 </div>
                                                 <div class="col-md-6">
                                                     <div class="form-group">
-                                                        <label class="small mb-1" for="inputLastName">HD_NAME 이름</label>
+                                                        <label class="small mb-1" for="inputLastName">이름</label>
                                                         <input class="form-control py-4" id="inputLastName" type="text" name="hd_name" placeholder="이름" />
                                                     </div>
                                                 </div>
                                                 <div class="col-md-6">
                                                     <div class="form-group">
-                                                        <label class="small mb-1" for="inputLastName">HD_Birth 생일</label>
+                                                        <label class="small mb-1" for="inputLastName">생일</label>
                                                         <input class="form-control py-4" id="inputLastName" type="date" name="hd_birth" placeholder="생일" />
                                                     </div>
                                                 </div>
                                                 <div class="col-md-6">
                                                     <div class="form-group">
-                                                        <label class="small mb-1" for="inputLastName">HD_DNAME 부서</label>
+                                                        <label class="small mb-1" for="inputLastName"> 부서</label>
                                                         <input class="form-control py-4" id="inputLastName" type="text" name="hd_dname" placeholder="부서" />
                                                     </div>
                                                 </div>
                                                 <div class="col-md-6">
                                                     <div class="form-group">
-                                                        <label class="small mb-1" for="inputLastName">HD_GENDER 성별</label>
+                                                        <label class="small mb-1" for="inputLastName">성별</label>
                                                         <input class="form-control py-4" id="inputLastName" type="text" name="hd_gender" placeholder="성별" />
                                                     </div>
                                                 </div>
                                                 <div class="col-md-6">
                                                     <div class="form-group">
-                                                        <label class="small mb-1" for="inputLastName">HD_PHN 폰번</label>
+                                                        <label class="small mb-1" for="inputLastName"> 폰번</label>
                                                         <input class="form-control py-4" id="inputLastName" type="text" name="hd_phn" placeholder="폰번" />
                                                     </div>
                                                 </div>
                                                 <div class="col-md-6">
                                                     <div class="form-group">
-                                                        <label class="small mb-1" for="inputLastName">HD_LOC 지역</label>
+                                                        <label class="small mb-1" for="inputLastName">지역</label>
                                                         <input class="form-control py-4" id="inputLastName" type="text" name="hd_loc" placeholder="지역" />
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="form-group">
-                                                <label class="small mb-1" for="inputEmailAddress">hd_Email</label>
+                                                <label class="small mb-1" for="inputEmailAddress">Email</label>
                                                 <input class="form-control py-4" id="inputEmailAddress" type="email" name="hd_email" aria-describedby="emailHelp" placeholder="Enter email address" />
                                             </div>
                                             <div class="form-group">
-                                                <label class="small mb-1" for="inputEmailAddress">hd_admin_pw</label>
-                                                <input class="form-control py-4" id="inputEmailAddress" type="password" name="hd_admin_pw" aria-describedby="emailHelp" placeholder="ad_admin비밀번호입력" />
+                                                <label class="small mb-1" for="inputEmailAddress">hd_admin_pw(nexacro_page)</label>
+                                                <input class="form-control py-4" id="inputEmailAddress" type="password" name="hd_admin_pw" aria-describedby="emailHelp" placeholder="hd_admin비밀번호입력" />
                                             </div>
                                             <div class="form-row">
-                                                <div class="col-md-6">
+                                                <div class="col-md-12">
                                                     <div class="form-group">
-                                                        <label class="small mb-1" for="inputPassword">hd_pw Password</label>
+                                                        <label class="small mb-1" for="inputPassword">Password</label>
                                                         <input class="form-control py-4" id="inputPassword" type="password" name="hd_pw" placeholder="Enter passwords" />
                                                     </div>
                                                 </div>

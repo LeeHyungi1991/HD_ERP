@@ -6,7 +6,7 @@ import java.security.Principal;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
-
+import javax.servlet.http.HttpServletResponse;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -59,6 +59,16 @@ public class DefaultController {
 		m.addAttribute("recentdocs",recentdocument);
 		
 		return "index";
+	}
+	
+	@GetMapping("/loginfail")
+	public String loginfail(Model m,HttpServletRequest request,HttpServletResponse response,String error) {
+		String loginid = request.getParameter("loginid");
+		
+		System.out.println("login >>>>"+loginid);
+		m.addAttribute("errormsg2", "asdf");
+		m.addAttribute("error",error);
+		return "login";
 	}
 	
 	@GetMapping("/user/loginsuccess")
