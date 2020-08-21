@@ -13,9 +13,7 @@
 <!--                             Dashboard <small>Welcome John 윤</small> -->
                         </h1>
 						<ol class="breadcrumb">
-					  <li><a href="#">Home</a></li>
-					  <li><a href="#">Dashboard</a></li>
-					  <li class="active">Data</li>
+					  <li>서류</li>
 					</ol> 
 									
 		</div>
@@ -246,7 +244,16 @@
         			</th:block>
 <!--         			3인애들 -->
         			<th:block th:unless="${doc.docstatus != 3 }">
-        			
+        			  <th:block sec:authorize="hasRole('ROLE_ADMIN')">
+		        				<td>
+				      					<form th:action="@{/user.docdelete}" method="post">
+				      					
+				      						<input type="hidden" name="docnum" th:value="${doc.docnum}" />
+				      						<button class="btn btn-primary btn-lg" style="width: 200px;" type="submit"  >삭제하기</button>
+				      					
+				      					</form>
+						        </td>
+				        </th:block>
         			</th:block>
         		</tr>
         		</table>
@@ -468,13 +475,14 @@ window.onload=function(){
      background: lightgreen;
      }
       #document table thead tr:nth-child(2) td{
-     background: royalblue;
+/*      background: royalblue; */
+background : #418CCB;
      border : 1px solid black;
      height: 20px;
      }
 /*      기안자*/
       #document table thead tr:nth-child(2) td:nth-child(2){
-     background: royalblue;
+      background: gray;
      border : 1px solid black;
    	 width: 150px;
    	 
@@ -483,13 +491,15 @@ window.onload=function(){
      
      /*      중관*/
       #document table thead tr:nth-child(2) td:nth-child(3){
-     background: royalblue;
+/*      background: royalblue; */
+background: gray;
      border : 1px solid black;
    	 width: 150px;
      }
      /*      최관*/
       #document table thead tr:nth-child(2) td:nth-child(4){
-     background: royalblue;
+/*      background: royalblue; */
+background: gray;
      border : 1px solid black;
    	 width: 150px;
      }

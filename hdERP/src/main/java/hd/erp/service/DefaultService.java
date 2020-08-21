@@ -69,7 +69,17 @@ public class DefaultService {
 	
 	public EmployeeEntity getuserprofile(Long hd_code) {
 		Optional<EmployeeEntity> emp = employeerepository.findByhdcode(hd_code);
-		return emp.get();
+		EmployeeEntity testemp = emp.get();
+		System.out.println("employee 가입일 (er) >>"+testemp.getHdindate());
+		System.out.println("employee 생일(er) >>"+testemp.getHdbirth());
+		
+		testemp.setHdindate(testemp.getHdindate().substring(0, 10));
+		testemp.setHdbirth(testemp.getHdbirth().substring(0, 10));
+		System.out.println("resolve >> "+testemp.getHdindate().substring(0, 10));
+		System.out.println("resolve >> "+testemp.getHdbirth().substring(0, 10));
+		
+		
+		return testemp;
 		
 	}
 	

@@ -97,10 +97,17 @@ public class BoardController {
 		m.addAttribute("bcomments", bcomments);
 		
 		HttpSession session = req.getSession();
-		int nowpage = (int) session.getAttribute("nowpage");
 		
-		System.out.println("nowpage= "+nowpage);
-		m.addAttribute("nowpage", nowpage);
+		if(session.getAttribute("nowpage") != null) {
+			int nowpage = (int) session.getAttribute("nowpage");
+			System.out.println("nowpage= "+nowpage);
+			m.addAttribute("nowpage", nowpage);
+		}else {
+			int nowpage =0;
+			m.addAttribute("nowpage",nowpage);
+		}
+		
+		
 		
 		
 		

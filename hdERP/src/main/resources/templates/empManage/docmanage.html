@@ -13,9 +13,7 @@
 <!--                             Dashboard <small>Welcome John 윤</small> -->
                         </h1>
 						<ol class="breadcrumb">
-					  <li><a href="#">Home</a></li>
-					  <li><a href="#">Dashboard</a></li>
-					  <li class="active">Data</li>
+					  <li>서류관리</li>
 					</ol> 
 									
 		</div>
@@ -102,7 +100,9 @@
 <!--                                         <p>[[${myemp.hdcode}]]</p> -->
                                         	<th:block th:case="0">
 										<!--   1차결재  자와 기안자만 보게-->
+										
                                         		<th:block th:if="${doc.docfirstemp != null}" >
+                                        		
 	                                        		<th:block th:if="${doc.docfirstemp.hdcode}==${myemp.hdcode} or ${doc.docdrafter.hdcode}==${myemp.hdcode}">
 	                                        			<td th:text="${doc.docnum}"></td>
 			                                        	<td th:text="${doc.doctitle}"></td>
@@ -336,7 +336,12 @@ window.onload=function(){//////////////////window.onload
 		var size =5 //원하면 변경 가능하다
 		console.log('c'+ $(this).text())
 		$('#com_1').parent().addClass('page-item active')//처음엔 1버튼 선택 국룰
+		
+		
 		com_doc_show()
+	
+
+		
 	function com_doc_show(){
 		$('#com_1').show()
 		$('#com_2').show()
@@ -363,6 +368,14 @@ window.onload=function(){//////////////////window.onload
 			$('#com_3').hide()
 			$('#com_2').hide()
 		}
+		
+		if(com_totalPages === '0'){
+			$('#com_5').hide()
+			$('#com_4').hide()
+			$('#com_3').hide()
+			$('#com_2').hide()
+		}
+		
 	}
 	
 	
@@ -401,6 +414,13 @@ if(parseInt(ing_totalPages) < size){ //총 페이지 수가 size(5개 디폴트)
 		$('#ing_3').hide()
 		$('#ing_2').hide()
 	}
+	if(ing_totalPages === '0'){
+		$('#ing_5').hide()
+		$('#ing_4').hide()
+		$('#ing_3').hide()
+		$('#ing_2').hide()
+	}
+	
 }
 	
 	///////////////////////////////////////////////ingdoc onload,var event END
@@ -432,6 +452,13 @@ if(parseInt(ing_totalPages) < size){ //총 페이지 수가 size(5개 디폴트)
 				$('#ign_3').hide()
 			}
 			if(ign_totalPages === '1'){//페이지가 1개이면 5,4,3,2번 버튼 display : none
+				$('#ign_5').hide()
+				$('#ign_4').hide()
+				$('#ign_3').hide()
+				$('#ign_2').hide()
+			}
+			
+			if(ign_totalPages === '0'){
 				$('#ign_5').hide()
 				$('#ign_4').hide()
 				$('#ign_3').hide()

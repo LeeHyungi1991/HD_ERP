@@ -33,7 +33,7 @@ HD_PW      NOT NULL VARCHAR2(255)
 //@NoArgsConstructor(access = AccessLevel.PROTECTED)ทาบน คะ
 public class EmployeeEntity {
 	@Id@GeneratedValue(strategy = GenerationType.SEQUENCE,generator = "hd_code_sequence")
-	@SequenceGenerator(name = "hd_code_sequence",allocationSize = 1,sequenceName = "EMPLOYEE_SEQ")
+	@SequenceGenerator(name = "hd_code_sequence",allocationSize = 1,sequenceName = "EMPLOYEE_SEQ",initialValue = 20000)
 	@Column(name = "hd_code")
 	private Long hdcode;
 	

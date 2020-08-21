@@ -262,10 +262,20 @@ public class EmployeeManageService {
 //		List<DocumentEntity> ingdoc = documentrepository.findBydocstatusBetween(0, 2,Sort.by(Direction.DESC,"docnum"));
 		
 		Page<DocumentEntity> completedoc = documentrepository.findBydocstatus(3, PageRequest.of(0, 5,Sort.by("docnum").descending()));
+		//오류
+		//Page<DocumentEntity> ignoredoc = documentrepository.findByDocdrafterAndDocstatus(emp,-1,PageRequest.of(0, 5,Sort.by("docnum").descending()));
+		//오류
+		//Page<DocumentEntity> ingdoc = documentrepository.findByDocdrafterAndDocstatusBetween(emp,0, 2,PageRequest.of(0, 5,Sort.by("docnum").descending()));
 		
-		Page<DocumentEntity> ignoredoc = documentrepository.findByDocdrafterAndDocstatus(emp,-1,PageRequest.of(0, 5,Sort.by("docnum").descending()));
 		
-		Page<DocumentEntity> ingdoc = documentrepository.findByDocdrafterAndDocstatusBetween(emp,0, 2,PageRequest.of(0, 5,Sort.by("docnum").descending()));
+		
+		Page<DocumentEntity> ignoredoc = documentrepository.findBydocstatus(-1,PageRequest.of(0, 5,Sort.by("docnum").descending()));
+		
+		Page<DocumentEntity> ingdoc = documentrepository.findBydocstatusBetween(0, 2,PageRequest.of(0, 5,Sort.by("docnum").descending()));
+		
+		
+		
+		
 		
 		mydoclists.put("completedoc", completedoc);
 		
