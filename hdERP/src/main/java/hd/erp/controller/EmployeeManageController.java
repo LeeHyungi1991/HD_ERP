@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
@@ -174,7 +174,11 @@ public class EmployeeManageController {
 		m.addAttribute("myemp", myemp);
 		List<DocAttachmentEntity> att = employeemanageservice.getatt(doc);
 		m.addAttribute("att", att);
-		m.addAttribute("html", "/user.fileDown?fileName=");
+		
+		
+		
+		
+		m.addAttribute("html", "/user.fileDown?hdcode="+doc.getDocdrafter().getHdcode()+"&fileName=");
 		return "empManage/document";
 	}
 	//서류삭제
@@ -218,11 +222,11 @@ public class EmployeeManageController {
 	
 	//파일다운
 	@RequestMapping(value="/user.fileDown")
-	public String filedown(@RequestParam("fileName") String fileName,
+	public String filedown(@RequestParam("fileName") String fileName,@RequestParam("hdcode") String hdcode,
 			HttpSession session,HttpServletRequest request, HttpServletResponse response,Principal principal
 			) throws IOException{
 		
-		employeemanageservice.filedown(request,response,fileName,principal.getName());
+		employeemanageservice.filedown(request,response,fileName,hdcode);
 		
 		return "redirect:/user.docmanage";
 	}
@@ -290,4 +294,26 @@ public class EmployeeManageController {
 		return "empManage/server/ignoredocserver";
 	}
 	
+	
+	@PostMapping("/user.getemp")
+	@ResponseBody
+	public String getemp(String hdcode) {
+		EmployeeEntity emp = employeemanageservice.getemp(Long.parseLong(hdcode));
+		JSONObject jsonobject = new JSONObject();
+		jsonobject.put("hdcode", emp.getHdcode());
+		jsonobject.put("hdlevel", emp.getHdlevel());
+		jsonobject.put("hdindate", emp.getHdindate());
+		jsonobject.put("hdname", emp.getHdname());
+		jsonobject.put("hdbirth", emp.getHdbirth());
+		jsonobject.put("hddname", emp.getHddname());
+		jsonobject.put("hdgender", emp.getHdgender());
+		jsonobject.put("hdphn", emp.getHdphn());
+		jsonobject.put("hdemail", emp.getHdemail());
+		jsonobject.put("hdloc", emp.getHdloc());
+		//jsonobject.put("hdadminpw", emp.getHdadminpw());
+		
+		System.out.println("get emp 입니다.");
+		System.out.println(emp);
+		return jsonobject.toString();
+	}
 }

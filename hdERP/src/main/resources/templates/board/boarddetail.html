@@ -245,7 +245,7 @@
 	var jsondata =null;
  function bcommentupdate(bcnum){
 		var bcnum = bcnum
-		console.log(bcnum)
+		//console.log(bcnum)
 		$.ajax({
             type: "POST",
             url: "/user.bcommentupdate_modal",
@@ -257,21 +257,21 @@
             },
             success: function (data) {
             	jsondata=JSON.parse(data)
-            	console.log(jsondata.bcnum)
-               console.log(data)
+            //	console.log(jsondata.bcnum)
+            //   console.log(data)
                $('#bcommentupdate').html(jsondata.bccontent)
                
-               console.log($('#bcommentupdate_bcnum').val())
+          //     console.log($('#bcommentupdate_bcnum').val())
                
                $('#bcommentupdate_bcnum').val(jsondata.bcnum)
                
-               console.log($('#bcommentupdate_bcnum').val())
+         //      console.log($('#bcommentupdate_bcnum').val())
                $('#bcommentupdate_bcwriter').val(jsondata.bcwriter)
                $('#bcommentupdate_bcreply').val(jsondata.bcreply)
                
             },
             error: function (e) {
-                console.log("ERROR : ", e);
+          //      console.log("ERROR : ", e);
 
             }
         });
@@ -280,7 +280,7 @@
 				/*<![CDATA[*/
 				var e ="[[ ${board.bcontent} ]]";
 				/*]]>*/
-				console.log(e)
+			//	console.log(e)
 				$('#asdf').text(e)
 				//$('#asdf').val("sdf")
 				

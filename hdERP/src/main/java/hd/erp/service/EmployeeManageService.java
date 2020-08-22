@@ -428,13 +428,13 @@ public class EmployeeManageService {
 
 
 //파일다운
-		public void filedown(HttpServletRequest  request,HttpServletResponse response,String fileName,String mynum) throws IOException {
+		public void filedown(HttpServletRequest  request,HttpServletResponse response,String fileName,String hdcode) throws IOException {
 			
 			
 			ServletContext context = request.getServletContext();
 //			String r_path = session.getServletContext().getRealPath("/");
 //			System.out.println("Path : "+r_path);
-			String staticpath = applicationyamlread.getPath()+"\\document\\"+mynum+"\\attachment\\";
+			String staticpath = applicationyamlread.getPath()+"\\document\\"+hdcode+"\\attachment\\";
 			String filename = fileName;
 //			System.out.println("imgPath : "+img_path);
 			StringBuffer path = new StringBuffer();

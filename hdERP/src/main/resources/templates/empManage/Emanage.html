@@ -52,7 +52,7 @@
                                        		<td>
                                        		 <th:block sec:authorize="hasRole('ROLE_ADMIN')">
                                           
-                                       		<button data-toggle="modal" data-target="#myModal">상세보기</button>
+                                       		<button data-toggle="modal" data-target="#myModal" th:data-code="${emp.hdcode}" class="getemp">상세보기</button>
                                        		  </th:block>
                                        		</td>
                                        </tr>
@@ -84,14 +84,102 @@
                                     <div class="modal-content">
                                         <div class="modal-header">
                                             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                                            <h4 class="modal-title" id="myModalLabel">Modal title Here</h4>
+                                            <h4 class="modal-title" id="myModalLabel">사원 상세보기</h4>
                                         </div>
                                         <div class="modal-body">
-                                            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                                            
+                                            
+                            <div class="table-responsive">
+                            <form action="" >
+                                <table class="table">
+<!--                                     <thead> -->
+<!--                                         <tr> -->
+<!--                                             <th>#</th> -->
+<!--                                             <th>First Name</th> -->
+<!--                                             <th>Last Name</th> -->
+<!--                                             <th>Username</th> -->
+<!--                                         </tr> -->
+<!--                                     </thead> -->
+                                    <tbody>
+                                    
+                                        <tr class="success">
+                                            <th>사원고유번호</th>
+                                            <td >
+                                            	<input type="text" id="hdcode" name="hdcode" disabled="disabled" />
+                                            </td>
+                                            <th>권한</th>
+                                            <td >
+												 <input type="text" id="hdlevel" name="hdlevel" disabled="disabled"/>
+											</td>
+                                        </tr>
+                                        <tr class="info">
+                                            <th>입사일</th>
+                                            <td >
+                                            	 <input type="date" id="hdindate" name="hdindate" readonly="readonly" />
+                                            </td>
+                                            <th>이름</th>
+                                            <td >
+												 <input type="text" id="hdname"  name="hdname" readonly="readonly"/>
+											</td>
+                                        </tr>
+                                        <tr class="warning">
+                                            <th>생년월일</th>
+                                            <td >
+                                            	 <input type="date" id="hdbirth" name="hdbirth" readonly="readonly" />
+                                            </td>
+                                            <th>부서명</th>
+                                            <td >
+                                            	 <input type="text" id="hddname" name="hddname" readonly="readonly" />
+                                            </td>
+                                        </tr>
+                                        <tr class="danger">
+                                            <th>성별</th>
+                                            <td >
+                                            	 <input type="text"  id="hdgender" name="hdgender" readonly="readonly"/>
+                                            </td>
+                                            <th>전화번호</th>
+                                            <td >
+                                            	 <input type="text" id="hdphn" name="hdphn" readonly="readonly"/>
+                                            </td>
+                                        </tr>
+                                        <tr class="danger">
+                                            <th>이메일</th>
+                                            <td >
+                                            	 <input type="text" id="hdemail" name="hdemail" readonly="readonly" />
+                                            </td>
+                                            <th>주소</th>
+                                            <td >
+                                            	 <input type="text" id="hdloc" name="hdloc" readonly="readonly" />
+                                            </td>
+                                        </tr>
+<!--                                         <tr class="danger"> -->
+<!--                                             <th>사원비밀번호</th> -->
+<!--                                             <td > -->
+<!--                                             	 <input type="text" id="mem_loc" name="mem_loc" readonly="readonly"/> -->
+<!--                                             </td> -->
+<!--                                             <th>멤버직업</th> -->
+<!--                                             <td > -->
+<!--                                             	 <input type="text" id="mem_job" name="mem_job" readonly="readonly"/> -->
+<!--                                             </td> -->
+<!--                                         </tr> -->
+<!--                                         <tr class="danger"> -->
+<!--                                             <th>비밀번호</th> -->
+<!--                                             <td > -->
+<!--                                             	 <input type="text" id="mem_reip" name="mem_reip" readonly="readonly"/> -->
+<!--                                             </td> -->
+<!--                                             <td>-</td> -->
+<!--                                             <td >-</td> -->
+<!--                                         </tr> -->
+                                    </tbody>
+                                </table>
+                                </form>
+                            </div>
+                                            
+                                            
                                         </div>
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                            <button type="button" class="btn btn-primary">Save changes</button>
+<!--                                             <button type="button" class="btn btn-primary">Save changes</button> -->
                                             
                                             
                                            
@@ -108,10 +196,49 @@
 
 <th:block layout:fragment="script">
 <script>
+var token = $("meta[name='_csrf']").attr("content");
+var header = $("meta[name='_csrf_header']").attr("content");
 window.onload = function(){
 	$('#addemp').click(function() {
 		location.href="/register";
 	})
+	
+	$('.getemp').click(function() {
+		var hdcode =$(this).data("code")
+		//console.log(hdcode)
+		$.ajax({
+			url:'/user.getemp',
+			type:'post',
+			data:{'hdcode':hdcode},
+			beforeSend : function(xhr)
+		    {   /*데이터를 전송하기 전에 헤더에 csrf값을 설정한다*/
+				xhr.setRequestHeader(header, token);
+		    },
+		    success:function(data){
+		    //	console.log(data)
+		    	var emp = JSON.parse(data)
+		    		$('#hdcode').val(emp.hdcode)
+					$('#hdlevel').val(emp.hdlevel)
+					$('#hdindate').val(emp.hdindate)
+					$('#hdname').val(emp.hdname)
+					$('#hdbirth').val(emp.hdbirth)
+					$('#hddname').val(emp.hddname)
+					$('#hdgender').val(emp.hdgender)
+					$('#hdphn').val(emp.hdphn)
+					$('#hdemail').val(emp.hdemail)
+					$('#hdloc').val(emp.hdloc)
+					$('#hdpw').val(emp.hdpw)
+// 					$('#mem_job').val(mem.mem_job)
+// 					$('#mem_reip').val(mem.mem_reip)
+		    },
+		    error:function(e){
+		    	//console.log(e)
+		    }
+			
+		})
+	})
+	
+	
 }
 </script>
 

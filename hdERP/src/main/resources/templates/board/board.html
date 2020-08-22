@@ -162,20 +162,20 @@ window.onload=function(){//window.onload 시작
 	var np="[[${nowpage}]]";
 	//var size =10;//test
 	/*]]>*/
-    console.log("totalcount",totalcount);
-    console.log(totalcount/size)
-    console.log("totalpage",Math.ceil(totalcount/size))
-    console.log(Math.ceil(totalcount/size)%5)
+   // console.log("totalcount",totalcount);
+   // console.log(totalcount/size)
+  //  console.log("totalpage",Math.ceil(totalcount/size))
+  //  console.log(Math.ceil(totalcount/size)%5)
 	
 	var totalpage=Math.ceil(totalcount/size)
 	var stagecount = 0;//leftpage 또는 rightpage 누를때올라가거나 내려감
-	console.log("stagecount"+stagecount)
+	//console.log("stagecount"+stagecount)
 	
 	
 	nowpage(np)
 	
 	if(totalpage <= 5){
-		console.log('azzz')
+	//	console.log('azzz')
 		$('#rightstage').css("display", "none")
 		displaynone(totalpage)
 	}
@@ -191,9 +191,9 @@ window.onload=function(){//window.onload 시작
 		pagetextplus()
 		
 		
-		console.log('asdf121,',totalpage-(5*(stagecount)))
+		//console.log('asdf121,',totalpage-(5*(stagecount)))
 		if((totalpage-(5*stagecount)) <=5){//마지막페이지이면
-			console.log('asdf,',totalpage-(5*stagecount))
+		//	console.log('asdf,',totalpage-(5*stagecount))
 			$('#rightstage').css("display", "none")
 			
 			displaynone(totalpage-(5*(stagecount)))
@@ -205,8 +205,8 @@ window.onload=function(){//window.onload 시작
 		
 		$('#page1').parent().attr("class", "active")
 		location.href="/user.board?nowpage="+(parseInt($('#page1').text())-1);
-		console.log("stagecount1"+stagecount)
-		console.log(totalpage,totalpage-5*stagecount)
+		//console.log("stagecount1"+stagecount)
+		//console.log(totalpage,totalpage-5*stagecount)
 	})
 	$('#leftstage').click(function() {//왼쪽 클릭
 		$('#rightstage').removeAttr("style")
@@ -240,10 +240,10 @@ window.onload=function(){//window.onload 시작
 			//$('#leftstage').removeClass('disabled')
 			stagecount = stagecount-1;
 			pagetextminus()
-			console.log(totalpage,totalpage-(5*stagecount))
+			//console.log(totalpage,totalpage-(5*stagecount))
 		}
 		
-		console.log("stagecount2"+stagecount)
+	//	console.log("stagecount2"+stagecount)
 	})
 	
 	
@@ -332,7 +332,7 @@ window.onload=function(){//window.onload 시작
 	}
 	
 	function displaynone(num){
-		console.log(num)
+		//console.log(num)
 		if(num===0){
 			
 		}else if(num ===1){

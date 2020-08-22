@@ -68,7 +68,7 @@ window.onload=function(){
 	
 
 	function uploadSummernoteImageFile(file, editor){
-		console.log('asdf')
+		//console.log('asdf')
 		var token = $("meta[name='_csrf']").attr("content");
 		var header = $("meta[name='_csrf_header']").attr("content");
 		var data = new FormData();
@@ -86,7 +86,7 @@ window.onload=function(){
             },
 			processData:false,
 			success:function(data){
-				console.log(data)
+			//	console.log(data)
 				$(editor).summernote('insertImage',data.url);
 			
 			}

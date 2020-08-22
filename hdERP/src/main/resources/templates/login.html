@@ -101,7 +101,7 @@ xmlns="http://www.w3.org/1999/xhtml" >
     	$('#loginbtn').click(function() {
     		
     		var id = $('#inputid').val();
-    		console.log(id)
+    		//console.log(id)
     		$.ajax({
     			url:'/user.usercheck',
     			type:'post',
@@ -112,10 +112,10 @@ xmlns="http://www.w3.org/1999/xhtml" >
 			    },
 			    data:{'id':id},
 			    success:function(s){
-			    	console.log(s)
+			    	//console.log(s)
 			    },
 			    error:function(e){
-			    	console.log(e)
+			    	//console.log(e)
 			    }
     		})
     		

@@ -326,7 +326,7 @@ var token = $("meta[name='_csrf']").attr("content");
 var header = $("meta[name='_csrf_header']").attr("content");
 	window.onload=function(){///////////////////////////////////////////////////////////////
 		$('.memdetail').click(function() {
-			console.log($(this).data('code'))
+		//	console.log($(this).data('code'))
 			var memcode =$(this).data('code')
 			$.ajax({
 				type:'post',
@@ -354,7 +354,7 @@ var header = $("meta[name='_csrf_header']").attr("content");
 					xhr.setRequestHeader(header, token);
 			    },
 				error : function(e){
-					console.log(e)
+				//	console.log(e)
 				}
 			})
 		})
@@ -396,10 +396,10 @@ var header = $("meta[name='_csrf_header']").attr("content");
 					xhr.setRequestHeader(header, token);
 			    },
 				success:function(data){
-					console.log(data)
+			//		console.log(data)
 				},
 				error:function(e){
-					console.log(e)
+			//		console.log(e)
 				}
 				
 			})
@@ -418,11 +418,11 @@ var header = $("meta[name='_csrf_header']").attr("content");
 					xhr.setRequestHeader(header, token);
 			    },
 				success:function(data){
-					console.log(data)
+			//		console.log(data)
 					location.reload();
 				},
 				error:function(e){
-					console.log(e)
+		//			console.log(e)
 				}
 			})
 		})
@@ -456,10 +456,10 @@ var header = $("meta[name='_csrf_header']").attr("content");
 					xhr.setRequestHeader(header, token);
 			    },
 				success : function(data){
-					console.log(data)
+		//			console.log(data)
 				},
 				error :function(d) {
-					console.log(d)
+		//			console.log(d)
 				}
 				
 			})

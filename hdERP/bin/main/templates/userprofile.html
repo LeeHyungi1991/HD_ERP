@@ -198,7 +198,7 @@
 			    var file = new Blob([new Uint8Array(array)], {type: 'image/png'});	// Blob 생성
 			    var formdata = new FormData();
 			    formdata.append("file", file);
-			    console.log(file)
+			  //  console.log(file)
 			    $.ajax({
 			        type : 'post',
 			        url : '/user.profilesigimg',
@@ -211,14 +211,14 @@
 			        contentType : false,	// application/x-www-form-urlencoded; 방지!!
 			        success : function (data) {
 			            //console.log(data)
-			            console.log('suc')
+			            //console.log('suc')
 			        }
 				})
 			}
 
     		
     		$('#resignature').click(function() {
-				console.log('asdfasdf')
+				//console.log('asdfasdf')
 				$('#signatureimg').width(0)
 				$('#signatureimg').height(0)
 				$('#canvas').css('visibility', 'visibility')
@@ -229,7 +229,7 @@
 			
 			window.onload=function(){///////////////////
     			
-    			console.log('asdf')
+    			//console.log('asdf')
     			
     			
 				$('.form-control').attr("readonly",true)

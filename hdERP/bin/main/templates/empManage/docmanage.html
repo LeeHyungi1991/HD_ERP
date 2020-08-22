@@ -334,7 +334,7 @@ window.onload=function(){//////////////////window.onload
 	///////////////////////////////////////////////completedoc onload,var event START
 // 		var page = $(this).text()//전송할 페이지
 		var size =5 //원하면 변경 가능하다
-		console.log('c'+ $(this).text())
+//		console.log('c'+ $(this).text())
 		$('#com_1').parent().addClass('page-item active')//처음엔 1버튼 선택 국룰
 		
 		
@@ -385,7 +385,7 @@ window.onload=function(){//////////////////window.onload
 	///////////////////////////////////////////////ingdoc onload,var event START
 //		var page = $(this).text()//전송할 페이지
 //	var size =5 //원하면 변경 가능하다
-	console.log('ing'+ $(this).text())
+//	console.log('ing'+ $(this).text())
 	$('#ing_1').parent().addClass('page-item active')//처음엔 1버튼 선택 국룰
 	ing_doc_show()
 function ing_doc_show(){
@@ -428,7 +428,7 @@ if(parseInt(ing_totalPages) < size){ //총 페이지 수가 size(5개 디폴트)
 ///////////////////////////////////////////////ignoredoc onload,var event START
 //var page = $(this).text()//전송할 페이지
 //var size =5 //원하면 변경 가능하다
-		console.log('ign'+ $(this).text())
+//		console.log('ign'+ $(this).text())
 		$('#ign_1').parent().addClass('page-item active')//처음엔 1버튼 선택 국룰
 		ign_doc_show()
 		function ign_doc_show(){
@@ -478,10 +478,10 @@ if(parseInt(ing_totalPages) < size){ //총 페이지 수가 size(5개 디폴트)
 		var size =5 //원하면 변경 가능하다
 	//$('#completedocpaging > ul > li').on('click', function() {
 		
-		console.log(com_totalElements);
-		console.log(com_totalPages);
-		console.log(Math.ceil(parseInt(com_totalPages)/size))
-		console.log(com_stage)
+	//	console.log(com_totalElements);
+	//	console.log(com_totalPages);
+	//	console.log(Math.ceil(parseInt(com_totalPages)/size))
+	//	console.log(com_stage)
 		
 		
 		
@@ -497,8 +497,8 @@ if(parseInt(ing_totalPages) < size){ //총 페이지 수가 size(5개 디폴트)
 			//alert( Math.ceil(parseInt(com_totalPages)/size))
 			com_stage ++;
 			if(com_stage+1 === Math.ceil(parseInt(com_totalPages)/size)){//만약 마지막 페이지 라면?
-				console.log('마지막 페이지')
-				console.log( ((com_stage+1)*size) -(parseInt(com_totalPages)) )
+			//	console.log('마지막 페이지')
+			//	console.log( ((com_stage+1)*size) -(parseInt(com_totalPages)) )
 				
 				
 				if(((com_stage+1)*size) -(parseInt(com_totalPages)) === 4){ //1번 버튼만 보여준다
@@ -561,10 +561,10 @@ if(parseInt(ing_totalPages) < size){ //총 페이지 수가 size(5개 디폴트)
 		var size =5 //원하면 변경 가능하다
 	//$('#completedocpaging > ul > li').on('click', function() {
 		
-		console.log('ing'+ing_totalElements);
-		console.log('ing'+ ing_totalPages);
-		console.log('ing'+ Math.ceil(parseInt(ing_totalPages)/size))
-		console.log('ing'+ ing_stage)
+	//	console.log('ing'+ing_totalElements);
+	//	console.log('ing'+ ing_totalPages);
+	//	console.log('ing'+ Math.ceil(parseInt(ing_totalPages)/size))
+	//	console.log('ing'+ ing_stage)
 		
 		
 		
@@ -580,8 +580,8 @@ if(parseInt(ing_totalPages) < size){ //총 페이지 수가 size(5개 디폴트)
 			//alert( Math.ceil(parseInt(com_totalPages)/size))
 			ing_stage ++;
 			if(ing_stage+1 === Math.ceil(parseInt(ing_totalPages)/size)){//만약 마지막 페이지 라면?
-				console.log('마지막 페이지')
-				console.log( ((ing_stage+1)*size) -(parseInt(ing_totalPages)) )
+			//	console.log('마지막 페이지')
+		//		console.log( ((ing_stage+1)*size) -(parseInt(ing_totalPages)) )
 				
 				
 				if(((ing_stage+1)*size) -(parseInt(ing_totalPages)) === 4){ //1번 버튼만 보여준다
@@ -646,10 +646,10 @@ if(parseInt(ing_totalPages) < size){ //총 페이지 수가 size(5개 디폴트)
 		var size =5 //원하면 변경 가능하다
 	//$('#completedocpaging > ul > li').on('click', function() {
 		
-		console.log('ign'+ign_totalElements);
-		console.log('ign'+ ign_totalPages);
-		console.log('ign'+ Math.ceil(parseInt(ign_totalPages)/size))
-		console.log('ign'+ ign_stage)
+	//	console.log('ign'+ign_totalElements);
+	//	console.log('ign'+ ign_totalPages);
+	//	console.log('ign'+ Math.ceil(parseInt(ign_totalPages)/size))
+	//	console.log('ign'+ ign_stage)
 		
 		
 		
@@ -665,8 +665,8 @@ if(parseInt(ing_totalPages) < size){ //총 페이지 수가 size(5개 디폴트)
 			//alert( Math.ceil(parseInt(com_totalPages)/size))
 			ign_stage ++;
 			if(ign_stage+1 === Math.ceil(parseInt(ign_totalPages)/size)){//만약 마지막 페이지 라면?
-				console.log('마지막 페이지')
-				console.log( ((ign_stage+1)*size) -(parseInt(ign_totalPages)) )
+			//	console.log('마지막 페이지')
+		//		console.log( ((ign_stage+1)*size) -(parseInt(ign_totalPages)) )
 				
 				
 				if(((ign_stage+1)*size) -(parseInt(ign_totalPages)) === 4){ //1번 버튼만 보여준다

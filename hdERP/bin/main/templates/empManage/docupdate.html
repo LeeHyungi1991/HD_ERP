@@ -174,7 +174,7 @@ window.onload=function(){//window.onload
 	
 
 	function uploadSummernoteImageFile(file, editor){
-		console.log('asdf')
+	//	console.log('asdf')
 		var token = $("meta[name='_csrf']").attr("content");
 		var header = $("meta[name='_csrf_header']").attr("content");
 		var data = new FormData();
@@ -192,7 +192,7 @@ window.onload=function(){//window.onload
             },
 			processData:false,
 			success:function(data){
-				console.log(data)
+	//			console.log(data)
 				$(editor).summernote('insertImage',data.url);
 			
 			}
@@ -340,7 +340,7 @@ $(function() {
 	            var fileSize = files[i].size; // 파일 사이즈(단위 :byte)
 	            console.log("fileSize="+fileSize);
 	            if (fileSize <= 0) {
-	                console.log("0kb file return");
+	         //       console.log("0kb file return");
 	                return;
 	            }
 	            
@@ -349,13 +349,13 @@ $(function() {
 	            
 	            var fileSizeStr = "";
 	            if ((1024*1024) <= fileSize) {    // 파일 용량이 1메가 이상인 경우 
-	                console.log("fileSizeMb="+fileSizeMb.toFixed(2));
+	    //            console.log("fileSizeMb="+fileSizeMb.toFixed(2));
 	                fileSizeStr = fileSizeMb.toFixed(2) + " Mb";
 	            } else if ((1024) <= fileSize) {
-	                console.log("fileSizeKb="+parseInt(fileSizeKb));
+	    //            console.log("fileSizeKb="+parseInt(fileSizeKb));
 	                fileSizeStr = parseInt(fileSizeKb) + " kb";
 	            } else {
-	                console.log("fileSize="+parseInt(fileSize));
+	    //            console.log("fileSize="+parseInt(fileSize));
 	                fileSizeStr = parseInt(fileSize) + " byte";
 	            }
 	
@@ -415,7 +415,7 @@ $(function() {
 
 	// 업로드 파일 삭제
 	function deleteFile(fIndex) {
-	    console.log("deleteFile.fIndex=" + fIndex);
+	//    console.log("deleteFile.fIndex=" + fIndex);
 	    // 전체 파일 사이즈 수정
 	    totalFileSize -= fileSizeList[fIndex];
 	
@@ -428,7 +428,7 @@ $(function() {
 	    // 업로드 파일 테이블 목록에서 삭제
 	    $("#fileTr_" + fIndex).remove();
 	    
-	    console.log("totalFileSize="+totalFileSize);
+	//    console.log("totalFileSize="+totalFileSize);
 	    
 	    if (totalFileSize > 0) {
 	        $("#fileDragDesc").hide(); 
@@ -468,7 +468,7 @@ $(function() {
 	        for (var i = 0; i < uploadFileList.length; i++) {
 	            formData.append('files', fileList[uploadFileList[i]]);
 	        }
-			console.log('asdfasdf')
+	//		console.log('asdfasdf')
 	        $.ajax({
 	            url : "/user.docattupload",
 	            data : formData,
@@ -506,10 +506,10 @@ $(function() {
 			var i = $(this);
 			var file = document.getElementById('files');
 			var files = file.files;
-			console.log(typeof(i))
-			console.log(i.length)
-			console.log(typeof(files))
-			console.log(files.length)
+	//		console.log(typeof(i))
+	//		console.log(i.length)
+	//		console.log(typeof(files))
+	//		console.log(files.length)
 			
 			for (var i = 0; i < files.length; i++) {
                 
