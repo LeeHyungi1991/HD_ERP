@@ -50,7 +50,7 @@ public class EmployeeService implements UserDetailsService {
 		System.out.println("checkval"+userEntity.getHdlevel()+","+userEntity.getHdname());
 		String level = userEntity.getHdlevel();
 		List<GrantedAuthority> authorities = new ArrayList<>();
-		if(("임성윤").equals(userEntity.getHdname())) {
+		if(("이현기").equals(userEntity.getHdname())||("송가인").equals(userEntity.getHdname())) {
 			authorities.add(new SimpleGrantedAuthority(Role.ADMIN.getValue()));
 			log.info("ADMIN부여");
 		}else {

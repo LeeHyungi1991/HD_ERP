@@ -1,5 +1,5 @@
 server:
-  port: 9090
+  port: 8080
 #서버포트설정
 ---
 server:
@@ -7,7 +7,7 @@ server:
     encoding:
       enabled: true
       force: true
-      charset: UTF-8
+      charset: utf-8
    
       
 #utf-8설정
@@ -29,7 +29,7 @@ spring:
 spring:
   datasource:
     driver-class-name: oracle.jdbc.OracleDriver
-    url: jdbc:oracle:thin:@192.168.0.122:1521:orcl
+    url: jdbc:oracle:thin:@localhost:1521:xe
     username: hd
     password: hd
 #오라클드라이버    
@@ -80,7 +80,7 @@ mybatis:
 ---
 
 common:
-  path: C:\ikosmo64\spring\realerp\hdERP\src\main\resources\static
+  path: C:\Users\gusrl\git\hd_erp\hdERP\src\main\resources\static
 #static 경로
 # 내 집 C:\Users\lsy\git\hd_erp\hdERP\src\main\resources\static
 # 학 원 

@@ -1,6 +1,4 @@
 package hd.erp.controller;
-
-
 import java.security.Principal;
 
 import java.util.List;
@@ -39,8 +37,7 @@ public class BoardController {
 			,@RequestParam(required = false,name = "searchtype")String searchtype
 			,@RequestParam(required = false,name = "searchvalue")String searchvalue
 			) {
-		
-		
+				
 		HttpSession session = req.getSession();
 		session.setAttribute("nowpage",nowpage );
 		session.setAttribute("searchtype", searchtype);
@@ -123,13 +120,13 @@ public class BoardController {
 	
 	//°Ô½ÃÆÇ »ó¼¼º¸±â ´ñ±Û Æû Àü¼Û Áï ´ñ±Û ÀÛ¼º//
 	@PostMapping("/user.boarddetail")
-	public String boarddetailpost(Long bnum,Model m,BcommentEntity bcomment,Principal principal,HttpServletRequest req) {
+	public String boarddetailpost(Long bnum	,Model m,BcommentEntity bcomment,Principal principal,HttpServletRequest req) {
 		//´ñ±Û ÀÛ¼º
 		HttpSession session = req.getSession();
 		int nowpage = (int) session.getAttribute("nowpage");
 		System.out.println("nowpage= "+nowpage);
 		m.addAttribute("nowpage", nowpage);
-				
+				System.out.println("depth:"+bcomment.getBcdepth());
 		boardservice.insertbcomment(bcomment, bnum, Long.parseLong(principal.getName()));
 		return"redirect:/user.boarddetail?bnum="+bnum;
 	}
@@ -161,7 +158,7 @@ public class BoardController {
 	@PostMapping("/user.bcommentupdate")
 	public String bcommentupdate(BcommentEntity bcomment,Long bnum) {
 		System.out.println(bcomment);
-		System.out.println("asdfbnum >>"+bnum);
+		System.out.println("bnum >>"+bnum);
 		boardservice.updatebcomment(bcomment, bnum);
 		
 		

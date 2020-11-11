@@ -76,7 +76,7 @@ public class BoardService {
 		newbcomment.setBoard(board);//어떤게시판의 댓글인가
 		newbcomment.setEmployee(emp);//사원객체
 		
-		bcommentrepository.save(newbcomment);//댓글 등록
+		bcommentrepository.save(newbcomment);//댓글 등록		
 	}
 	
 	
